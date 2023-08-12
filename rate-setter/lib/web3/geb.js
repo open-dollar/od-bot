@@ -1,6 +1,7 @@
 import { Geb, utils } from '@usekeyp/od-sdk'
 import { formatEther } from '@ethersproject/units'
 
+import prisma from '../prisma'
 import { botSendTx } from "./wallets/bot"
 import { Web3Providers } from './provider'
 import { sendAlert } from '../discord/alert'
@@ -64,7 +65,20 @@ Next - ${nextUpdateTime.toString()}`,
         })
         return true
     }
+}
 
+export const updateStats = async ({ network, stats }) => {
+
+}
+
+export const getStats = async (network) => {
+    const geb = initGeb(network)
+    const lastRedemptionPrice = await geb.contracts.oracleRelayer.lastRedemptionPrice()
+    let lastUpdateTime = (await geb.contracts.rateSetter.lastUpdateTime()).toNumber()
+    lastUpdateTime = new Date(lastUpdateTime * 1000)
+    const blockTimestamp = (await geb.provider.getBlock()).timestamp
+
+    return { lastRedemptionPrice, lastUpdateTime, blockTimestamp }
 }
 
 export const updateRate = async (network) => {
@@ -77,7 +91,7 @@ export const updateRate = async (network) => {
         console.log(`Transaction ${txResponse.hash} waiting to be mined...`)
         await txResponse.wait()
 
-        const lastRedemptionPrice = await geb.contracts.oracleRelayer.lastRedemptionPrice()
+        const stats = await getStats(network)
         await sendAlert({
             embed: {
                 color: 1900316,
@@ -86,8 +100,7 @@ export const updateRate = async (network) => {
                     network
                 )}tx/${txResponse.hash}
 
-lastRedemptionPrice: ${formatEther(lastRedemptionPrice)}
-                `,
+${JSON.toString(stats)}`,
                 footer: { text: new Date().toString() },
             },
             channelName: 'action',

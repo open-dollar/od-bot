@@ -11,6 +11,6 @@ export default async function handler(
     response.status(404).end();
     return;
   }
-  await updateRate("OPTIMISM-GOERLI");
+  await updateRate("OPTIMISM_GOERLI");
   response.status(200).json({ success: true });
 }

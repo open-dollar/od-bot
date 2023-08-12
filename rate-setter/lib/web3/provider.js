@@ -14,13 +14,13 @@ const RPC_BY_NAME = {
   GNOSIS: process.env.RPC_GNOSIS,
   GOERLI: process.env.RPC_GOERLI,
   OPTIMISM: process.env.RPC_OPTIMISM,
-  'OPTIMISM-GOERLI': process.env.RPC_OPTIMISM_GOERLI,
+  'OPTIMISM_GOERLI': process.env.RPC_OPTIMISM_GOERLI,
   ARBITRUM: process.env.RPC_ARBITRUM,
-  'ARBITRUM-GOERLI': process.env.RPC_ARBITRUM_GOERLI,
+  'ARBITRUM_GOERLI': process.env.RPC_ARBITRUM_GOERLI,
   SEPOLIA: process.env.RPC_SEPOLIA,
   AVALANCHE: process.env.RPC_AVALANCHE,
-  'AVALANCHE-FUJI': process.env.RPC_AVALANCHE_FUJI,
-  'MANTLE-WADSLEY': process.env.RPC_MANTLE_WADSLEY,
+  'AVALANCHE_FUJI': process.env.RPC_AVALANCHE_FUJI,
+  'MANTLE_WADSLEY': process.env.RPC_MANTLE_WADSLEY,
 }
 
 const getProviderByName = (name) => {

@@ -17,11 +17,11 @@ export function getAlchemyNetworkEnum(network) {
       return Network.ETH_SEPOLIA
     case 'OPTIMISM':
       return Network.OPT_MAINNET
-    case 'OPTIMISM-GOERLI':
+    case 'OPTIMISM_GOERLI':
       return Network.OPT_GOERLI
     case 'ARBITRUM':
       return Network.ARB_MAINNET
-    case 'ARBITRUM-GOERLI':
+    case 'ARBITRUM_GOERLI':
       return Network.ARB_GOERLI
     case 'POLYGON':
       return Network.MATIC_MAINNET
@@ -98,17 +98,17 @@ export function getExplorerBaseUrlFromName(name) {
         return `https://mumbai.polygonscan.com/`
       case 'AVALANCHE':
         return `https://avascan.info/` // not working but on https://avascan.info/blockchain/dfk/
-      case 'AVALANCHE-FUJI':
+      case 'AVALANCHE_FUJI':
         return `https://testnet.snowtrace.io/`
       case 'ARBITRUM':
         return `https://arbiscan.io/`
       case 'OPTIMISM':
         return `https://optimistic.etherscan.io/`
-      case 'OPTIMISM-GOERLI':
+      case 'OPTIMISM_GOERLI':
         return `https://goerli-optimism.etherscan.io/`
-      case 'ARBITRUM-GOERLI':
+      case 'ARBITRUM_GOERLI':
         return `https://goerli.arbiscan.io/`
-      case 'MANTLE-WADSLEY':
+      case 'MANTLE_WADSLEY':
         return `https://explorer.testnet.mantle.xyz/`
     }
   } else {
