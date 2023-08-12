@@ -1,4 +1,5 @@
 import { Geb, utils } from '@usekeyp/od-sdk'
+import { formatEther } from '@ethersproject/units'
 
 import { botSendTx } from "./wallets/bot"
 import { Web3Providers } from './provider'
@@ -67,6 +68,7 @@ Next - ${nextUpdateTime.toString()}`,
 }
 
 export const updateRate = async (network) => {
+    const geb = initGeb(network)
     const ready = await rateSetterIsReady(network)
     if (ready) {
         const geb = initGeb(network)
@@ -74,13 +76,18 @@ export const updateRate = async (network) => {
         const txResponse = await botSendTx({ unsigned: { to: geb.contracts.rateSetter.address, ...txData }, network })
         console.log(`Transaction ${txResponse.hash} waiting to be mined...`)
         await txResponse.wait()
+
+        const lastRedemptionPrice = await geb.contracts.oracleRelayer.lastRedemptionPrice()
         await sendAlert({
             embed: {
                 color: 1900316,
                 title: `📈 RateSetter 🔃 UPDATED | ${network}`,
                 description: `${getExplorerBaseUrlFromName(
                     network
-                )}tx/${txResponse.hash}`,
+                )}tx/${txResponse.hash}
+
+lastRedemptionPrice: ${formatEther(lastRedemptionPrice)}
+                `,
                 footer: { text: new Date().toString() },
             },
             channelName: 'action',
