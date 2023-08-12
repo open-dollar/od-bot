@@ -74,40 +74,49 @@ Next - ${nextUpdateTime.toString()}`,
 
 export const updateStats = async ({ network, stats }) => {
     try {
+        console.log(stats)
         await prisma.stats.create({
             data: {
                 network,
-                lastRedemptionPrice: stats.lastRedemptionPrice.toString(),
+                redemptionPrice: stats.lastRedemptionPrice.toString(),
+                redemptionRate: stats.redemptionRate.toString(),
                 lastUpdateTime: stats.lastUpdateTime,
                 blockTimestamp: stats.blockTimestamp,
             },
         })
     } catch (e) {
-        await sendAlert({
-            embed: {
-                color: 15548997,
-                title: `📡 Database update 🚫 FAILED | ${network}`,
-                description: `updateStats() failed with error: ${e}`,
-                footer: { text: new Date().toString() },
-            },
-            channelName: 'warning',
-        })
+        console.log(e)
+        // await sendAlert({
+        //     embed: {
+        //         color: 15548997,
+        //         title: `📡 Database update 🚫 FAILED | ${network}`,
+        //         description: `updateStats() failed with error: ${e}`,
+        //         footer: { text: new Date().toString() },
+        //     },
+        //     channelName: 'warning',
+        // })
     }
 }
 
 export const getStats = async (network) => {
     const geb = initGeb(network)
-    const lastRedemptionPrice = await geb.contracts.oracleRelayer.lastRedemptionPrice()
-    let lastUpdateTime = (await geb.contracts.rateSetter.lastUpdateTime()).toNumber()
-    lastUpdateTime = new Date(lastUpdateTime * 1000)
     const blockTimestamp = (await geb.provider.getBlock()).timestamp
 
-    return { lastRedemptionPrice, lastUpdateTime, blockTimestamp }
+    const lastRedemptionPrice = await geb.contracts.oracleRelayer.lastRedemptionPrice()
+
+    let lastUpdateTime = (await geb.contracts.rateSetter.lastUpdateTime()).toNumber()
+    lastUpdateTime = new Date(lastUpdateTime * 1000)
+
+    const redemptionRate = await geb.contracts.oracleRelayer.redemptionRate()
+
+    return { lastRedemptionPrice, lastUpdateTime, blockTimestamp, redemptionRate }
 }
 
 export const updateRate = async (network) => {
     const geb = initGeb(network)
     const ready = await rateSetterIsReady(network)
+    const stats = await getStats(network)
+    await updateStats({ network, stats })
     if (ready) {
         const geb = initGeb(network)
         const txData = await geb.contracts.rateSetter.populateTransaction.updateRate()
