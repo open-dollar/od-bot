@@ -40,12 +40,12 @@ export function getNativeCoinInfo(network) {
     GNOSIS: 'xDAI',
     GOERLI: 'ETH',
     OPTIMISM: 'ETH',
-    'OPTIMISM-GOERLI': 'ETH',
+    'OPTIMISM_GOERLI': 'ETH',
     ARBITRUM: 'ETH',
-    'ARBITRUM-NOVA': 'ETH',
+    'ARBITRUM_NOVA': 'ETH',
     SEPOLIA: 'ETH',
     AVALANCHE: 'AVAX',
-    'AVALANCHE-FUJI': 'AVAX',
+    'AVALANCHE_FUJI': 'AVAX',
   }
 
   const NATIVE_COIN_NAMES = {
@@ -55,7 +55,7 @@ export function getNativeCoinInfo(network) {
     GNOSIS: 'xDAI',
     GOERLI: 'Goerli ETH',
     OPTIMISM: 'Optimism ETH',
-    'OPTIMISM-GOERLI': 'Optimism Goerli ETH',
+    'OPTIMISM_GOERLI': 'Optimism Goerli ETH',
     ARBITRUM: 'Arbitrum ETH',
     'ARBITRUM-NOVA': 'Arbitrum Nova ETH',
     SEPOLIA: 'Sepolia ETH',
@@ -74,9 +74,9 @@ export function getNativeCoinInfo(network) {
 
 export const AVAILABLE_NETWORKS = [
   'OPTIMISM',
-  'OPTIMISM-GOERLI',
+  'OPTIMISM_GOERLI',
   'ARBITRUM',
-  'ARBITRUM-GOERLI',
+  'ARBITRUM_GOERLI',
 ]
 
 export function getExplorerBaseUrlFromName(name) {

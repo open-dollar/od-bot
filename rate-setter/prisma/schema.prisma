@@ -19,6 +19,8 @@ model stats {
   redemptionRate  String
   redemptionPrice String
   lastUpdateTime  DateTime
+
+  @@unique([Network, blockTimeStamp])
 }
 
 enum Network {

@@ -9,7 +9,12 @@ import { getExplorerBaseUrlFromName } from './common'
 
 const initGeb = (network) => {
     const provider = Web3Providers[network]
-    return new Geb(network.toLowerCase(), provider)
+    const networkMap = (network) => {
+        if (network === "OPTIMISM_GOERLI") return "optimism-goerli"
+        if (network === "ARBITRUM_GOERLI") return "arbitrum-goerli"
+        return network.toLowerCase()
+    }
+    return new Geb(networkMap(network), provider)
 }
 
 export const setupProxy = async (network) => {
@@ -68,7 +73,26 @@ Next - ${nextUpdateTime.toString()}`,
 }
 
 export const updateStats = async ({ network, stats }) => {
-
+    try {
+        await prisma.stats.create({
+            data: {
+                network,
+                lastRedemptionPrice: stats.lastRedemptionPrice.toString(),
+                lastUpdateTime: stats.lastUpdateTime,
+                blockTimestamp: stats.blockTimestamp,
+            },
+        })
+    } catch (e) {
+        await sendAlert({
+            embed: {
+                color: 15548997,
+                title: `📡 Database update 🚫 FAILED | ${network}`,
+                description: `updateStats() failed with error: ${e}`,
+                footer: { text: new Date().toString() },
+            },
+            channelName: 'warning',
+        })
+    }
 }
 
 export const getStats = async (network) => {
@@ -92,6 +116,7 @@ export const updateRate = async (network) => {
         await txResponse.wait()
 
         const stats = await getStats(network)
+        await updateStats({ network, stats })
         await sendAlert({
             embed: {
                 color: 1900316,
