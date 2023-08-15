@@ -1,18 +1,21 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import Head from "next/head";
+
+import styles from "../styles/Home.module.css";
+
+import Charts from "../components/Charts";
 
 export default function Home() {
   return (
     <div className={styles.container}>
+      <Charts />
+
       <Head>
         <title>🦗 Rate Update</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1 className={styles.title}>
-          🦗 Rate Update
-        </h1>
+        <h1 className={styles.title}>🦗 Rate Update</h1>
 
         <p className={styles.description}>
           Update GEB rate using <code>updateRate()</code>
@@ -26,7 +29,6 @@ export default function Home() {
           <a href="https://docs.opendollar.com" className={styles.description}>
             <h3>📖 Docs</h3>
           </a>
-
         </div>
       </main>
 
@@ -90,6 +92,6 @@ export default function Home() {
           box-sizing: border-box;
         }
       `}</style>
-    </div >
-  )
+    </div>
+  );
 }

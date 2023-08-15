@@ -1,7 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { getGasBalance } from "../../lib/web3/gas";
-import { updateRate } from "../../lib/web3/geb";
+import { updateRate, getCollateralStats } from "../../lib/web3/geb";
+import { updateFeed } from "../../lib/web3/oracle";
+
+const OPTIMISM_GOERLI = "OPTIMISM_GOERLI";
 
 export default async function handler(
   request: NextApiRequest,
@@ -11,6 +14,7 @@ export default async function handler(
     response.status(404).end();
     return;
   }
-  await updateRate("OPTIMISM_GOERLI");
+  await updateFeed(OPTIMISM_GOERLI);
+  // await getCollateralStats(OPTIMISM_GOERLI);
   response.status(200).json({ success: true });
 }

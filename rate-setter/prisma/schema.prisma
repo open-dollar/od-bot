@@ -23,6 +23,20 @@ model stats {
   @@unique([network, blockTimestamp])
 }
 
+model tx {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  network         Network
+  data            String
+  method          String?
+  contract        String?
+  contractName    String?
+  args            String?
+  textTitle       String?
+  textDescription String?
+  hash            String?
+}
+
 enum Network {
   OPTIMISM
   OPTIMISM_GOERLI

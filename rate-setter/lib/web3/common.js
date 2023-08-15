@@ -1,5 +1,6 @@
 import { Network } from 'alchemy-sdk'
 import { Web3Providers } from './provider'
+import prisma from '../prisma'
 
 const SUBMITTED = 'SUBMITTED'
 const COMPLETE = 'COMPLETE'
@@ -148,4 +149,33 @@ export const getTxStatus = async ({ txHash, network }) => {
     return COMPLETE
   }
   return SUBMITTED
+}
+
+export const readMany = async (methods, conract) => {
+  let data
+  await Promise.all(vars.map(async (method) => {
+    data[method] = await contract[method]
+  }))
+  return data
+}
+
+export const prepareTx = async ({ data, network, method, contract, contractName, args, textTitle, textDescription }) => {
+  await prisma.tx.create({
+    data: {
+      data,
+      network,
+      method,
+      contract,
+      contractName,
+      args,
+      textTitle,
+      textDescription,
+    }
+  })
+}
+
+export const updateTx = async (tx, data) => {
+  await prisma.tx.update({
+    where: { id: tx.id }, data
+  })
 }
