@@ -13,9 +13,10 @@ export const updateFeed = async (network, address) => {
   // TODO: Use address to fetch the right Oracle
   const { oracleRelayer } = geb.contracts
 
-  const shouldUpdate = await DelayedOracle.shouldUpdate()
+  // TODO: this is not the oracle relayer
+  const shouldUpdate = await oracleRelayer.shouldUpdate()
   if (shouldUpdate) {
-    const txData = await DelayedOracle.updateResult()
+    const txData = await oracleRelayer.updateResult()
     const tx = await prepareTx({ data: txData }) // Updates the db with the unsigned tx
     const txResponse = await botSendTx({ unsigned: txData, network })
     await updateTx(tx, { hash: txResponse.hash })
