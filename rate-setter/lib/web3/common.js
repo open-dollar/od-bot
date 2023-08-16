@@ -159,26 +159,33 @@ export const getTxStatus = async ({ txHash, network }) => {
 
 export const readMany = async (methods, conract) => {
   let data
-  await Promise.all(vars.map(async (method) => {
+  await Promise.all(methods.map(async (method) => {
     data[method] = await contract[method]
   }))
   return data
 }
 
-export const prepareTx = async ({ data, network, method, contract, contractName, args, textTitle, textDescription }) => {
-  await prisma.tx.create({
-    data: {
-      data,
-      network,
-      method,
-      contract,
-      contractName,
-      args,
-      textTitle,
-      textDescription,
-    }
-  })
+export const prepareTx = async (tx) => {
+  try {
+    const dbTx = await prisma.tx.create({
+      data: {
+        data: JSON.stringify(tx.data),
+        network: tx.network,
+        method: tx.method,
+        contract: tx.contract,
+        contractName: tx.contractName,
+        args: tx.args,
+        textTitle: tx.textTitle,
+        textDescription: tx.textDescription,
+      }
+    })
+    return { id: dbTx.id, ...tx }
+  } catch (e) {
+    console.log(e)
+    return tx
+  }
 }
+
 
 export const updateTx = async (tx, data) => {
   await prisma.tx.update({

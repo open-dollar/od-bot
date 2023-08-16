@@ -18,6 +18,7 @@ const getChannelId = (channel) => {
   return id
 }
 
+
 export const sendAlert = async ({
   message,
   embed,
