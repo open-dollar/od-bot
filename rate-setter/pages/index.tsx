@@ -7,7 +7,7 @@ import Charts from "../components/Charts";
 export default function Home() {
   return (
     <div className={styles.container}>
-      <Charts />
+      {/* <Charts /> */}
 
       <Head>
         <title>🦗 Rate Update</title>
