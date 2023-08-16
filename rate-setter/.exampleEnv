@@ -1,0 +1,17 @@
+DATABASE_URL=postgres://dev:letmein@0.0.0.0:5432/od-bots-testing
+RPC_OPTIMISM_GOERLI=
+RPC_OPTIMISM=
+RPC_ARBITRUM_GOERLI=https://arbitrum-goerli.publicnode.com
+RPC_ARBITRUM=
+# Value for /api/rate?secret=
+RATE_SECRET=
+BOT_WALLET_ADDRESS=
+BOT_WALLET_PRIVATE_KEY=
+PAYER_WALLET_ADDRESS=
+PAYER_WALLET_PRIVATE_KEY=
+
+#### Optional ####
+# [prod|dev] Sets alerts Discord channel
+ENVIRONMENT=
+ENABLE_DISCORD_BOTS=true
+DISCORD_BOT_TOKEN=
