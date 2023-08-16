@@ -149,8 +149,7 @@ export const updateRate = async (network) => {
     const geb = initGeb(network)
     const ready = await rateSetterIsReady(network)
 
-    // if (ready) {
-    if (true) {
+    if (ready) {
         const geb = initGeb(network)
         const txData = await geb.contracts.rateSetter.populateTransaction.updateRate()
         const tx = await prepareTx({ data: txData, method: "updateRate", network }) // Updates the db with the unsigned tx
