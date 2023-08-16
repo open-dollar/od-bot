@@ -1,6 +1,12 @@
 import { Network } from 'alchemy-sdk'
 import { Web3Providers } from './provider'
 import prisma from '../prisma'
+import { formatEther, formatUnits } from '@ethersproject/units'
+import { BigNumber } from '@ethersproject/bignumber'
+
+export const RAD = BigNumber.from('1000000000000000000000000000000000000000000000')
+export const RAY = BigNumber.from('1000000000000000000000000000')
+export const WAD = BigNumber.from('1000000000000000000')
 
 const SUBMITTED = 'SUBMITTED'
 const COMPLETE = 'COMPLETE'
@@ -178,4 +184,88 @@ export const updateTx = async (tx, data) => {
   await prisma.tx.update({
     where: { id: tx.id }, data
   })
+}
+
+
+export const formatNumber = (value, digits = 6, round = false) => {
+  if (!value) {
+    return '0'
+  }
+
+  const n = Number(value)
+
+  if (Number.isInteger(n) || value.length < 5) {
+    return n
+  }
+
+  const nOfWholeDigits = value.split('.')[0].length
+  const nOfDigits = nOfWholeDigits > digits - 1 ? '00' : Array.from(Array(digits - nOfWholeDigits), (_) => 0).join('')
+  let val
+  if (round) {
+    val = numeral(n).format(`0.${nOfDigits}`)
+  } else {
+    val = numeral(n).format(`0.${nOfDigits}`, Math.floor)
+  }
+
+  return isNaN(Number(val)) ? value : val
+}
+
+export const formatDataNumber = (
+  input,
+  decimals = 18,
+  formatDecimal = 2,
+  currency,
+  compact
+) => {
+  let res = Number.parseFloat(input)
+
+  if (decimals !== 0) res = Number.parseFloat(formatUnits(input, decimals))
+
+  if (res < 0.01) return `${currency ? '$' : ''}${formatNumber(res.toString(), formatDecimal)}`
+
+  return new Intl.NumberFormat('en-US', {
+    maximumFractionDigits: formatDecimal,
+    notation: compact ? 'compact' : 'standard',
+    style: currency ? 'currency' : 'decimal',
+    currency: 'USD',
+  }).format(res)
+}
+
+export const transformToAnnualRate = (rate, decimals) => {
+  const exponent = 3600 * 24 * 365
+  const base = formatUnits(rate, decimals)
+  const result = Number(base) ** exponent - 1
+
+  return toPercentage(result, 2)
+}
+
+export const transformToWadPercentage = (rate, denominator) => {
+  if (denominator === '0') return 'NaN'
+
+  const result = BigNumber.from(rate).mul(10000).div(BigNumber.from(denominator)).toString()
+
+  return toPercentage(Number(result) / 10000, 2)
+}
+
+export const transformToEightHourlyRate = (rate, decimals) => {
+  const exponent = 3600 * 8
+  const base = formatUnits(rate, decimals)
+  const result = Number(base) ** exponent - 1
+
+  return toPercentage(result, 2)
+}
+export const multiplyWad = (wad1, wad2) => {
+  const result = BigNumber.from(wad1).mul(BigNumber.from(wad2)).div(WAD)
+
+  return result.toString()
+}
+
+export const toPercentage = (value, decimals) => {
+  return `${formatDataNumber((value * 100).toString(), 0, decimals, false, false)}%`
+}
+
+export const multiplyRates = (rate1, rate2) => {
+  const result = BigNumber.from(rate1).mul(BigNumber.from(rate2)).div(RAY)
+
+  return result.toString()
 }
