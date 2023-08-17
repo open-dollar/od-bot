@@ -8,7 +8,7 @@ import {
     getExplorerBaseUrlFromName,
 } from './common'
 
-import { readMany, prepareTx } from "./common"
+import { readMany, prepareTx, updateTx } from "./common"
 import { parse } from 'path'
 
 export const initGeb = (network) => {
@@ -156,7 +156,7 @@ export const updateRate = async (network) => {
         const txResponse = await botSendTx({ unsigned: { to: geb.contracts.rateSetter.address, ...txData }, network })
         console.log(`Transaction ${txResponse.hash} waiting to be mined...`)
         await txResponse.wait()
-
+        await updateTx(tx, { hash: txResponse.hash })
         const stats = await getStats(network)
         await updateStats({ network, stats })
 

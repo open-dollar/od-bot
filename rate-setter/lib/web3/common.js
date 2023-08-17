@@ -172,7 +172,7 @@ export const prepareTx = async (tx) => {
         data: JSON.stringify(tx.data),
         network: tx.network,
         method: tx.method,
-        contract: tx.contract,
+        contract: tx.data.to,
         contractName: tx.contractName,
         args: tx.args,
         textTitle: tx.textTitle,
