@@ -55,8 +55,11 @@ export const rateSetterIsReady = async (network) => {
             embed: {
                 color: 7452131,
                 title: `📈  RateSetter Cooldown ❄️ Cooling | ${network}`,
-                description: `Last - ${new Date(lastUpdateTime * 1000).toString()}
-Next - ${nextUpdateTime.toString()}`,
+                fields: [{
+                    name: "Last", value: new Date(lastUpdateTime * 1000).toString(), inline: true
+                }, {
+                    name: "Next", value: nextUpdateTime.toString(), inline: true
+                }],
                 footer: { text: new Date().toString() },
             },
             channelName: 'action',
@@ -67,82 +70,15 @@ Next - ${nextUpdateTime.toString()}`,
             embed: {
                 color: 7452131,
                 title: `📈  RateSetter Cooldown 🟢 Ready | ${network}`,
-                description: `Last - ${new Date(lastUpdateTime * 1000).toString()}`,
+                fields: [{
+                    name: "Last", value: new Date(lastUpdateTime * 1000).toString()
+                }],
                 footer: { text: new Date().toString() },
             },
             channelName: 'action',
         })
         return true
     }
-}
-
-export const updateStats = async ({ network, stats }) => {
-    try {
-        await prisma.stats.create({
-            data: {
-                network,
-                redemptionPrice: stats.lastRedemptionPrice.toString(),
-                redemptionRate: stats.redemptionRate.toString(),
-                lastUpdateTime: stats.lastUpdateTime,
-                blockTimestamp: stats.blockTimestamp,
-            },
-        })
-    } catch (e) {
-        await sendAlert({
-            embed: {
-                color: 15548997,
-                title: `📡 Database update 🚫 FAILED | ${network}`,
-                description: `updateStats() failed with error: ${e}`,
-                footer: { text: new Date().toString() },
-            },
-            channelName: 'warning',
-        })
-    }
-}
-
-export const getStats = async (network) => {
-    const geb = initGeb(network)
-    const { oracleRelayer } = geb.contracts
-
-    let stats
-    stats = await readMany([
-        "lastRedemptionPrice",
-        "marketPrice",
-        "redemptionRate",
-        "redemptionPriceUpdateTime"
-    ], oracleRelayer)
-    stats.lastUpdateTime = new Date((stats.lastUpdateTime).toNumber() * 1000)
-
-    stats.redemptionRateUpperBound = await oracleRelayer.redemptionRateUpperBound()
-    stats.redemptionRateLowerBound = await oracleRelayer.redemptionRateLowerBound()
-
-    stats.blockTimestamp = (await geb.provider.getBlock()).timestamp
-
-    return stats
-}
-
-export const getCollateralStats = async (network) => {
-    const stats = await OracleRelayerCParams(network)
-    // stats.map((collateral) => {
-    //     collateral.
-    // })
-    // TODO: get more info about each collateral
-    // calculate safePrice
-    // calculate liquidationPrice
-    console.log(stats)
-    return stats
-}
-
-// Returns safetyCRatio, liquidationCRatio, and IDelayedOracle for each collateral
-export const OracleRelayerCParams = async (network) => {
-    const geb = initGeb(network)
-    const { oracleRelayer } = geb.contracts
-    const collateralList = await geb.contracts.collateralList()
-    let stats
-    await Promise.all(collateralList.map(async (cType) => {
-        stats[cType] = await oracleRelayer.cParams[cType]
-    }))
-    return stats
 }
 
 export const updateRate = async (network) => {
@@ -157,18 +93,11 @@ export const updateRate = async (network) => {
         console.log(`Transaction ${txResponse.hash} waiting to be mined...`)
         await txResponse.wait()
         await updateTx(tx, { hash: txResponse.hash })
-        const stats = await getStats(network)
-        await updateStats({ network, stats })
-
         await sendAlert({
             embed: {
                 color: 1900316,
-                title: `📈 RateSetter 🔃 UPDATED | ${network}`,
-                description: `${getExplorerBaseUrlFromName(
-                    network
-                )}tx/${txResponse.hash}
-
-${JSON.toString(stats)}`,
+                title: `📈 RateSetter 🔃 UPDATED | ${network} `,
+                description: `${getExplorerBaseUrlFromName(network)}tx/${txResponse.hash}`,
                 footer: { text: new Date().toString() },
             },
             channelName: 'action',

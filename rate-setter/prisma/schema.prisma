@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model stats {
+model globalStats {
   id              Int      @id @default(autoincrement())
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -19,6 +19,16 @@ model stats {
   redemptionRate  String
   redemptionPrice String
   lastUpdateTime  DateTime
+
+  @@unique([network, blockTimestamp])
+}
+
+model tokenStats {
+  id             Int      @id @default(autoincrement())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  network        Network
+  blockTimestamp Int
 
   @@unique([network, blockTimestamp])
 }

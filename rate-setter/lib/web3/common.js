@@ -276,3 +276,9 @@ export const multiplyRates = (rate1, rate2) => {
 
   return result.toString()
 }
+
+export const sumWad = (wad1, wad2) => {
+  const result = BigNumber.from(wad1).add(BigNumber.from(wad2))
+
+  return result.toString()
+}

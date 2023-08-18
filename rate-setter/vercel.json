@@ -3,6 +3,10 @@
     {
       "path": "/api/rate?secret=opendollar",
       "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/analytics?secret=opendollar",
+      "schedule": "0 */2 * * *"
     }
   ]
 }

@@ -4,16 +4,51 @@ import { initGeb } from "../geb"
 import {
     multiplyWad,
     formatDataNumber, transformToWadPercentage, transformToEightHourlyRate,
-    transformToAnnualRate, multiplyRates
+    transformToAnnualRate, multiplyRates, readMany, getExplorerBaseUrlFromName
 } from '../common'
 import { sendAlert } from '../../discord/alert'
 import VirtualAnalyticsData from './VirtualAnalyticsData.json'
+import prisma from '../../prisma'
 
-export const getAnalytics = async (network) => {
+
+export const saveStats = async ({ network, stats }) => {
+    try {
+        await prisma.globalStats.create({
+            data: {
+                network,
+                blockTimestamp: stats.blockTimestamp,
+                redemptionRate: stats.redemptionRate.toString(),
+                redemptionPrice: stats.lastRedemptionPrice.toString(),
+                lastUpdateTime: stats.lastUpdateTime,
+            },
+        })
+
+        if (stats.tokenAnalyticsData) {
+            stats.tokenAnalyticsData.map(async token => {
+                await prisma.tokenStats.create({
+                    data: {
+                        network,
+                        blockTimestamp,
+                    }
+                })
+            })
+        }
+    } catch (e) {
+        await sendAlert({
+            embed: {
+                color: 15548997,
+                title: `📡 Database update 🚫 FAILED | ${network}`,
+                description: `updateStats() failed with error: ${e} `,
+                footer: { text: new Date().toString() },
+            },
+            channelName: 'warning',
+        })
+    }
+}
+
+export const getStats = async (network) => {
     // Get raw data using virtualAnalytcisData contract
     const analyticsData = await fetchAnalyticsData(network)
-    // console.log(analyticsData)
-
     // Parse to human read-able
     const geb = initGeb(network)
     const parsed = {
@@ -31,71 +66,44 @@ export const getAnalytics = async (network) => {
     }
     parsed.tokenAnalyticsData =
         Object.entries(analyticsData.tokenAnalyticsData).map(([key, value], index) => ({
-            [key]: {
-                symbol: key, // Symbol
-                address: geb.tokenList[key].address,
-                delayedOracle: value?.delayedOracle,
-                currentPrice: formatDataNumber(value?.currentPrice?.toString() || '0', 18, 2, true),
-                nextPrice: formatDataNumber(value?.nextPrice?.toString() || '0', 18, 2, true), // Next price
-                stabilityFee: transformToAnnualRate(value?.stabilityFee?.toString() || '0', 27), // Stability fee
-                borrowRate: transformToAnnualRate(
-                    multiplyRates(value?.stabilityFee?.toString(), analyticsData.redemptionRate?.toString()) ||
-                    '0',
-                    27
-                ), // Borrow rate
-                debt: formatDataNumber(value?.debtAmount?.toString() || '0', 18, 2, true, true), // Debt Amount
-                debtUtilization: transformToWadPercentage(value?.debtAmount?.toString(), value?.debtCeiling?.toString()), // Debt Utilization
-                locked: formatDataNumber(value?.lockedAmount?.toString() || '0', 18, 2, false, true), // Amount locked
-                lockedUSD: formatDataNumber(
-                    multiplyWad(value?.lockedAmount?.toString(), value?.currentPrice?.toString()) || '0',
-                    18,
-                    2,
-                    true,
-                    true
-                ), // Amount locked in USD
-                debtUtilizationRatio: transformToWadPercentage(
-                    multiplyWad(value?.debtAmount?.toString(), analyticsData?.redemptionPrice?.toString()),
-                    multiplyWad(value?.lockedAmount?.toString(), value?.currentPrice?.toString())
-                ), // Debt amount / locked amount in USD
-            }
+            symbol: key, // Symbol
+            address: geb.tokenList[key].address,
+            delayedOracle: value?.delayedOracle,
+            currentPrice: formatDataNumber(value?.currentPrice?.toString() || '0', 18, 2, true),
+            nextPrice: formatDataNumber(value?.nextPrice?.toString() || '0', 18, 2, true), // Next price
+            stabilityFee: transformToAnnualRate(value?.stabilityFee?.toString() || '0', 27), // Stability fee
+            borrowRate: transformToAnnualRate(
+                multiplyRates(value?.stabilityFee?.toString(), analyticsData.redemptionRate?.toString()) ||
+                '0',
+                27
+            ), // Borrow rate
+            debt: formatDataNumber(value?.debtAmount?.toString() || '0', 18, 2, true, true), // Debt Amount
+            debtUtilization: transformToWadPercentage(value?.debtAmount?.toString(), value?.debtCeiling?.toString()), // Debt Utilization
+            locked: formatDataNumber(value?.lockedAmount?.toString() || '0', 18, 2, false, true), // Amount locked
+            lockedUSD: formatDataNumber(
+                multiplyWad(value?.lockedAmount?.toString(), value?.currentPrice?.toString()) || '0',
+                18,
+                2,
+                true,
+                true
+            ), // Amount locked in USD
+            debtUtilizationRatio: transformToWadPercentage(
+                multiplyWad(value?.debtAmount?.toString(), analyticsData?.redemptionPrice?.toString()),
+                multiplyWad(value?.lockedAmount?.toString(), value?.currentPrice?.toString())
+            ), // Debt amount / locked amount in USD
+
         }))
 
-    // Global analytics
-    const fields = Object.entries(parsed).filter(([key]) => key !== 'tokenAnalyticsData').map(([key, value]) => ({
-        name: key, value: value.toString(), inline: true
-    })).slice(0, 24) // 25 item limit
+    await alertGlobalAnalyticsData(parse, network)
+    // await alertTokenAnalyticsData(parsed.analyticsData, network)
 
-    await sendAlert({
-        embed: {
-            color: 0xffffd0,
-            title: `📊  Analytics | ${network}`,
-            footer: { text: new Date().toString() },
-            fields
-        },
-        channelName: 'action',
-    })
-
-    // Collateral analytics
-    // let collateralFields  = []
-    // Object.entries(parsed.tokenAnalyticsData).map(([key, value]) => {
-    //     Object.entries(value).map(([key, value]) => {
-    //         collateralFields.push({
-    //             name: value.symbol, value: "foo", inline: true
-    //         })
-    //     })
-    // })
-
-    // await sendAlert({
-    //     embed: {
-    //         color: 0xffffd0,
-    //         title: `📊  Analytics | ${network}`,
-    //         footer: { text: new Date().toString() },
-    //         fields: collateralFields.slice(0, 24)  // 25 item limit
-    //     },
-    //     channelName: 'action',
-    // })
+    return {
+        raw: analyticsData,
+        ...parsed
+    }
 }
 
+// Copied from frontend app
 const fetchAnalyticsData = async (network) => {
     const geb = initGeb(network)
     // Encoded input data to be sent to the batch contract constructor
@@ -182,4 +190,73 @@ const fetchAnalyticsData = async (network) => {
     }
 
     return parsedResult
+}
+
+
+// Simple method for ready some protocol stats
+export const getStatsOld = async (network) => {
+    const geb = initGeb(network)
+    const { oracleRelayer } = geb.contracts
+
+    let stats
+    stats = await readMany([
+        "lastRedemptionPrice",
+        "marketPrice",
+        "redemptionRate",
+        "redemptionPriceUpdateTime"
+    ], oracleRelayer)
+    stats.lastUpdateTime = new Date((stats.lastUpdateTime).toNumber() * 1000)
+
+    stats.redemptionRateUpperBound = await oracleRelayer.redemptionRateUpperBound()
+    stats.redemptionRateLowerBound = await oracleRelayer.redemptionRateLowerBound()
+
+    stats.blockTimestamp = (await geb.provider.getBlock()).timestamp
+
+    return stats
+}
+
+const alertGlobalAnalyticsData = async (data, network) => {
+    const fields = Object.entries(data).filter(([key]) => key !== 'tokenAnalyticsData').map(([key, value]) => ({
+        name: key, value: value.toString(), inline: true
+    })).slice(0, 24) // 25 item limit
+
+    await sendAlert({
+        embed: {
+            color: 0xffffd0,
+            title: `📊  Analytics | ${network}`,
+            footer: { text: new Date().toString() },
+            fields
+        },
+        channelName: 'action',
+    })
+}
+
+const alertTokenAnalyticsData = async (analyticsData, network) => {
+    Object.entries(tokenAnalyticsData).map(async ([key, value]) => {
+        let collateralFields = []
+        const data = {
+            currentPrice: value.currentPrice,
+            stabilityFee: value.stabilityFee,
+            borrowRate: value.borrowRate,
+            debt: value.debt,
+            lockedUSD: value.lockedUSD,
+        }
+        Object.entries(data).map(([key, val]) => {
+            collateralFields.push({
+                name: key, value: val, inline: true
+            })
+        })
+        collateralFields.push({
+            name: "contract", value: `${getExplorerBaseUrlFromName(network)}address/${value.address}`,
+        })
+        await sendAlert({
+            embed: {
+                color: 0xffffd0,
+                title: `📊  Analytics - ${value.symbol} | ${network}`,
+                footer: { text: new Date().toString() },
+                fields: collateralFields.slice(0, 24)  // 25 item limit
+            },
+            channelName: 'action',
+        })
+    })
 }
