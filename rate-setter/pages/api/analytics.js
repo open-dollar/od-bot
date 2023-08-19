@@ -1,6 +1,6 @@
 import { getStats } from "../../lib/web3/analytics/analytics";
 
-const OPTIMISM_GOERLI = "OPTIMISM_GOERLI";
+const ARBITRUM_GOERLI = "ARBITRUM_GOERLI"
 
 export default async function handler(
     request,
@@ -10,7 +10,8 @@ export default async function handler(
         response.status(404).end();
         return;
     }
-
-    await getStats(OPTIMISM_GOERLI);
+    let network = ARBITRUM_GOERLI
+    if (request.query.network) network = request.query.network
+    await getStats(network);
     response.status(200).json({ success: true });
 }

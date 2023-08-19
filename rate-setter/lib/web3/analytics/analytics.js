@@ -10,7 +10,6 @@ import { sendAlert } from '../../discord/alert'
 import VirtualAnalyticsData from './VirtualAnalyticsData.json'
 import prisma from '../../prisma'
 
-
 export const saveStats = async ({ network, stats }) => {
     try {
         await prisma.globalStats.create({
@@ -94,8 +93,8 @@ export const getStats = async (network) => {
 
         }))
 
-    await alertGlobalAnalyticsData(parse, network)
-    // await alertTokenAnalyticsData(parsed.analyticsData, network)
+    await alertGlobalAnalyticsData(parsed, network)
+    await alertTokenAnalyticsData(parsed.tokenAnalyticsData, network)
 
     return {
         raw: analyticsData,
@@ -223,7 +222,7 @@ const alertGlobalAnalyticsData = async (data, network) => {
     await sendAlert({
         embed: {
             color: 0xffffd0,
-            title: `📊  Analytics | ${network}`,
+            title: `📊  Analytics - Global | ${network}`,
             footer: { text: new Date().toString() },
             fields
         },
@@ -231,7 +230,7 @@ const alertGlobalAnalyticsData = async (data, network) => {
     })
 }
 
-const alertTokenAnalyticsData = async (analyticsData, network) => {
+const alertTokenAnalyticsData = async (tokenAnalyticsData, network) => {
     Object.entries(tokenAnalyticsData).map(async ([key, value]) => {
         let collateralFields = []
         const data = {
