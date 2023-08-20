@@ -18,6 +18,18 @@ export const saveStats = async ({ network, stats }) => {
                 blockTimestamp: stats.blockTimestamp,
                 redemptionRate: stats.redemptionRate.toString(),
                 redemptionPrice: stats.lastRedemptionPrice.toString(),
+                erc20Supply: stats.erc20Supply.toString(),
+                globalDebt: stats.globalDebt.toString(),
+                globalDebtCeiling: stats.globalDebtCeiling.toString(),
+                globalDebtUtilization: stats.globalDebtUtilization.toString(),
+                surplusInTreasury: stats.surplusInTreasury.toString(),
+                marketPrice: stats.marketPrice.toString(),
+                redemptionRate: stats.redemptionRate.toString(),
+                redemptionPrice: stats.redemptionPrice.toString(),
+                annualRate: stats.annualRate.toString(),
+                eightRate: stats.eightRate.toString(),
+                pRate: stats.pRate.toString(),
+                iRate: stats.iRate.toString(),
                 lastUpdateTime: stats.lastUpdateTime,
             },
         })
@@ -27,7 +39,16 @@ export const saveStats = async ({ network, stats }) => {
                 await prisma.tokenStats.create({
                     data: {
                         network,
-                        blockTimestamp,
+                        blockTimestamp: stats.blockTimestamp,
+                        symbol: token.symbol,
+                        address: token.address,
+                        delayedOracle: token.delayedOracle.toString(),
+                        debtAmount: token.debtAmount.toString(),
+                        debtCeiling: token.debtCeiling.toString(),
+                        lockedAmount: token.lockedAmount.toString(),
+                        currentPrice: token.currentPrice.toString(),
+                        nextPrice: token.nextPrice.toString(),
+                        stabilityFee: token.stabilityFee.toString(),
                     }
                 })
             })

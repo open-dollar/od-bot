@@ -11,14 +11,24 @@ datasource db {
 }
 
 model globalStats {
-  id              Int      @id @default(autoincrement())
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  network         Network
-  blockTimestamp  Int
-  redemptionRate  String
-  redemptionPrice String
-  lastUpdateTime  DateTime
+  id                    Int       @id @default(autoincrement())
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  network               Network
+  blockTimestamp        String
+  erc20Supply           String?
+  globalDebt            String?
+  globalDebtCeiling     String?
+  globalDebtUtilization String?
+  surplusInTreasury     String?
+  marketPrice           String?
+  redemptionRate        String?
+  redemptionPrice       String?
+  annualRate            String?
+  eightRate             String?
+  pRate                 String?
+  iRate                 String?
+  lastUpdateTime        DateTime?
 
   @@unique([network, blockTimestamp])
 }
@@ -28,9 +38,18 @@ model tokenStats {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   network        Network
-  blockTimestamp Int
+  blockTimestamp String
+  symbol         String?
+  address        String?
+  delayedOracle  String?
+  debtAmount     String?
+  debtCeiling    String?
+  lockedAmount   String?
+  currentPrice   String?
+  nextPrice      String?
+  stabilityFee   String?
 
-  @@unique([network, blockTimestamp])
+  @@unique([network, blockTimestamp, symbol])
 }
 
 model tx {

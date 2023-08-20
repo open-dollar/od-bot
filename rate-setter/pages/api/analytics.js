@@ -1,4 +1,4 @@
-import { getStats } from "../../lib/web3/analytics/analytics";
+import { getStats, saveStats } from "../../lib/web3/analytics/analytics";
 
 const ARBITRUM_GOERLI = "ARBITRUM_GOERLI"
 
@@ -12,6 +12,7 @@ export default async function handler(
     }
     let network = ARBITRUM_GOERLI
     if (request.query.network) network = request.query.network
-    await getStats(network);
+    const stats = await getStats(network);
+    await saveStats({ stats, network })
     response.status(200).json({ success: true });
 }
