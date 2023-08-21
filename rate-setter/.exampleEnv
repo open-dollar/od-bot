@@ -1,5 +1,5 @@
 DATABASE_URL=postgres://dev:letmein@0.0.0.0:5432/od-bots-testing
-RPC_OPTIMISM_GOERLI=
+RPC_OPTIMISM_GOERLI=https://optimism-goerli.publicnode.com
 RPC_OPTIMISM=
 RPC_ARBITRUM_GOERLI=https://arbitrum-goerli.publicnode.com
 RPC_ARBITRUM=
@@ -15,3 +15,5 @@ PAYER_WALLET_PRIVATE_KEY=
 ENVIRONMENT=
 ENABLE_DISCORD_BOTS=true
 DISCORD_BOT_TOKEN=
+
+ALCHEMY_API_KEY=
