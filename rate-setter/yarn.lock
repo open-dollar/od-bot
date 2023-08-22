@@ -3040,6 +3040,8 @@ __metadata:
   resolution: "@usekeyp/od-sdk@portal:/home/dev/repos/open-dollar/od-sdk::locator=cron-bots-vercel%40workspace%3A."
   dependencies:
     ethers: 5.4.7
+  peerDependencies:
+    utf-8-validate: ^5.0.2
   languageName: node
   linkType: soft
 
@@ -3746,7 +3748,7 @@ __metadata:
     "@prisma/client": ^5.1.1
     "@types/node": ^20.4.10
     "@types/react": 18.2.20
-    "@usekeyp/od-sdk": ^1.1.0-rc.2
+    "@usekeyp/od-sdk": ^1.2.0-rc.3
     alchemy-sdk: ^2.9.2
     chart.js: ^4.3.3
     cross-fetch: ^4.0.0
@@ -3758,6 +3760,7 @@ __metadata:
     jest: ^29.6.2
     next: ^13.4.13
     node-fetch: ^3.3.2
+    numeral: ^2.0.6
     prisma: ^5.1.1
     react: ^18.2.0
     react-apollo: ^3.1.5
@@ -5747,6 +5750,13 @@ __metadata:
     gauge: ^4.0.3
     set-blocking: ^2.0.0
   checksum: 0cacedfbc2f6139c746d9cd4a85f62718435ad0ca4a2d6459cd331dd33ae58206e91a0742c1558634efcde3f33f8e8e7fd3adf1bfe7978310cf00bd55cccf890
+  languageName: node
+  linkType: hard
+
+"numeral@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "numeral@npm:2.0.6"
+  checksum: 5ed008d3fae05cfa4986b77a85ca10bff29ae6e1fa41a04cce05ea21f08a8a104226f88868930e2a94e3239708d6985d111b5d1291e8b9a3049ffc5365c332d4
   languageName: node
   linkType: hard
 
