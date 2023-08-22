@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { JsonRpcProvider } from 'ethers/providers';
 
+// Server sanity check endpoint
+
 export default async function handler(
     request: NextApiRequest,
     response: NextApiResponse

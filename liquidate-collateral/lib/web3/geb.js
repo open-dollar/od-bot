@@ -9,7 +9,10 @@ import {
 } from './common'
 
 import { readMany, prepareTx } from "./common"
-import { parse } from 'path'
+import path from 'path'
+
+// dev logging
+import fs from 'fs';
 
 export const initGeb = (network) => {
     const provider = Web3Providers[network]
@@ -158,3 +161,43 @@ export const useLiquidateSAFE = async (network, safeAddress) => {
         await txResponse.wait()
     }
 }
+
+export const getAuctionsList = async (tokenSymbol, blockNumber, network = 'OPTIMISM_GOERLI') => {
+    try {
+        const geb = initGeb(network);
+
+        const collateralAuctionsFetched = await geb.auctions.getCollateralAuctions(Number(blockNumber), tokenSymbol || 'WETH');
+
+        return collateralAuctionsFetched;
+
+    } catch (error) {
+        console.error('Error while using getCollateralAuctions:', error.message);
+        
+        // return or throw an error response based on your requirements
+        throw new Error('Failed to use getCollateralAuctions.');
+    }
+};
+
+// helper for logging Geb info
+export const logGebInfo = async () => {
+    try {
+        const geb = initGeb(network);
+
+        // Convert the geb object to a string
+        const data = JSON.stringify(geb.auctions, null, 4);  // The third parameter (4) is for pretty-printing
+
+        // Write to a file
+        const filePath = path.join(process.cwd(), '/logs/geb_auctions.json'); // Adjust path as needed
+        fs.writeFileSync(filePath, data);
+
+        console.log('Geb object written to:', filePath);
+        
+        // return a success response, or the data, or filePath, based on your requirements
+        return { status: 'success', filePath };
+    } catch (error) {
+        console.error('Error while fetching and writing Geb data:', error.message);
+        
+        // return or throw an error response based on your requirements
+        throw new Error('Failed to fetch and write Geb data.');
+    }
+};
