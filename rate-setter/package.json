@@ -21,6 +21,8 @@
   "homepage": "https://github.com/UseKeyp/od-bots#readme",
   "dependencies": {
     "@apollo/client": "^3.8.1",
+    "@apollo/server": "^4.9.1",
+    "@as-integrations/next": "^2.0.2",
     "@ethersproject/contracts": "^5.7.0",
     "@ethersproject/units": "^5.7.0",
     "@prisma/client": "^5.1.1",
@@ -30,7 +32,6 @@
     "discord.js": "^14.12.1",
     "graphql": "^16.7.1",
     "graphql-tag": "^2.12.6",
-    "graphql2chartjs": "^0.3.1",
     "next": "^13.4.13",
     "numeral": "^2.0.6",
     "prisma": "^5.1.1",
@@ -51,8 +52,5 @@
     "node-fetch": "^3.3.2",
     "ts-node": "^10.9.1",
     "typescript": "5.1.6"
-  },
-  "resolutions": {
-    "@usekeyp/od-sdk": "portal:/home/dev/repos/open-dollar/od-sdk"
   }
 }

@@ -4,7 +4,7 @@ import { logger } from '../../logger'
 import { getGasSettings } from '../gas'
 import { Web3Providers } from '../provider'
 
-const payerWallet = new Wallet(
+const payerWallet = process.env.PAYER_WALLET_PRIVATE_KEY && new Wallet(
   process.env.PAYER_WALLET_PRIVATE_KEY
 )
 
@@ -17,6 +17,7 @@ const validateConfig = (wallet) => {
 }
 
 export const payerSendTransaction = async ({ unsigned, network }) => {
+  if (!payerWallet) return logger.warn('Payer wallet not configured')
   validateConfig(payerWallet)
   try {
     const payerWalletWithProvider = payerWallet.connect(Web3Providers[network])

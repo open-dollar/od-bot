@@ -4,11 +4,12 @@ import { logger } from '../../logger'
 import { checkGasAndAirdrop, getGasSettings } from '../gas'
 import { Web3Providers } from '../provider'
 
-const botWallet = new Wallet(
+const botWallet = process.env.BOT_WALLET_PRIVATE_KEY && new Wallet(
   process.env.BOT_WALLET_PRIVATE_KEY
 )
 
 const validateConfig = (wallet) => {
+  if (!wallet) return logger.warn('Bot wallet not configured')
   if (
     wallet.address.toLowerCase() !==
     process.env.BOT_WALLET_ADDRESS.toLowerCase()
