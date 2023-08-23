@@ -5,21 +5,17 @@ import { config } from 'dotenv';
 config();
 
 // Recursive function to get all keys
-// Dumps a large file (~18MB) into ./logs/geb.keys.md
 function getKeys(obj, parentKey = '') {
-    let keys = [];
+    let structure = {};
     for (let key in obj) {
-        // Construct the full key path
-        let fullKey = parentKey ? `${parentKey}.${key}` : key;
-        
-        keys.push(fullKey);
-        
         // If the current key corresponds to an object, recurse on it
         if (typeof obj[key] === 'object' && obj[key] !== null) {
-            keys = keys.concat(getKeys(obj[key], fullKey));
+            structure[key] = getKeys(obj[key], key);
+        } else {
+            structure[key] = typeof obj[key]; // store the type of the key value
         }
     }
-    return keys;
+    return structure;
 }
 
 async function main() {
@@ -36,15 +32,12 @@ async function main() {
     const geb = new Geb('optimism-goerli', provider);
 
     // Get all keys from the GEB object
-    const allKeys = getKeys(geb);
+    const structure = getKeys(geb);
 
-    // Convert the keys to markdown format
-    const markdownReport = allKeys.map(key => `- ${key}`).join('\n');
+    // Save the structure to a JSON file
+    fs.writeFileSync('./logs/geb.structure.json', JSON.stringify(structure, null, 4)); // pretty-printed with 4 spaces indentation
 
-    // Save the report to a markdown file
-    fs.writeFileSync('./logs/geb.keys.md', markdownReport);
-
-    console.log("Markdown report saved to './logs/geb.keys.md'");
+    console.log("JSON report saved to './logs/geb.structure.json'");
 }
 
 main().catch(error => {
