@@ -16,6 +16,7 @@ export default async function handler(
 
         response.status(200).json({ blockNumber: blockNumber.toString() });
     } catch (error) {
-        response.status(500).json({ error: error.message });
+        console.error('API error:', error);
+        response.status(500).json({ status: 'error', message: 'Internal server error' });
     }
 };

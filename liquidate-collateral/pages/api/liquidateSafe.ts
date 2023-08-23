@@ -18,6 +18,7 @@ export default async function handler(
 
         response.status(200).json({ success: true, tx: tx });
     } catch (error) {
-        response.status(400).json({ error: error.message });
+        console.error('API error:', error);
+        response.status(500).json({ status: 'error', message: 'Internal server error' });
     }
 };

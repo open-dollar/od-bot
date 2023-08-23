@@ -150,17 +150,20 @@ export const OracleRelayerCParams = async (network) => {
 }
 
 export const useLiquidateSAFE = async (network, safeAddress) => {
-    const geb = initGeb(network)
-    const ready = await rateSetterIsReady(network)
-
-    if (ready) {
+    try {
         const geb = initGeb(network)
+
         // test when safe addresses are known
         const txData = await geb.contracts.liquidationEngine.liquidateSAFE(utils.WETH, safeAddress);
         const txResponse = await wallet.sendTransation(txData)
         console.log(`Transaction ${txResponse.hash} waiting to be mined...`)
-        await txResponse.wait()
+        const status = await txResponse.wait()
+        return status
+    } catch (error) {
+        console.error('Error while using liquidateSAFE:', error.message);
+        throw new Error('Failed to use liquidateSAFE.');
     }
+
 }
 
 export const getAuctionsList = async (tokenSymbol, blockNumber, network = 'OPTIMISM_GOERLI') => {
