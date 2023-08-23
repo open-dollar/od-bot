@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { JsonRpcProvider } from 'ethers/providers';
+import { ethers } from 'ethers';
 
 // Server sanity check endpoint
 
@@ -9,7 +9,7 @@ export default async function handler(
 ) {
     try {
         // Create a provider instance connected to the Ethereum mainnet
-        const provider = new JsonRpcProvider(process.env.RPC_URL);
+        const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
 
         // Fetch the block number directly from the provider
         const blockNumber = await provider.getBlockNumber();

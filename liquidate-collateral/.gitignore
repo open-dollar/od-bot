@@ -35,4 +35,4 @@ metrics/**/*
 .next
 /od-app/
 /od-app/*
-/logs
+/tools/logs

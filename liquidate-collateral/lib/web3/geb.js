@@ -172,9 +172,22 @@ export const getAuctionsList = async (tokenSymbol, blockNumber, network = 'OPTIM
 
     } catch (error) {
         console.error('Error while using getCollateralAuctions:', error.message);
-        
+
         // return or throw an error response based on your requirements
         throw new Error('Failed to use getCollateralAuctions.');
+    }
+};
+
+// glboal debt
+export const getGlobalDebt = async (network = 'OPTIMISM_GOERLI') => {
+    try {
+        const geb = initGeb(network);
+
+        const bigNumberValue = await geb.contracts.safeEngine.globalDebt();
+        return utils.formatUnits(bigNumberValue, 18);
+
+    } catch (error) {
+        console.error('Error while using getGlobalDebt:', error.message);
     }
 };
 
@@ -191,12 +204,12 @@ export const logGebInfo = async () => {
         fs.writeFileSync(filePath, data);
 
         console.log('Geb object written to:', filePath);
-        
+
         // return a success response, or the data, or filePath, based on your requirements
         return { status: 'success', filePath };
     } catch (error) {
         console.error('Error while fetching and writing Geb data:', error.message);
-        
+
         // return or throw an error response based on your requirements
         throw new Error('Failed to fetch and write Geb data.');
     }

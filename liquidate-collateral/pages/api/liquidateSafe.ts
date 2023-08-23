@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Geb, utils } from "@usekeyp/od-sdk";
 import { useLiquidateSAFE } from "../../lib/web3/geb";
 
 export default async function handler(
