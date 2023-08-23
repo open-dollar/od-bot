@@ -17,7 +17,7 @@ const validateConfig = (wallet) => {
 }
 
 export const payerSendTransaction = async ({ unsigned, network }) => {
-  if (!payerWallet) return logger.warn('Payer wallet not configured')
+  if (!payerWallet.address) return logger.warn('Payer wallet not configured')
   validateConfig(payerWallet)
   try {
     const payerWalletWithProvider = payerWallet.connect(Web3Providers[network])
@@ -32,4 +32,4 @@ export const payerSendTransaction = async ({ unsigned, network }) => {
   }
 }
 
-export const payerAddress = payerWallet.address
+export const payerAddress = payerWallet?.address

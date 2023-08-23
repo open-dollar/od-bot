@@ -9,7 +9,6 @@ const botWallet = process.env.BOT_WALLET_PRIVATE_KEY && new Wallet(
 )
 
 const validateConfig = (wallet) => {
-  if (!wallet) return logger.warn('Bot wallet not configured')
   if (
     wallet.address.toLowerCase() !==
     process.env.BOT_WALLET_ADDRESS.toLowerCase()
@@ -17,7 +16,6 @@ const validateConfig = (wallet) => {
     throw 'Bot wallet address and pk do not match'
 }
 
-validateConfig(botWallet)
 
 export const botSignTx = async (unsigned) => botWallet.signTransaction(unsigned)
 
@@ -25,6 +23,8 @@ export const botBalance = async ({ network }) =>
   Web3Providers[network].getBalance(botWallet.address)
 
 export const botSendTx = async ({ unsigned, network }) => {
+  if (!botWallet.address) return logger.warn('Bot wallet not configured')
+  validateConfig(botWallet)
   try {
     await checkGasAndAirdrop({ network, address: botWallet.address, network })
     const botWalletWithProvider = botWallet.connect(Web3Providers[network])
