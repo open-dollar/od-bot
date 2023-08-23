@@ -1,4 +1,4 @@
-import { Geb } from '@usekeyp/od-sdk'
+import { Geb } from '@hai-on-op/sdk'
 
 import prisma from '../prisma'
 import { botSendTx } from "./wallets/bot"
@@ -8,6 +8,7 @@ import {
     getExplorerBaseUrlFromName,
 } from './common'
 
+import { ethers } from 'ethers'
 import { readMany, prepareTx } from "./common"
 import path from 'path'
 
@@ -184,8 +185,9 @@ export const getGlobalDebt = async (network = 'OPTIMISM_GOERLI') => {
         const geb = initGeb(network);
 
         const bigNumberValue = await geb.contracts.safeEngine.globalDebt();
-        return utils.formatUnits(bigNumberValue, 18);
+        const readableValue = ethers.utils.formatUnits(bigNumberValue, 18);
 
+        return readableValue;
     } catch (error) {
         console.error('Error while using getGlobalDebt:', error.message);
     }

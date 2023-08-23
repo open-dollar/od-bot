@@ -4,7 +4,7 @@ import fs from 'fs';
 import { config } from 'dotenv';
 config();
 
-// Recursive function to get all keys
+// Creates json file (~11MB) with all keys
 function getKeys(obj, parentKey = '') {
     let structure = {};
     for (let key in obj) {

@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import { Geb, utils } from '@hai-on-op/sdk';
 import fs from 'fs';
 import { config } from 'dotenv';
-config();
+config('../.env');
 
 async function main() {
     if(!process.env.RPC_URL) {
