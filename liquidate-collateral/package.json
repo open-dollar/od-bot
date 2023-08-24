@@ -13,7 +13,7 @@
     "@ethersproject/bignumber": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "@ethersproject/wallet": "^5.7.0",
-    "@hai-on-op/sdk": "^1.1.0",
+    "@hai-on-op/sdk": "^v1.2.0-rc.1",
     "@prisma/client": "^5.1.1",
     "@types/next": "^9.0.0",
     "@types/node": "20.5.0",

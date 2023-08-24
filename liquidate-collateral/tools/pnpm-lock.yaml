@@ -18,8 +18,8 @@ dependencies:
     specifier: ^5.7.0
     version: 5.7.0
   '@hai-on-op/sdk':
-    specifier: ^1.1.0
-    version: 1.1.0
+    specifier: ^v1.2.0-rc.1
+    version: 1.2.0-rc.1
   '@prisma/client':
     specifier: ^5.1.1
     version: 5.1.1(prisma@5.1.1)
@@ -1144,8 +1144,8 @@ packages:
       graphql: 16.8.0
     dev: false
 
-  /@hai-on-op/sdk@1.1.0:
-    resolution: {integrity: sha512-T8ThV7e6jdYhnQxCnZ/6TrWcnypoVquyKP38TNd9z2+GoFn70a9DrA8lmf3pBNULStGIgMzFluPJHrYBP1Crew==}
+  /@hai-on-op/sdk@1.2.0-rc.1:
+    resolution: {integrity: sha512-NTpqRqcdgL2sL8lhcJtztbsBRHJKKud24hxRxs9ovsVlJrYipdqX9lc7Oh7pjvBBAhOr8Rtzk+84gvvLKW1pTw==}
     dependencies:
       ethers: 5.4.7
     transitivePeerDependencies:
@@ -2247,7 +2247,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001522
-      electron-to-chromium: 1.4.499
+      electron-to-chromium: 1.4.500
       node-releases: 2.0.13
       update-browserslist-db: 1.0.11(browserslist@4.21.10)
     dev: false
@@ -2721,8 +2721,8 @@ packages:
       safer-buffer: 2.1.2
     dev: false
 
-  /electron-to-chromium@1.4.499:
-    resolution: {integrity: sha512-0NmjlYBLKVHva4GABWAaHuPJolnDuL0AhV3h1hES6rcLCWEIbRL6/8TghfsVwkx6TEroQVdliX7+aLysUpKvjw==}
+  /electron-to-chromium@1.4.500:
+    resolution: {integrity: sha512-P38NO8eOuWOKY1sQk5yE0crNtrjgjJj6r3NrbIKtG18KzCHmHE2Bt+aQA7/y0w3uYsHWxDa6icOohzjLJ4vJ4A==}
     dev: false
 
   /elliptic@6.5.4:

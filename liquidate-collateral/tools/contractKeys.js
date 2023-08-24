@@ -17,18 +17,25 @@ async function main() {
     // Create the main GEB object
     const geb = new Geb('optimism-goerli', provider);
 
-    // Get the functions/properties from the GEB object
-    //const output1 = Object.keys(geb.contracts);
+    const addresses = await geb.addresses;
 
-    // Run functions directly instead
-    // const output1 = await geb.contracts;
-    // const readableValue = ethers.utils.formatUnits(bigNumberValue, 18);
+    let details = {};
 
-    // Log the available functions
-    console.log(geb.addresses.SAFE_MANAGER);
+    for (let key of Object.keys(addresses)) {
+        const addressValue = addresses[key];
+        
+        // Assuming geb.address[key] is an asynchronous function that retrieves details for a given address
+        const addressDetails = await geb.addresses[key];
+        
+        details[key] = {
+            address: addressValue
+        };
+    }
+
+    console.log(details);
 
     // or Save a file of our data
-    // fs.writeFileSync('./logs/geb.liquidations.contracts.tokenCollateralAuctionHouse.json', JSON.stringify(functionList, null, 4)); // The third argument '4' is for pretty-printing the JSON data with an indentation of 4 spaces
+    fs.writeFileSync('./logs/geb.address.v1.2.0-rc.1.json', JSON.stringify(details, null, 4)); // The third argument '4' is for pretty-printing the JSON data with an indentation of 4 spaces
 }
 
 main().catch(error => {
