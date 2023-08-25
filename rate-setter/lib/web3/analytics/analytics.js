@@ -255,31 +255,28 @@ const alertGlobalAnalyticsData = async (data, network) => {
 }
 
 const alertTokenAnalyticsData = async (tokenAnalyticsData, network) => {
-    Object.entries(tokenAnalyticsData).map(async ([key, value]) => {
+    const fields = Object.values(tokenAnalyticsData).reduce((acc, token) => {
         let collateralFields = []
+        collateralFields.push({ name: "", value: `🪙 **[${token.symbol}](${getExplorerBaseUrlFromName(network)}address/${token.address})** - ${token.currentPrice}` })
         const data = {
-            currentPrice: value.currentPrice,
-            stabilityFee: value.stabilityFee,
-            borrowRate: value.borrowRate,
-            debt: value.debt,
-            lockedUSD: value.lockedUSD,
+            Fees: `${token.stabilityFee} stability fee\n${token.borrowRate} borrow rate`,
+            Debt: `${token.debt} debt\n${token.lockedUSD} locked`
         }
         Object.entries(data).map(([key, val]) => {
             collateralFields.push({
-                name: key, value: val, inline: true
+                name: val, value: "", inline: true
             })
         })
-        collateralFields.push({
-            name: "contract", value: `${getExplorerBaseUrlFromName(network)}address/${value.address}`,
-        })
-        await sendAlert({
-            embed: {
-                color: 0xffffd0,
-                title: `📊  Analytics - ${value.symbol} | ${network}`,
-                footer: { text: new Date().toString() },
-                fields: collateralFields.slice(0, 24)  // 25 item limit
-            },
-            channelName: 'action',
-        })
+        return acc.concat(collateralFields)
+    }, [])
+    // console.log(fields)
+    await sendAlert({
+        embed: {
+            color: 0xffffd0,
+            title: `📊  Analytics - Tokens | ${network}`,
+            footer: { text: new Date().toString() },
+            fields: fields.slice(0, 24)  // 25 item limit
+        },
+        channelName: 'action',
     })
 }
