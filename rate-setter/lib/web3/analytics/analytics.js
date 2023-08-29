@@ -7,8 +7,10 @@ import {
     transformToAnnualRate, multiplyRates, readMany, getExplorerBaseUrlFromName
 } from '../common'
 import { sendAlert } from '../../discord/alert'
-import VirtualAnalyticsData from './VirtualAnalyticsData.json'
 import prisma from '../../prisma'
+import { fetchAnalyticsData } from '@usekeyp/od-sdk/lib/virtual/virtualAnalyticsData'
+import { CollateralAuctionsData, fetchCollateralAuctionData } from '@usekeyp/od-sdk/lib/virtual/virtualCollateralAuctionData'
+import {  fetchAuctionData } from '@usekeyp/od-sdk/lib/virtual/virtualAuctionData'
 
 export const saveStats = async ({ network, stats }) => {
     try {
@@ -68,9 +70,9 @@ export const saveStats = async ({ network, stats }) => {
 
 export const getStats = async (network) => {
     // Get raw data using virtualAnalytcisData contract
-    const analyticsData = await fetchAnalyticsData(network)
-    // Parse to human read-able
     const geb = initGeb(network)
+    const analyticsData = await fetchAnalyticsData(geb)
+    // Parse to human read-able
     const parsed = {
         erc20Supply: formatDataNumber(analyticsData.erc20Supply, 18, 0, true),
         globalDebt: formatDataNumber(analyticsData.globalDebt, 18, 0, true),
@@ -125,96 +127,6 @@ export const getStats = async (network) => {
         ...parsed
     }
 }
-
-// Copied from frontend app
-const fetchAnalyticsData = async (network) => {
-    const geb = initGeb(network)
-    // Encoded input data to be sent to the batch contract constructor
-    const tokenList = Object.values(geb.tokenList)
-        .map((token) => token.bytes32String)
-        .filter((address) => address !== undefined && address !== '' && address)
-
-    const inputData = defaultAbiCoder.encode(
-        ['address', 'address', 'address', 'address', 'address', 'address', 'bytes32[]'],
-        [
-            geb.contracts.systemCoin.address,
-            geb.contracts.safeEngine.address,
-            geb.contracts.oracleRelayer.address,
-            geb.contracts.piCalculator.address,
-            geb.contracts.taxCollector.address,
-            geb.contracts.stabilityFeeTreasury.address,
-            tokenList,
-        ]
-    )
-
-    // Generate payload from input data
-    const payload = VirtualAnalyticsData.bytecode.concat(inputData.slice(2))
-
-    // Call the deployment transaction with the payload
-    const returnedData = await geb.provider.call({ data: payload })
-
-    // Parse the returned value to the struct type in order
-    const decoded = defaultAbiCoder.decode(
-        [
-            `tuple(
-                uint256 erc20Supply,
-                uint256 globalDebt,
-                uint256 globalDebtCeiling,
-                uint256 globalUnbackedDebt,
-                uint256 marketPrice, 
-                uint256 redemptionPrice, 
-                uint256 redemptionRate, 
-                uint256 redemptionRatePTerm, 
-                uint256 redemptionRateITerm, 
-                uint256 surplusInTreasury, 
-                tuple(
-                    address delayedOracle, 
-                    uint256 debtAmount, 
-                    uint256 debtCeiling, 
-                    uint256 lockedAmount,
-                    uint256 currentPrice, 
-                    uint256 nextPrice,
-                    uint256 stabilityFee
-                    )[] tokenAnalyticsData)`,
-        ],
-        returnedData
-    )[0]
-
-    const result = Object.entries(geb.tokenList)
-        .filter(([, value]) => value.isCollateral)
-        .reduce(
-            (obj, [key], i) => ({
-                ...obj,
-                [key]: {
-                    delayedOracle: decoded?.tokenAnalyticsData[i]?.delayedOracle,
-                    debtAmount: decoded?.tokenAnalyticsData[i]?.debtAmount.toString(),
-                    debtCeiling: decoded?.tokenAnalyticsData[i]?.debtCeiling.toString(),
-                    lockedAmount: decoded?.tokenAnalyticsData[i]?.lockedAmount.toString(),
-                    currentPrice: decoded?.tokenAnalyticsData[i]?.currentPrice.toString(),
-                    nextPrice: decoded?.tokenAnalyticsData[i]?.nextPrice.toString(),
-                    stabilityFee: decoded?.tokenAnalyticsData[i]?.stabilityFee.toString(),
-                },
-            }),
-            {}
-        )
-
-    const parsedResult = {
-        erc20Supply: decoded.erc20Supply.toString(),
-        globalDebt: decoded.globalDebt.toString(),
-        globalDebtCeiling: decoded.globalDebtCeiling.toString(),
-        globalUnbackedDebt: decoded.globalUnbackedDebt.toString(),
-        marketPrice: decoded.marketPrice.toString(),
-        redemptionPrice: decoded.redemptionPrice.toString(),
-        redemptionRate: decoded.redemptionRate.toString(),
-        redemptionRatePTerm: decoded.redemptionRatePTerm.toString(),
-        redemptionRateITerm: decoded.redemptionRateITerm.toString(),
-        surplusInTreasury: decoded.surplusInTreasury.toString(),
-        tokenAnalyticsData: result,
-    }
-
-    return parsedResult
-}
-
 
 // Simple method for ready some protocol stats
 export const getStatsOld = async (network) => {
@@ -282,4 +194,15 @@ const alertTokenAnalyticsData = async (tokenAnalyticsData, network) => {
             channelName: 'action',
         })
     })
+}
+
+export const getAuctionData = async (network) => {
+    const geb = initGeb(network)
+
+    const collateralAuctionData = await fetchCollateralAuctionData(geb, "WETH",[1,2,3,4])
+    // console.log(collateralAuctionData)
+
+    const auctionData = await fetchAuctionData(geb, "0xC295763Eed507d4A0f8B77241c03dd3354781a15")
+    console.log(auctionData)
+    console.log(auctionData.length)
 }

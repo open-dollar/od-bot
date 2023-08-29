@@ -4,7 +4,7 @@
   "description": "",
   "main": "api/cron",
   "scripts": {
-    "test": "npx nodemon -w src/ -w test/ --exec node test/index.test.js",
+    "test": "npx nodemon -w lib/ --exec node test/index.test.js",
     "dev": "next dev",
     "build": "next build && prisma generate",
     "start": "next start"
