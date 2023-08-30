@@ -1,6 +1,6 @@
 import { defaultAbiCoder } from "@ethersproject/abi";
 
-import { initGeb } from "../geb";
+import { initGeb } from "./geb";
 import {
   multiplyWad,
   formatDataNumber,
@@ -10,9 +10,9 @@ import {
   multiplyRates,
   readMany,
   getExplorerBaseUrlFromName,
-} from "../common";
-import { sendAlert } from "../../discord/alert";
-import prisma from "../../prisma";
+} from "./common";
+import { sendAlert } from "../discord/alert";
+import prisma from "../prisma";
 import { fetchAnalyticsData } from "@usekeyp/od-sdk/lib/virtual/virtualAnalyticsData";
 import {
   CollateralAuctionsData,

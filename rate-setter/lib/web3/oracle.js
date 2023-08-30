@@ -1,53 +1,57 @@
-import { Geb, utils } from '@usekeyp/od-sdk'
+import { Geb, utils } from "@usekeyp/od-sdk";
 
-import { botSendTx } from "./wallets/bot"
-import { Web3Providers } from './provider'
-import { sendAlert } from '../discord/alert'
-import { getExplorerBaseUrlFromName } from './common'
-import { prepareTx } from "./common"
+import { botSendTx } from "./wallets/bot";
+import { Web3Providers } from "./provider";
+import { sendAlert } from "../discord/alert";
+import { getExplorerBaseUrlFromName, prepareTx, readManyVars } from "./common";
+import { getStats } from "./analytics";
 
-import { initGeb } from "./geb"
+import { initGeb } from "./geb";
 
-export const updateFeed = async (network, address) => {
-  const geb = initGeb(network)
-  // TODO: Use address to fetch the right Oracle
-  const { oracleRelayer } = geb.contracts
+export const getOracles = async (network) => {
+  // const stats = await getStats(network);
+  // const { tokenAnalyticsData } = stats;
+  // let oraclesToUpdate = [];
+  // Object.entries(tokenAnalyticsData).map(async ([key, value]) => {
+  //   const { delayedOracle } = value;
+  //   if (delayedOracle) oraclesToUpdate.push(delayedOracle);
+  // });
+  const geb = initGeb(network);
+  const collateralList = await geb.contracts.oracleRelayer.collateralList();
+  console.log(collateralList);
+  await Promise.all(
+    collateralList.map(async (collateral) => {
+      // This may be helpful
+      // const _cParams = await geb.contracts.oracleRelayer._cParams(collateral);
+      // console.log(_cParams);
 
-  // TODO: this is not the oracle relayer
-  const shouldUpdate = await oracleRelayer.shouldUpdate()
-  if (shouldUpdate) {
-    const txData = await oracleRelayer.updateResult()
-    const tx = await prepareTx({ data: txData }) // Updates the db with the unsigned tx
-    const txResponse = await botSendTx({ unsigned: txData, network })
-    await updateTx(tx, { hash: txResponse.hash })
+      const txData =
+        await geb.contracts.oracleRelayer.populateTransaction.updateCollateralPrice(
+          collateral
+        );
+      const tx = await prepareTx({
+        data: txData,
+        method: "updateCollateralPrice",
+        network,
+      });
 
-    await sendAlert({
-      embed: {
-        color: 1900316,
-        title: `📈 DelayedOracle 🔃 UPDATED | ${network}`,
-        description: `${getExplorerBaseUrlFromName(
-          network
-        )}tx/${txResponse.hash}
+      const txResponse = await botSendTx({ unsigned: txData, network });
+      await tx.update({ hash: txResponse.hash });
 
-${JSON.toString(stats)}`,
-        footer: { text: new Date().toString() },
-      },
-      channelName: 'action',
+      await sendAlert({
+        embed: {
+          color: 1900316,
+          title: `📈 DelayedOracle 🔃 UPDATED | ${network}`,
+          description: `${getExplorerBaseUrlFromName(network)}tx/${
+            txResponse.hash
+          }`,
+          footer: { text: new Date().toString() },
+        },
+        channelName: "action",
+      });
     })
+  );
+  return;
 
-    return success
-  }
-}
-
-export const getOracleDetails = async () => {
-  let details = await readManyVars([
-    "shouldUpdate",
-    "getResultWithValidity"
-  ], DelayedOracle)
-
-  details.priceFeedValue = details.resultWithValidity.result
-  details.priceFeedValidity = details.resultWithValidity.validity
-
-  // shouldUpdate, priceFeedValue, priceFeedValidity
-  return details
-}
+  // Call oracleRelayer.redemptionPrice() to update it
+};
