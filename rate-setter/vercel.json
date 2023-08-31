@@ -3,11 +3,15 @@
   "crons": [
     {
       "path": "/api/rate?secret=jIYRF2qyhwdNfy9veV6mZDPq3O222GNmMjDnrSJTzm2fbEuLlRo5saN9FGISScnuaiGHlZCAqA0y13SMkaISA",
-      "schedule": "*/15 * * * *"
+      "schedule": "0 */1 * * *"
     },
     {
       "path": "/api/analytics?secret=jIYRF2qyhwdNfy9veV6mZDPq3O222GNmMjDnrSJTzm2fbEuLlRo5saN9FGISScnuaiGHlZCAqA0y13SMkaISA",
-      "schedule": "0 */2 * * *"
+      "schedule": "0 */1 * * *"
+    },
+    {
+      "path": "/api/oracle?secret=jIYRF2qyhwdNfy9veV6mZDPq3O222GNmMjDnrSJTzm2fbEuLlRo5saN9FGISScnuaiGHlZCAqA0y13SMkaISA",
+      "schedule": "0 */1 * * *"
     }
   ]
 }
