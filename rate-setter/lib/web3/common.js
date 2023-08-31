@@ -1,5 +1,4 @@
 import { Network } from "alchemy-sdk";
-import { Web3Providers } from "./provider";
 import prisma from "../prisma";
 import { formatEther, formatUnits } from "@ethersproject/units";
 import { BigNumber } from "@ethersproject/bignumber";
@@ -16,6 +15,13 @@ const COMPLETE = "COMPLETE";
 const FAILED = "FAILED";
 
 const MINIMUM_CONFIRMATIONS = 1;
+
+export const AVAILABLE_NETWORKS = [
+  "OPTIMISM",
+  "OPTIMISM_GOERLI",
+  "ARBITRUM",
+  "ARBITRUM_GOERLI",
+];
 
 export function getAlchemyNetworkEnum(network) {
   switch (network) {
@@ -82,13 +88,6 @@ export function getNativeCoinInfo(network) {
   };
 }
 
-export const AVAILABLE_NETWORKS = [
-  "OPTIMISM",
-  "OPTIMISM_GOERLI",
-  "ARBITRUM",
-  "ARBITRUM_GOERLI",
-];
-
 export function getExplorerBaseUrlFromName(name) {
   if (AVAILABLE_NETWORKS.includes(name)) {
     switch (name) {
@@ -138,25 +137,6 @@ const getLogByTopic = ({ logs, topic }) => {
     if (log.topics.indexOf(topic) >= 0) logByTopic = log;
   });
   return logByTopic;
-};
-
-export const getTxReceipt = async ({ txHash, network }) =>
-  Web3Providers[network].getTransactionReceipt(txHash);
-
-export const getTxStatus = async ({ txHash, network }) => {
-  const receipt = await getTxReceipt({ network, txHash });
-  if (
-    receipt?.status === 0 &&
-    receipt?.confirmations >= MINIMUM_CONFIRMATIONS
-  ) {
-    return FAILED;
-  } else if (
-    receipt?.status == 1 &&
-    receipt?.confirmations >= MINIMUM_CONFIRMATIONS
-  ) {
-    return COMPLETE;
-  }
-  return SUBMITTED;
 };
 
 export const readMany = async (methods, conract) => {

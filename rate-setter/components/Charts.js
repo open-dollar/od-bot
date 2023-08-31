@@ -70,10 +70,10 @@ const getChartData = (data, labelName, key) => {
         data: values,
         backgroundColor: [
           "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#f0331a",
-          "#f3ba2f",
-          "#2a71d0",
+          // "#ecf0f1",
+          // "#f0331a",
+          // "#f3ba2f",
+          // "#2a71d0",
         ],
         borderColor: "black",
         borderWidth: 2,
@@ -125,10 +125,10 @@ const Charts = () => {
         data: getValues(data.globalStats, "redemptionRate"),
         backgroundColor: [
           "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#f0331a",
-          "#f3ba2f",
-          "#2a71d0",
+          // "#ecf0f1",
+          // "#f0331a",
+          // "#f3ba2f",
+          // "#2a71d0",
         ],
         borderColor: "black",
         borderWidth: 2,
@@ -139,10 +139,10 @@ const Charts = () => {
           (item) => item
         ),
         backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#f0331a",
-          "#f3ba2f",
+          // "rgba(75,192,192,1)",
+          // "#ecf0f1",
+          // "#f0331a",
+          // "#f3ba2f",
           "#2a71d0",
         ],
         borderColor: "black",
@@ -154,7 +154,7 @@ const Charts = () => {
   if (data) {
     return (
       <>
-        <h1>Line Charts</h1>
+        <h1>Charts</h1>
         <div style={{ width: "100%" }}>
           <h2>Erc 20 Supply</h2>
           <Line data={erc20SupplyData} />
