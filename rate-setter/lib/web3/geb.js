@@ -41,7 +41,7 @@ export const setupProxy = async (network) => {
   }
 };
 
-export const rateSetterIsReady = async (network) => {
+export const shouldUpdateRate = async (network) => {
   const geb = initGeb(network);
 
   const updateRateDelay = (
@@ -96,7 +96,7 @@ export const rateSetterIsReady = async (network) => {
 
 export const updateRate = async (network) => {
   const geb = initGeb(network);
-  const ready = await rateSetterIsReady(network);
+  const ready = await shouldUpdateRate(network);
 
   if (ready) {
     const geb = initGeb(network);
