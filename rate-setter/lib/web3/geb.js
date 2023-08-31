@@ -102,7 +102,14 @@ export const updateRate = async (network) => {
     const geb = initGeb(network);
     const txData =
       await geb.contracts.rateSetter.populateTransaction.updateRate();
-    const tx = await prepareTx({ data: txData, method: "updateRate", network }); // Updates the db with the unsigned tx
+    const tx = await prepareTx({
+      data: txData,
+      method: "updateRate",
+      contractName: "PIDRateSetter",
+      textTitle:
+        "Retrieves market and redemption prices from the Oracle Relayer and prompts the PID Controller to compute the new redemption rate.",
+      network,
+    });
     const txResponse = await botSendTx({
       unsigned: { to: geb.contracts.rateSetter.address, ...txData },
       network,

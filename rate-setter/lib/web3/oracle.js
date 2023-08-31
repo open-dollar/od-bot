@@ -21,6 +21,8 @@ const updateRedemptionPrice = async (network) => {
     const tx = await prepareTx({
       data: txData,
       method: "redemptionPrice",
+      contractName: "oracleRelayer",
+      textTitle: `Fetch the latest redemption price by first updating it`,
       network,
     });
 
@@ -101,6 +103,8 @@ const updateCollateralPrice = async (network, cType) => {
     const tx = await prepareTx({
       data: txData,
       method: "updateCollateralPrice",
+      contractName: "oracleRelayer",
+      textTitle: `${collateral?.symbol} - Allows an authorized contract to update the safety price and liquidation price of a collateral type`,
       network,
     });
 
@@ -114,7 +118,7 @@ const updateCollateralPrice = async (network, cType) => {
       embed: {
         color: 15548997,
         title: `🦉 OracleRelayer 🚫 FAILED | ${network}`,
-        description: `updateCollateralPrice() failed for collateral ${collateral.symbol} with error: ${e} `,
+        description: `updateCollateralPrice() failed for collateral ${collateral?.symbol} with error: ${e} `,
         footer: { text: new Date().toString() },
       },
       channelName: "warning",

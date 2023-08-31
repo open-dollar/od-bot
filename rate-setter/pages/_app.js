@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { client } from "../lib/apollo-client";
 import { NextUIProvider } from "@nextui-org/react";
 
-import Home from "./index";
+import Home from "./Home";
 
 import "../styles/globals.css";
 
@@ -13,7 +13,9 @@ const App = () => {
     <ApolloProvider client={client}>
       <Suspense fallback={null}>
         <NextUIProvider>
-          <Home />
+          <main className="dark text-foreground bg-background">
+            <Home />
+          </main>
         </NextUIProvider>
       </Suspense>
     </ApolloProvider>

@@ -34,9 +34,9 @@ const getLabels = (data) => {
   return data?.map((stats) => {
     const date = new Date(Number(stats.blockTimestamp) * 1000);
 
-    return `${date.getFullYear()}-${
+    return `${date.getFullYear()}/${
       date.getMonth() + 1
-    }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    }/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
   });
 };
 
@@ -153,23 +153,32 @@ const Charts = () => {
 
   if (data) {
     return (
-      <>
-        <h1>Charts</h1>
-        <div style={{ width: "100%" }}>
-          <h2>Erc 20 Supply</h2>
-          <Line data={erc20SupplyData} />
-          <h2>Market Price</h2>
-          <Line data={marketPriceData} />
-          <h2>Redemption Rate And Price</h2>
-          <Line data={redemptionRateAndPriceData} />
-          <h2>Global Debt</h2>
+      <div className="w-full space-x-4 p-10">
+        <div className="flex w-full">
+          <div className="bg-slate-200 w-full rotate-x-[30deg] -rotate-y-[20deg] ">
+            <Line data={erc20SupplyData} label="ERC20 Supply" />
+          </div>
+          <div className="bg-slate-200 w-full rotate-x-[30deg] -translate-y-12 ">
+            <Line data={marketPriceData} />
+          </div>
+          <div className="bg-slate-200 w-full rotate-x-[30deg] rotate-y-[20deg]">
+            <Line data={redemptionRateAndPriceData} />
+          </div>
+        </div>
+
+        <h2>Global Debt</h2>
+        <div className="bg-slate-200">
           <Line data={globalDebtData} />
-          <h2>Global Debt Utilization</h2>
+        </div>
+        <h2>Global Debt Utilization</h2>
+        <div className="bg-slate-200">
           <Line data={globalDebtUtilizationData} />
-          <h2>Surplus In Treasury</h2>
+        </div>
+        <h2>Surplus In Treasury</h2>
+        <div className="bg-slate-200">
           <Line data={surplusInTreasuryData} />
         </div>
-      </>
+      </div>
     );
   }
   return <></>;

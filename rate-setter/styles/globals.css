@@ -40,3 +40,26 @@ button {
   padding: 0.5rem 1rem;
   font-weight: bold;
 }
+
+.gauge-container {
+  width: 150px;
+  height: 150px;
+  display: block;
+  padding: 10px;
+}
+.gauge-container > .gauge .dial {
+  stroke: #eee;
+  stroke-width: 2;
+  fill: rgba(0,0,0,0);
+}
+.gauge-container > .gauge .value {
+  stroke: rgb(244, 244, 244);
+  stroke-width: 2;
+  fill: rgba(0,0,0,0);
+}
+.gauge-container > .gauge .value-text {
+  fill: rgb(214, 218, 219);
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1em;
+}

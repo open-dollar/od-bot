@@ -6659,6 +6659,7 @@ __metadata:
     react-chartjs-2: ^5.2.0
     react-dom: ^18.2.0
     react-router-dom: ^6.15.0
+    svg-gauge: ^1.0.7
     tailwindcss: ^3.3.3
     tailwindcss-3d: ^1.0.0
     ts-node: ^10.9.1
@@ -10373,6 +10374,13 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 6c4032340701a9950865f7ae8ef38578d8d7053f5e10518076e6554a9381fa91bd9c6850193695c141f32b21f979c985db07265a758867bac95de05f7d8aeb39
+  languageName: node
+  linkType: hard
+
+"svg-gauge@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "svg-gauge@npm:1.0.7"
+  checksum: b83870ae30e1e21154922b874fe47d29986b25584e4adbe8c4e631f3bccaa30e71d7cfcaa5354531472fd3df26b605d8116a9b45521573a19609edf9e89a04be
   languageName: node
   linkType: hard
 

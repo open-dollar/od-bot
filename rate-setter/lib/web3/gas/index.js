@@ -1,35 +1,39 @@
-import { Alchemy } from 'alchemy-sdk'
-import { BigNumber } from 'alchemy-sdk'
-import axios from 'axios'
+import { Alchemy } from "alchemy-sdk";
+import { BigNumber } from "alchemy-sdk";
+import axios from "axios";
 
-import { DEFAULT_GAS_MAX_PRIORITY_FEE_PER_GAS } from '../provider'
+import { DEFAULT_GAS_MAX_PRIORITY_FEE_PER_GAS } from "../provider";
 
-import { parseEther, formatEther } from '@ethersproject/units'
+import { parseEther, formatEther } from "@ethersproject/units";
 
-import { getNativeCoinInfo, getAlchemyNetworkEnum, getExplorerBaseUrlFromName } from '../common'
-import { sendAlert } from '../../discord/alert'
-import { logger } from '../../logger'
-import { gasConfigByNetwork } from './gasConfig'
-import { Web3Providers } from '../provider'
-import { payerAddress, payerSendTransaction } from '../wallets/payer'
+import {
+  getNativeCoinInfo,
+  getAlchemyNetworkEnum,
+  getExplorerBaseUrlFromName,
+} from "../common";
+import { sendAlert } from "../../discord/alert";
+import { logger } from "../../logger";
+import { gasConfigByNetwork } from "./gasConfig";
+import { Web3Providers } from "../provider";
+import { payerAddress, payerSendTransaction } from "../wallets/payer";
 
 export const airdropGasTransaction = async ({ address, amount, network }) => {
   try {
     const tx = {
       to: address,
       value: parseEther(amount),
-    }
-    return await payerSendTransaction({ unsigned: tx, network })
+    };
+    return await payerSendTransaction({ unsigned: tx, network });
   } catch (e) {
-    logger.error(e?.message || e)
-    Sentry.captureException(e)
-    throw new Error('airdropGasTransaction() ', e?.message || e)
+    logger.error(e?.message || e);
+    Sentry.captureException(e);
+    throw new Error("airdropGasTransaction() ", e?.message || e);
   }
-}
+};
 
 export const getGasBalance = async ({ address, network }) => {
-  const balanceBn = await Web3Providers[network].getBalance(address)
-  const nativeCoinInfo = getNativeCoinInfo(network)
+  const balanceBn = await Web3Providers[network].getBalance(address);
+  const nativeCoinInfo = getNativeCoinInfo(network);
   return {
     balance: balanceBn.toString(),
     balanceBn: balanceBn,
@@ -40,51 +44,51 @@ export const getGasBalance = async ({ address, network }) => {
     tokenAddress: null,
     network,
     chainId: Web3Providers[network]._network.chainId,
-  }
-}
+  };
+};
 
 export const checkGasAndAirdrop = async ({ address, amount, network }) => {
   try {
-    const recipientAddress = address
+    const recipientAddress = address;
     const { balanceBn: balance } = await getGasBalance({
       address: recipientAddress,
       network,
-    })
+    });
     const { balanceBn: payerBalance } = await getGasBalance({
       address: payerAddress,
       network,
-    })
-    const GAS_CONFIG = gasConfigByNetwork({ network })
-    let dropAmount = GAS_CONFIG.DEFAULT_DROP_AMOUNT
-    if (balance.isZero()) dropAmount = GAS_CONFIG.INITIAL_DROP_AMOUNT
-    if (amount) dropAmount = amount
-    logger.debug(`checkGasAndAirdrop() recipientAddress: ${recipientAddress}`)
-    logger.debug(`checkGasAndAirdrop() balance \n${balance}`)
+    });
+    const GAS_CONFIG = gasConfigByNetwork({ network });
+    let dropAmount = GAS_CONFIG.DEFAULT_DROP_AMOUNT;
+    if (balance.isZero()) dropAmount = GAS_CONFIG.INITIAL_DROP_AMOUNT;
+    if (amount) dropAmount = amount;
+    logger.debug(`checkGasAndAirdrop() recipientAddress: ${recipientAddress}`);
+    logger.debug(`checkGasAndAirdrop() balance \n${balance}`);
     logger.debug(
       `checkGasAndAirdrop() parseEther(GAS_CONFIG.MINIMUM_GAS_DROP_THRESHOLD): \n${parseEther(
         GAS_CONFIG.MINIMUM_GAS_DROP_THRESHOLD
       )}`
-    )
+    );
 
     if (balance.lte(parseEther(GAS_CONFIG.MINIMUM_GAS_DROP_THRESHOLD))) {
-      logger.debug("Airdrop threshold met, sending gas")
+      logger.debug("⛽️⛽️⛽️ Airdrop threshold met, sending gas");
       const tx = await airdropGasTransaction({
         address: recipientAddress,
         amount: dropAmount,
         network,
-      })
+      });
       await notifyDiscord({
         address: recipientAddress,
         network,
         txHash: tx.hash,
         payerBalance: formatEther(payerBalance),
-      })
-      return tx
+      });
+      return tx;
     }
-    return null
+    return null;
   } catch (e) {
-    logger.log(e)
-    logger.error(`🪂 Airdrop 🚫 FAILED | ${network}`)
+    logger.log(e);
+    logger.error(`🪂 Airdrop 🚫 FAILED | ${network}`);
     await sendAlert({
       embed: {
         color: 15548997,
@@ -94,21 +98,20 @@ export const checkGasAndAirdrop = async ({ address, amount, network }) => {
         )}address/${payerAddress}`,
         footer: { text: new Date().toString() },
       },
-      channelName: 'warning',
-    })
+      channelName: "warning",
+    });
   }
-}
+};
 
 export const getGasSettings = async ({ network }) => {
-  let alchemyNetwork
+  let alchemyNetwork;
   try {
-    alchemyNetwork = getAlchemyNetworkEnum(network)
+    alchemyNetwork = getAlchemyNetworkEnum(network);
   } catch (e) {
-    logger.debug(`getGasSettings() - no Alchemy network found for ${network}`)
-
+    logger.debug(`getGasSettings() - no Alchemy network found for ${network}`);
   }
-  let maxFeePerGas
-  let maxPriorityFeePerGas
+  let maxFeePerGas;
+  let maxPriorityFeePerGas;
 
   // Use Alchemy first, if available for the network
   if (alchemyNetwork) {
@@ -116,102 +119,102 @@ export const getGasSettings = async ({ network }) => {
       const settings = {
         apiKey: process.env.ALCHEMY_API_KEY,
         network: getAlchemyNetworkEnum(network),
-      }
-      const alchemy = new Alchemy(settings)
-      let gasPrice = await alchemy.core.getGasPrice()
-      maxFeePerGas = gasPrice
-      maxPriorityFeePerGas = gasPrice
+      };
+      const alchemy = new Alchemy(settings);
+      let gasPrice = await alchemy.core.getGasPrice();
+      maxFeePerGas = gasPrice;
+      maxPriorityFeePerGas = gasPrice;
     } catch (e) {
-      if (network === 'POLYGON') {
-        maxFeePerGas = DEFAULT_GAS_MAX_PRIORITY_FEE_PER_GAS
-        maxPriorityFeePerGas = DEFAULT_GAS_MAX_PRIORITY_FEE_PER_GAS
-        logger.error(`Falling back to default gas settings for Polygon`)
+      if (network === "POLYGON") {
+        maxFeePerGas = DEFAULT_GAS_MAX_PRIORITY_FEE_PER_GAS;
+        maxPriorityFeePerGas = DEFAULT_GAS_MAX_PRIORITY_FEE_PER_GAS;
+        logger.error(`Falling back to default gas settings for Polygon`);
       }
-      logger.error(`Can't get gas settings from Alchemy for ${network}`)
-      logger.error(e)
+      logger.error(`Can't get gas settings from Alchemy for ${network}`);
+      logger.error(e);
     }
   }
 
   // Using Infura for Avalanche and Avalanche-Fuji
-  if (network === 'AVALANCHE' || network === 'AVALANCHE-FUJI') {
+  if (network === "AVALANCHE" || network === "AVALANCHE-FUJI") {
     try {
-      if (network === 'AVALANCHE') {
+      if (network === "AVALANCHE") {
         axios
           .post(
             `https://avalanche-mainnet.infura.io/v3/${process.env.INFURA_ID}`,
             {
-              jsonrpc: '2.0',
+              jsonrpc: "2.0",
               id: 1,
-              method: 'eth_gasPrice',
+              method: "eth_gasPrice",
               params: [],
             },
             {
-              headers: { 'Content-Type': 'application/json' },
+              headers: { "Content-Type": "application/json" },
             }
           )
           .then(
             (response) => {
-              maxFeePerGas = response.data.result
-              maxPriorityFeePerGas = response.data.result
+              maxFeePerGas = response.data.result;
+              maxPriorityFeePerGas = response.data.result;
             },
             (error) => {
-              logger.error(`Can't get gas settings from Infura for ${network}`)
-              logger.error(error)
+              logger.error(`Can't get gas settings from Infura for ${network}`);
+              logger.error(error);
             }
-          )
+          );
       } else {
         axios
           .post(
             `https://avalanche-fuji.infura.io/v3/${process.env.INFURA_ID}`,
             {
-              jsonrpc: '2.0',
+              jsonrpc: "2.0",
               id: 1,
-              method: 'eth_gasPrice',
+              method: "eth_gasPrice",
               params: [],
             },
             {
-              headers: { 'Content-Type': 'application/json' },
+              headers: { "Content-Type": "application/json" },
             }
           )
           .then(
             (response) => {
-              maxFeePerGas = response.data.result
-              maxPriorityFeePerGas = response.data.result
+              maxFeePerGas = response.data.result;
+              maxPriorityFeePerGas = response.data.result;
             },
             (error) => {
-              logger.error(`Can't get gas settings from Infura for ${network}`)
-              logger.error(error)
+              logger.error(`Can't get gas settings from Infura for ${network}`);
+              logger.error(error);
             }
-          )
+          );
       }
     } catch (e) {
-      logger.error(`Can't get gas settings from Infura for ${network}`)
-      logger.error(e)
+      logger.error(`Can't get gas settings from Infura for ${network}`);
+      logger.error(e);
     }
   }
 
   // Gnosis
-  if (network === 'GNOSIS') {
+  if (network === "GNOSIS") {
     try {
       let response = await axios.get(
-        'https://api.gnosisscan.io/api?module=proxy&action=eth_gasPrice'
-      )
-      let gasPrice = response.data.result
-      maxFeePerGas = BigNumber.from(gasPrice)
-      maxPriorityFeePerGas = maxFeePerGas
+        "https://api.gnosisscan.io/api?module=proxy&action=eth_gasPrice"
+      );
+      let gasPrice = response.data.result;
+      maxFeePerGas = BigNumber.from(gasPrice);
+      maxPriorityFeePerGas = maxFeePerGas;
     } catch (e) {
-      logger.error(`Can't get gas settings for Gnosis`)
-      logger.error(e)
+      logger.error(`Can't get gas settings for Gnosis`);
+      logger.error(e);
     }
   }
 
   if (!maxFeePerGas || !maxPriorityFeePerGas) {
-    maxFeePerGas = undefined
-    maxPriorityFeePerGas = undefined
+    maxFeePerGas = undefined;
+    maxPriorityFeePerGas = undefined;
   }
 
-  return { maxFeePerGas, maxPriorityFeePerGas }
-}
+  return { maxFeePerGas, maxPriorityFeePerGas };
+};
 
 const notifyDiscord = async ({ address, txHash, payerBalance, network }) => {
   try {
@@ -225,9 +228,9 @@ ${getExplorerBaseUrlFromName(network)}tx/${txHash}
 Payer balance: **${payerBalance}**`,
         footer: { text: new Date().toString() },
       },
-      channelName: 'action',
-    })
+      channelName: "action",
+    });
   } catch (e) {
-    logger.error(e)
+    logger.error(e);
   }
-}
+};

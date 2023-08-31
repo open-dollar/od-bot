@@ -14,7 +14,9 @@ const typeDefs = gql`
     updatedAt: String
     network: String!
     method: String!
+    contractName: String
     hash: String!
+    textTitle: String
   }
 
   type globalStats {

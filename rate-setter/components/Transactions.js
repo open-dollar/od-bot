@@ -30,6 +30,8 @@ const GET_TXS = gql`
       network
       method
       hash
+      contractName
+      textTitle
     }
   }
 `;
@@ -47,8 +49,10 @@ const Transactions = () => {
         className="underline font-blue "
         href={`${getExplorerBaseUrlFromName(tx.network)}tx/${tx.hash}`}
       >
-        {tx.network} receipt
+        tx
       </a>,
+      tx.contractName,
+      tx.textTitle,
       new Date(Number(tx.createdAt)).toLocaleString(),
     ]);
     return (
@@ -58,6 +62,8 @@ const Transactions = () => {
           <TableHeader>
             <TableColumn>METHOD</TableColumn>
             <TableColumn>RECEIPT</TableColumn>
+            <TableColumn>CONTRACT</TableColumn>
+            <TableColumn>DESCRIPTION</TableColumn>
             <TableColumn>DATE</TableColumn>
           </TableHeader>
           <TableBody>
