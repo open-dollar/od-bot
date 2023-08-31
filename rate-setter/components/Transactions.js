@@ -44,7 +44,7 @@ const Transactions = () => {
     const transformedData = data.recentTransactions.map((tx) => [
       tx.method,
       <a
-        className="underline font-blue"
+        className="underline font-blue "
         href={`${getExplorerBaseUrlFromName(tx.network)}tx/${tx.hash}`}
       >
         {tx.network} receipt

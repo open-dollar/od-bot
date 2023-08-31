@@ -6660,6 +6660,7 @@ __metadata:
     react-dom: ^18.2.0
     react-router-dom: ^6.15.0
     tailwindcss: ^3.3.3
+    tailwindcss-3d: ^1.0.0
     ts-node: ^10.9.1
     typescript: 5.1.6
   languageName: unknown
@@ -8601,7 +8602,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.21":
+"lodash@npm:4.17.21, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
@@ -10397,6 +10398,18 @@ __metadata:
   peerDependencies:
     tailwindcss: "*"
   checksum: 255dc6aa5108b5124406bc09929c531153aaf7bf135a33c2d7722acbde2451843e52d02c4b661c188361c58216a036b6c6ab51f85eaf639fae75d13435122054
+  languageName: node
+  linkType: hard
+
+"tailwindcss-3d@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "tailwindcss-3d@npm:1.0.0"
+  dependencies:
+    "@swc/helpers": 0.5.1
+    lodash: 4.17.21
+  peerDependencies:
+    tailwindcss: ">=3.2.0"
+  checksum: 752d29cfcfde148cb93b81059df24cae0afdbc86b7b7c639ba950707c9cfb1674d3503ec5d4b4cfe5bb80cbfcd13ef4fa8f1234a1e301f04fe8c05946a83a7d9
   languageName: node
   linkType: hard
 

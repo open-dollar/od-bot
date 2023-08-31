@@ -9,7 +9,12 @@ module.exports = {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      rotate: {
+        30: "30deg",
+        60: "60deg",
+      },
+    },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-3d")],
 };
