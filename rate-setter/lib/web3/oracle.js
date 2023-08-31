@@ -1,53 +1,123 @@
-import { Geb, utils } from '@usekeyp/od-sdk'
+import { Geb, utils } from "@usekeyp/od-sdk";
 
-import { botSendTx } from "./wallets/bot"
-import { Web3Providers } from './provider'
-import { sendAlert } from '../discord/alert'
-import { getExplorerBaseUrlFromName } from './common'
-import { prepareTx } from "./common"
+import { botSendTx } from "./wallets/bot";
+import { Web3Providers } from "./provider";
+import { sendAlert } from "../discord/alert";
+import { getExplorerBaseUrlFromName, prepareTx, readManyVars } from "./common";
+import { getStats } from "./analytics";
 
-import { initGeb } from "./geb"
+import { initGeb } from "./geb";
 
-export const updateFeed = async (network, address) => {
-  const geb = initGeb(network)
-  // TODO: Use address to fetch the right Oracle
-  const { oracleRelayer } = geb.contracts
+export const updateOracles = async (network) => {
+  await updateCollateralPrices(network);
+  await updateRedemptionPrice(network);
+};
 
-  // TODO: this is not the oracle relayer
-  const shouldUpdate = await oracleRelayer.shouldUpdate()
-  if (shouldUpdate) {
-    const txData = await oracleRelayer.updateResult()
-    const tx = await prepareTx({ data: txData }) // Updates the db with the unsigned tx
-    const txResponse = await botSendTx({ unsigned: txData, network })
-    await updateTx(tx, { hash: txResponse.hash })
+const updateRedemptionPrice = async (network) => {
+  try {
+    const geb = initGeb(network);
+    const txData =
+      await geb.contracts.oracleRelayer.populateTransaction.redemptionPrice();
+    const tx = await prepareTx({
+      data: txData,
+      method: "redemptionPrice",
+      network,
+    });
 
+    const txResponse = await botSendTx({ unsigned: txData, network });
+    await tx.update({ hash: txResponse.hash });
     await sendAlert({
       embed: {
         color: 1900316,
-        title: `📈 DelayedOracle 🔃 UPDATED | ${network}`,
-        description: `${getExplorerBaseUrlFromName(
+        title: `🦉 OracleRelayer 🔃 UPDATED | ${network}`,
+        description: `redemptionPrice() - [receipt](${getExplorerBaseUrlFromName(
           network
-        )}tx/${txResponse.hash}
-
-${JSON.toString(stats)}`,
+        )}tx/${txResponse.hash})`,
         footer: { text: new Date().toString() },
       },
-      channelName: 'action',
-    })
-
-    return success
+      channelName: "action",
+    });
+  } catch (e) {
+    console.log(e);
+    await sendAlert({
+      embed: {
+        color: 15548997,
+        title: `🦉 OracleRelayer 🚫 FAILED | ${network}`,
+        description: `redemptionPrice() failed with error: ${e} `,
+        footer: { text: new Date().toString() },
+      },
+      channelName: "warning",
+    });
   }
-}
+};
 
-export const getOracleDetails = async () => {
-  let details = await readManyVars([
-    "shouldUpdate",
-    "getResultWithValidity"
-  ], DelayedOracle)
+const updateCollateralPrices = async (network) => {
+  const geb = initGeb(network);
 
-  details.priceFeedValue = details.resultWithValidity.result
-  details.priceFeedValidity = details.resultWithValidity.validity
+  const collateralCTypes = await geb.contracts.oracleRelayer.collateralList();
 
-  // shouldUpdate, priceFeedValue, priceFeedValidity
-  return details
-}
+  let fields = [];
+  for (let i = 0; i <= collateralCTypes.length - 1; i++) {
+    const updatedCollateral = await updateCollateralPrice(
+      network,
+      collateralCTypes[i]
+    );
+    if (updatedCollateral) {
+      fields.push({
+        name: "",
+        value: `🪙  **[${
+          updatedCollateral.symbol
+        }](${getExplorerBaseUrlFromName(network)}address/${
+          updatedCollateral.address
+        })** - [receipt](${getExplorerBaseUrlFromName(network)}tx/${
+          updatedCollateral.hash
+        })`,
+      });
+    }
+  }
+
+  await sendAlert({
+    embed: {
+      color: 1900316,
+      title: `🦉 OracleRelayer 🔃 UPDATED | ${network}`,
+      description: `updateCollateralPrice()`,
+      fields: fields.slice(0, 24),
+      footer: { text: new Date().toString() },
+    },
+    channelName: "action",
+  });
+};
+
+const updateCollateralPrice = async (network, cType) => {
+  const geb = initGeb(network);
+  const collateral = Object.values(geb.tokenList).find(
+    (t) => t.bytes32String === cType
+  );
+  try {
+    const txData =
+      await geb.contracts.oracleRelayer.populateTransaction.updateCollateralPrice(
+        cType
+      );
+    const tx = await prepareTx({
+      data: txData,
+      method: "updateCollateralPrice",
+      network,
+    });
+
+    const txResponse = await botSendTx({ unsigned: txData, network });
+    await tx.update({ hash: txResponse.hash });
+
+    return { hash: txResponse.hash, ...collateral };
+  } catch (e) {
+    console.log(e);
+    await sendAlert({
+      embed: {
+        color: 15548997,
+        title: `🦉 OracleRelayer 🚫 FAILED | ${network}`,
+        description: `updateCollateralPrice() failed for collateral ${collateral.symbol} with error: ${e} `,
+        footer: { text: new Date().toString() },
+      },
+      channelName: "warning",
+    });
+  }
+};

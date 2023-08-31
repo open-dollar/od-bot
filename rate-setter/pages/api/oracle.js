@@ -1,4 +1,4 @@
-import { getStats, getAuctionData } from "../../lib/web3/analytics";
+import { updateOracles } from "../../lib/web3/oracle";
 
 const ARBITRUM_GOERLI = "ARBITRUM_GOERLI";
 
@@ -10,10 +10,7 @@ export default async function handler(request, response) {
   let network = ARBITRUM_GOERLI;
   if (request.query.network) network = request.query.network;
 
-  const stats = await getStats(network);
-  await stats.save();
-
-  // await getAuctionData(network);
+  await updateOracles(network);
 
   response.status(200).json({ success: true });
 }
