@@ -12,7 +12,6 @@ import {
   getExplorerBaseUrlFromName,
 } from "./common";
 import { sendAlert } from "../discord/alert";
-import prisma from "../prisma";
 import { fetchAnalyticsData } from "@usekeyp/od-sdk/lib/virtual/virtualAnalyticsData";
 import {
   CollateralAuctionsData,
@@ -20,7 +19,7 @@ import {
 } from "@usekeyp/od-sdk/lib/virtual/virtualCollateralAuctionData";
 import { fetchAuctionData } from "@usekeyp/od-sdk/lib/virtual/virtualAuctionData";
 
-const saveStats = async ({ network, stats }) => {
+export const saveStats = async ({ network, stats }) => {
   try {
     await prisma.globalStats.create({
       data: {
@@ -77,7 +76,6 @@ const saveStats = async ({ network, stats }) => {
 };
 
 export const getStats = async (network) => {
-  // Get raw data using virtualAnalytcisData contract
   const geb = initGeb(network);
   const analyticsData = await fetchAnalyticsData(geb);
   // Parse to human read-able
@@ -244,38 +242,38 @@ const alertGlobalAnalyticsData = async (data, network) => {
 };
 
 const alertTokenAnalyticsData = async (tokenAnalyticsData, network) => {
-  Object.entries(tokenAnalyticsData).map(async ([key, value]) => {
+  const fields = Object.values(tokenAnalyticsData).reduce((acc, token) => {
     let collateralFields = [];
+    collateralFields.push({
+      name: "",
+      value: `🪙 **[${token.symbol}](${getExplorerBaseUrlFromName(
+        network
+      )}address/${token.address})** - ${token.currentPrice}`,
+    });
     const data = {
-      currentPrice: value.currentPrice,
-      stabilityFee: value.stabilityFee,
-      borrowRate: value.borrowRate,
-      debt: value.debt,
-      lockedUSD: value.lockedUSD,
+      Fees: `${token.stabilityFee} stability fee\n${token.borrowRate} borrow rate`,
+      Debt: `${token.debt} debt\n${token.lockedUSD} locked`,
     };
     Object.entries(data).map(([key, val]) => {
       collateralFields.push({
-        name: key,
-        value: val,
+        name: val,
+        value: "",
         inline: true,
       });
     });
-    collateralFields.push({
-      name: "contract",
-      value: `${getExplorerBaseUrlFromName(network)}address/${value.address}`,
-    });
-    await sendAlert({
-      embed: {
-        color: 0xffffd0,
-        title: `📊  Analytics - ${value.symbol} | ${network}`,
-        footer: { text: new Date().toString() },
-        fields: collateralFields.slice(0, 24), // 25 item limit
-      },
-      channelName: "action",
-    });
+    return acc.concat(collateralFields);
+  }, []);
+  // console.log(fields)
+  await sendAlert({
+    embed: {
+      color: 0xffffd0,
+      title: `📊  Analytics - Tokens | ${network}`,
+      footer: { text: new Date().toString() },
+      fields: fields.slice(0, 24), // 25 item limit
+    },
+    channelName: "action",
   });
 };
-
 export const getAuctionData = async (network) => {
   const geb = initGeb(network);
 
