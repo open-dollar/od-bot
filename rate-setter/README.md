@@ -8,7 +8,6 @@ yarn dev
 
 Hit the endpoint `/api/rate?secret=<some-secret>` to trigger the bot to call `updateRate`
 
-
 ### Database
 
 Update env
@@ -17,7 +16,7 @@ Update env
 DATABASE_URL=postgres://me:password@0.0.0.0:5432/od-bots-testing
 ```
 
-Run setup 
+Run setup
 
 ```bash
 # Setup locally
