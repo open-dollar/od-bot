@@ -54,7 +54,6 @@ const getValues = (data, key) => {
 const getChartData = (data, labelName, key) => {
   const labels = getLabels(data);
   const values = getValues(data, key);
-  console.log(values);
   return {
     labels: labels,
     datasets: [
@@ -73,7 +72,6 @@ const Charts = () => {
   const { loading, error, data } = useQuery(GET_STATS);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
-  console.log(data.globalStats);
 
   const erc20SupplyData = getChartData(
     data.globalStats,
@@ -82,25 +80,25 @@ const Charts = () => {
   );
   const marketPriceData = getChartData(
     data.globalStats,
-    "Market Price",
+    "Market Price ($)",
     "marketPrice"
   );
 
   const globalDebtData = getChartData(
     data.globalStats,
-    "Global Debt",
+    "Global Debt ($)",
     "globalDebt"
   );
 
   const globalDebtUtilizationData = getChartData(
     data.globalStats,
-    "Global Debt Utilization",
+    "Global Debt Utilization (%)",
     "globalDebtUtilization"
   );
 
   const surplusInTreasuryData = getChartData(
     data.globalStats,
-    "Surplus In Treasury",
+    "Surplus In Treasury ($)",
     "surplusInTreasury"
   );
 

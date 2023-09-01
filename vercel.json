@@ -3,15 +3,19 @@
   "crons": [
     {
       "path": "/api/rate?secret=openDollar",
-      "schedule": "0 */1 * * *"
+      "schedule": "50 */1 * * *"
     },
     {
       "path": "/api/analytics?secret=openDollar",
-      "schedule": "0 */1 * * *"
+      "schedule": "50 */1 * * *"
     },
     {
       "path": "/api/oracle?secret=openDollar",
-      "schedule": "0 */1 * * *"
+      "schedule": "50 */1 * * *"
+    },
+    {
+      "path": "/api/auction?secret=openDollar",
+      "schedule": "50 */1 * * *"
     }
   ]
 }

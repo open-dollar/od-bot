@@ -40,7 +40,6 @@ const Transactions = () => {
   const { loading, error, data } = useQuery(GET_TXS);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
-  console.log(data.recentTransactions);
 
   if (data) {
     const transformedData = data.recentTransactions.map((tx) => [

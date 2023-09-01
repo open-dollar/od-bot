@@ -48,7 +48,7 @@ const resolvers = {
     },
     recentTransactions: () => {
       return prisma.tx.findMany({
-        take: 10,
+        take: 20,
         orderBy: {
           createdAt: "desc",
         },
