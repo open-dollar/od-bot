@@ -5670,14 +5670,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@usekeyp/od-sdk@npm:^1.3.0-rc.1":
-  version: 1.3.0-rc.1
-  resolution: "@usekeyp/od-sdk@npm:1.3.0-rc.1"
+"@usekeyp/od-sdk@npm:^1.2.0-rc.3":
+  version: 1.2.0-rc.3
+  resolution: "@usekeyp/od-sdk@npm:1.2.0-rc.3"
   dependencies:
     ethers: 5.4.7
   peerDependencies:
     utf-8-validate: ^5.0.2
-  checksum: fa629d49093220abd81c0fec2218839e6a0941d529a4a92a0a41d4814545d435405b7b1663a7c5232668e3d1aceae220ad409cc303cad20b313f98e6f556d32c
+  checksum: 29b375b52e7886b0e19d49eb1474fbfe256bd442fd1a40d6b6e9885565cf95b8cdddd88395e73a8fab776efb3b997c8cfce348d2eeecd293d3808be98b7efd68
   languageName: node
   linkType: hard
 
@@ -6639,7 +6639,7 @@ __metadata:
     "@prisma/client": ^5.1.1
     "@types/node": ^20.4.10
     "@types/react": 18.2.20
-    "@usekeyp/od-sdk": ^1.3.0-rc.1
+    "@usekeyp/od-sdk": ^1.2.0-rc.3
     alchemy-sdk: ^2.9.2
     autoprefixer: ^10.4.15
     chart.js: ^4.3.3
