@@ -11,7 +11,7 @@ https://bot.opendollar.com
 
 ## Usage 📖
 
-Start the Next app:
+Start the app:
 
 ```bash
 yarn dev
