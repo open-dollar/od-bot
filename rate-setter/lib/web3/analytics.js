@@ -1,4 +1,3 @@
-import { defaultAbiCoder } from "@ethersproject/abi";
 import prisma from "../prisma";
 
 import { initGeb } from "./geb";
@@ -14,11 +13,6 @@ import {
 } from "./common";
 import { sendAlert } from "../discord/alert";
 import { fetchAnalyticsData } from "@usekeyp/od-sdk/lib/virtual/virtualAnalyticsData";
-import {
-  CollateralAuctionsData,
-  fetchCollateralAuctionData,
-} from "@usekeyp/od-sdk/lib/virtual/virtualCollateralAuctionData";
-import { fetchAuctionData } from "@usekeyp/od-sdk/lib/virtual/virtualAuctionData";
 
 export const saveStats = async ({ network, stats }) => {
   try {
@@ -257,8 +251,8 @@ const alertTokenAnalyticsData = async (tokenAnalyticsData, network) => {
     };
     Object.entries(data).map(([key, val]) => {
       collateralFields.push({
-        name: val,
-        value: "",
+        name: "",
+        value: val,
         inline: true,
       });
     });
@@ -274,21 +268,4 @@ const alertTokenAnalyticsData = async (tokenAnalyticsData, network) => {
     },
     channelName: "action",
   });
-};
-export const getAuctionData = async (network) => {
-  const geb = initGeb(network);
-
-  const collateralAuctionData = await fetchCollateralAuctionData(
-    geb,
-    "WETH",
-    [1, 2, 3, 4]
-  );
-  // console.log(collateralAuctionData)
-
-  const auctionData = await fetchAuctionData(
-    geb,
-    "0xC295763Eed507d4A0f8B77241c03dd3354781a15"
-  );
-  console.log(auctionData);
-  console.log(auctionData.length);
 };

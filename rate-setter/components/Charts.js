@@ -47,34 +47,21 @@ const getValues = (data, key) => {
   }
   return data.map((stats) => {
     let valueStr = stats[key];
-
-    if (valueStr?.includes("$")) {
-      return Number(valueStr.replace("$", ""));
-    } else if (valueStr?.includes("%")) {
-      return Number(valueStr.replace("%", ""));
-    } else {
-      return Number(valueStr);
-    }
+    return parseInt(valueStr?.replace(/[^0-9]/g, ""));
   });
 };
 
 const getChartData = (data, labelName, key) => {
   const labels = getLabels(data);
   const values = getValues(data, key);
-
+  console.log(values);
   return {
     labels: labels,
     datasets: [
       {
         label: labelName,
         data: values,
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          // "#ecf0f1",
-          // "#f0331a",
-          // "#f3ba2f",
-          // "#2a71d0",
-        ],
+        backgroundColor: "rgba(75,192,192,1)",
         borderColor: "black",
         borderWidth: 2,
       },
@@ -90,7 +77,7 @@ const Charts = () => {
 
   const erc20SupplyData = getChartData(
     data.globalStats,
-    "erc20Supply",
+    "ERC20 Supply",
     "erc20Supply"
   );
   const marketPriceData = getChartData(
