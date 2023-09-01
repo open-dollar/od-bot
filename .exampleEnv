@@ -11,7 +11,7 @@ PAYER_WALLET_ADDRESS=
 PAYER_WALLET_PRIVATE_KEY=
 
 #### Optional ####
-# [prod|dev] Sets alerts Discord channel
+# [prod|dev]
 ENVIRONMENT=
 ENABLE_DISCORD_BOTS=true
 DISCORD_BOT_TOKEN=

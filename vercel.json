@@ -1,0 +1,17 @@
+{
+  "buildCommand": "yarn prisma generate && yarn prisma migrate deploy && next build",
+  "crons": [
+    {
+      "path": "/api/rate?secret=openDollar",
+      "schedule": "0 */1 * * *"
+    },
+    {
+      "path": "/api/analytics?secret=openDollar",
+      "schedule": "0 */1 * * *"
+    },
+    {
+      "path": "/api/oracle?secret=openDollar",
+      "schedule": "0 */1 * * *"
+    }
+  ]
+}
