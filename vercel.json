@@ -2,19 +2,19 @@
   "buildCommand": "yarn prisma generate && yarn prisma migrate deploy && next build",
   "crons": [
     {
-      "path": "/api/rate?secret=openDollar",
+      "path": "/api/rate?network=ARBITRUM_GOERLI&secret=openDollar",
       "schedule": "50 */1 * * *"
     },
     {
-      "path": "/api/analytics?secret=openDollar",
+      "path": "/api/analytics?network=ARBITRUM_GOERLI&secret=openDollar",
       "schedule": "50 */1 * * *"
     },
     {
-      "path": "/api/oracle?secret=openDollar",
+      "path": "/api/oracle?network=ARBITRUM_GOERLI&secret=openDollar",
       "schedule": "50 */1 * * *"
     },
     {
-      "path": "/api/auction?secret=openDollar",
+      "path": "/api/auction?network=ARBITRUM_GOERLI&secret=openDollar",
       "schedule": "50 */1 * * *"
     }
   ]
