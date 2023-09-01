@@ -1,10 +1,6 @@
-import { Geb, utils } from "@usekeyp/od-sdk";
-
 import { botSendTx } from "./wallets/bot";
-import { Web3Providers } from "./provider";
 import { sendAlert } from "../discord/alert";
-import { getExplorerBaseUrlFromName, prepareTx, readManyVars } from "./common";
-import { getStats } from "./analytics";
+import { getExplorerBaseUrlFromName, prepareTx } from "./common";
 
 import { initGeb } from "./geb";
 

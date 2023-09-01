@@ -171,13 +171,6 @@ export const prepareTx = async (tx) => {
   }
 };
 
-const updateTx = async (tx, data) => {
-  await prisma.tx.update({
-    where: { id: tx.id },
-    data,
-  });
-};
-
 export const formatNumber = (value, digits = 6, round = false) => {
   if (!value) {
     return "0";
