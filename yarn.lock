@@ -5670,16 +5670,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@usekeyp/od-sdk@npm:^1.2.0-rc.3":
-  version: 1.2.0-rc.3
-  resolution: "@usekeyp/od-sdk@npm:1.2.0-rc.3"
+"@usekeyp/od-sdk@portal:/Users/dev/repos/opendollar/od-sdk::locator=cron-bots-vercel%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@usekeyp/od-sdk@portal:/Users/dev/repos/opendollar/od-sdk::locator=cron-bots-vercel%40workspace%3A."
   dependencies:
     ethers: 5.4.7
   peerDependencies:
     utf-8-validate: ^5.0.2
-  checksum: 29b375b52e7886b0e19d49eb1474fbfe256bd442fd1a40d6b6e9885565cf95b8cdddd88395e73a8fab776efb3b997c8cfce348d2eeecd293d3808be98b7efd68
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "@vladfrangu/async_event_emitter@npm:^2.2.2":
   version: 2.2.2
@@ -6639,7 +6638,7 @@ __metadata:
     "@prisma/client": ^5.1.1
     "@types/node": ^20.4.10
     "@types/react": 18.2.20
-    "@usekeyp/od-sdk": ^1.2.0-rc.3
+    "@usekeyp/od-sdk": ^1.3.0-rc.1
     alchemy-sdk: ^2.9.2
     autoprefixer: ^10.4.15
     chart.js: ^4.3.3
@@ -6664,6 +6663,7 @@ __metadata:
     tailwindcss-3d: ^1.0.0
     ts-node: ^10.9.1
     typescript: 5.1.6
+    utf-8-validate: ^6.0.3
   languageName: unknown
   linkType: soft
 
@@ -10844,6 +10844,16 @@ __metadata:
     node-gyp: latest
     node-gyp-build: ^4.3.0
   checksum: 23cd6adc29e6901aa37ff97ce4b81be9238d0023c5e217515b34792f3c3edb01470c3bd6b264096dd73d0b01a1690b57468de3a24167dd83004ff71c51cc025f
+  languageName: node
+  linkType: hard
+
+"utf-8-validate@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "utf-8-validate@npm:6.0.3"
+  dependencies:
+    node-gyp: latest
+    node-gyp-build: ^4.3.0
+  checksum: 2ca08b07f4070540b33ff15f3f0632fa30baaee8a766fff993be47b4829b4fb30fd36fdf1270336324d03f65e0936c4608ee719d862230d75311751dcfe27a83
   languageName: node
   linkType: hard
 
