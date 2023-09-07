@@ -27,7 +27,7 @@ const test = async () => {
     // );
 
     response = await fetch(
-      `http://localhost:3000/api/price?secret=${process.env.RATE_SECRET}&token=STN&price=1000000000000000000`
+      `http://localhost:3000/api/price?secret=${process.env.RATE_SECRET}&token=FTRG&price=1000000000000000000`
     );
 
     console.log(response);
