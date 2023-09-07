@@ -10,7 +10,12 @@ export default async function handler(request, response) {
   let network = ARBITRUM_GOERLI;
   if (request.query.network) network = request.query.network;
 
-  await updateTokenPrice(network, request.query.token, request.query.price);
+  await updateTokenPrice(
+    network,
+    request.query.token,
+    request.query.price,
+    request.query.execute === "true" ? true : false
+  );
 
   response.status(200).json({ success: true });
 }
