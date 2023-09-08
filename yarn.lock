@@ -5670,14 +5670,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@usekeyp/od-sdk@npm:^1.3.0-rc.1":
-  version: 1.3.0-rc.1
-  resolution: "@usekeyp/od-sdk@npm:1.3.0-rc.1"
+"@usekeyp/od-sdk@npm:^1.4.0-rc.1":
+  version: 1.4.0-rc.1
+  resolution: "@usekeyp/od-sdk@npm:1.4.0-rc.1"
   dependencies:
     ethers: 5.4.7
   peerDependencies:
     utf-8-validate: ^5.0.2
-  checksum: fa629d49093220abd81c0fec2218839e6a0941d529a4a92a0a41d4814545d435405b7b1663a7c5232668e3d1aceae220ad409cc303cad20b313f98e6f556d32c
+  checksum: 4f2ac63b7fda4eb2dba5ee0ac7d0e7a807b58144eb6d89e5ecdae465a05bdeb988b65b8e722d33bc79fca06b08b344184c2d90583c6105b32a0d3634e1c030d4
   languageName: node
   linkType: hard
 
@@ -6639,7 +6639,7 @@ __metadata:
     "@prisma/client": ^5.1.1
     "@types/node": ^20.4.10
     "@types/react": 18.2.20
-    "@usekeyp/od-sdk": ^1.3.0-rc.1
+    "@usekeyp/od-sdk": ^1.4.0-rc.1
     alchemy-sdk: ^2.9.2
     autoprefixer: ^10.4.15
     chart.js: ^4.3.3
@@ -6664,6 +6664,7 @@ __metadata:
     tailwindcss-3d: ^1.0.0
     ts-node: ^10.9.1
     typescript: 5.1.6
+    utf-8-validate: ^6.0.3
   languageName: unknown
   linkType: soft
 
@@ -10844,6 +10845,16 @@ __metadata:
     node-gyp: latest
     node-gyp-build: ^4.3.0
   checksum: 23cd6adc29e6901aa37ff97ce4b81be9238d0023c5e217515b34792f3c3edb01470c3bd6b264096dd73d0b01a1690b57468de3a24167dd83004ff71c51cc025f
+  languageName: node
+  linkType: hard
+
+"utf-8-validate@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "utf-8-validate@npm:6.0.3"
+  dependencies:
+    node-gyp: latest
+    node-gyp-build: ^4.3.0
+  checksum: 2ca08b07f4070540b33ff15f3f0632fa30baaee8a766fff993be47b4829b4fb30fd36fdf1270336324d03f65e0936c4608ee719d862230d75311751dcfe27a83
   languageName: node
   linkType: hard
 
