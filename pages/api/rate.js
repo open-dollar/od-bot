@@ -3,12 +3,9 @@ import { updateFeed } from "../../lib/web3/oracle";
 
 const ARBITRUM_GOERLI = "ARBITRUM_GOERLI";
 
-export default async function handler(
-  request,
-  response
-) {
+export default async function handler(request, response) {
   if (request.query.secret !== process.env.RATE_SECRET) {
-    response.status(404).end();
+    response.status(401).end();
     return;
   }
 
@@ -16,7 +13,7 @@ export default async function handler(
   if (request.query.network) network = request.query.network;
   await updateRate(network);
 
-  // TODO: also update oracle feed 
+  // TODO: also update oracle feed
   // await updateFeed(OPTIMISM_GOERLI);
 
   response.status(200).json({ success: true });
