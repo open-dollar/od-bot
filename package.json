@@ -1,6 +1,6 @@
 {
-  "name": "cron-bots-vercel",
-  "version": "0.0.1",
+  "name": "od-bot",
+  "version": "1.5.0",
   "description": "",
   "main": "api/cron",
   "scripts": {
@@ -26,7 +26,7 @@
     "@ethersproject/contracts": "^5.7.0",
     "@ethersproject/units": "^5.7.0",
     "@nextui-org/react": "^2.1.7",
-    "@opendollar/sdk": "^1.5.2-rc.1",
+    "@opendollar/sdk": "^1.5.3-rc.1",
     "@prisma/client": "^5.1.1",
     "alchemy-sdk": "^2.9.2",
     "chart.js": "^4.3.3",

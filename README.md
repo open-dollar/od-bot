@@ -1,13 +1,24 @@
-<h1 align="left">Geb Manager Bot 🤖</h1>
+<h1 align="left">Open Bot Backend 🤖</h1>
 <p align="left">
   <a href="#" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg" />
   </a>
 </p>
 
-## Demo ⏯️
+> Background worker for the Open Dollar protocol
 
-https://bot.opendollar.com
+Start using Open Bot in our [Discord](https://discord.opendollar.com)
+
+See recent transactions at https://bot.dev.opendollar.com
+
+## How it works
+
+Open Bot is divided into two parts:
+
+1. `od-bot` [repo](https://github.com/open-dollar/od-bot) - Accepts http requests, sends transactions, and posts updates in Discord
+2. `od-bot-slash-commands` [repo](https://github.com/open-dollar/od-bot-slash-commands) - Accepts Discord Slash Commands and forward them to `od-bot`
+
+Not all features can be exposed publicly, therefore a secret is required to call the bot.
 
 ## Usage 📖
 
@@ -43,14 +54,20 @@ npx prisma migrate dev
 
 ### Discord
 
-1. Update the Discord channel IDs for where you want the bot to post a message, see `manager/lib/discord/alert.js`
-2. Add the following to the `.env` file. The `ENVIRONMENT` option selects which channel to notify.
+Useful logs are posted in Discord. While this isn't required, it can be very useful for troubleshooting.
+
+1. Update the Discord channel IDs in `manager/lib/discord/alert.js`. This is where logs will be posted.
+2. Add the following to the `.env` file. The `ENVIRONMENT` option selects which set of channels to notify.
 
 ```
 ENVIRONMENT=dev
 ENABLE_DISCORD_BOTS=true
 DISCORD_BOT_TOKEN=your-token
 ```
+
+3. Add the bot to your server using the url:
+
+`https://discord.com/api/oauth2/authorize?client_id=<your-client-id>&permissions=0&scope=bot%20applications.commands``
 
 ### Going to Production
 

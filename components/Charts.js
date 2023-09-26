@@ -139,18 +139,18 @@ const Charts = () => {
   if (data) {
     return (
       <div className="w-full space-x-4 p-10">
-        <div className="flex w-full">
-          <div className="bg-slate-200 w-full rotate-x-[30deg] -rotate-y-[20deg] ">
-            <Line data={erc20SupplyData} label="ERC20 Supply" />
-          </div>
-          <div className="bg-slate-200 w-full rotate-x-[30deg] -translate-y-12 ">
-            <Line data={marketPriceData} />
-          </div>
-          <div className="bg-slate-200 w-full rotate-x-[30deg] rotate-y-[20deg]">
-            <Line data={redemptionRateAndPriceData} />
-          </div>
+        <h2>OD Total Supply</h2>
+        <div className="bg-slate-200">
+          <Line data={erc20SupplyData} label="ERC20 Supply" />
         </div>
-
+        <h2>OD Market Price</h2>
+        <div className="bg-slate-200">
+          <Line data={marketPriceData} />
+        </div>
+        <h2>OD Redemption Rate</h2>
+        <div className="bg-slate-200">
+          <Line data={redemptionRateAndPriceData} />
+        </div>
         <h2>Global Debt</h2>
         <div className="bg-slate-200">
           <Line data={globalDebtData} />

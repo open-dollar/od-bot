@@ -38,7 +38,7 @@ export default function Home() {
       <Transactions />
       <Divider className=" my-4" />
 
-      <div className="flex mt-20">
+      {/* <div className="flex mt-20">
         <div className="rotate-x-[30deg] -rotate-y-[20deg] ">
           <Panel />
         </div>
@@ -48,7 +48,7 @@ export default function Home() {
         <div className="rotate-x-[30deg] rotate-y-[20deg]">
           <Panel />
         </div>
-      </div>
+      </div> */}
 
       <Charts />
       <Divider className="my-4" />
