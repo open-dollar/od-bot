@@ -14,8 +14,6 @@ export default async function handler(request, response) {
     const stats = await getStats(network);
     await stats.save();
 
-    // await getAuctionData(network);
-
     response.status(200).json({ success: true });
   } catch (e) {
     console.log(e);
