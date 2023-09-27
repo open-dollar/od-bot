@@ -10,9 +10,9 @@ const test = async () => {
     //   `http://localhost:3000/api/rate?secret=${process.env.RATE_SECRET}`
     // );
 
-    response = await fetch(
-      `http://localhost:3000/api/analytics?secret=${process.env.RATE_SECRET}`
-    );
+    // response = await fetch(
+    //   `http://localhost:3000/api/analytics?secret=${process.env.RATE_SECRET}`
+    // );
 
     // response = await fetch(
     //   `http://localhost:3000/api/oracle?secret=${process.env.RATE_SECRET}`
@@ -29,6 +29,10 @@ const test = async () => {
     // response = await fetch(
     //   `http://localhost:3000/api/price?secret=${process.env.RATE_SECRET}&token=STN&price=100000000000000&execute=true`
     // );
+
+    response = await fetch(
+      `http://localhost:3000/api/liquidate?secret=${process.env.RATE_SECRET}&id=1`
+    );
 
     console.log(response);
   } catch (err) {

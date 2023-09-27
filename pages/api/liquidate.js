@@ -1,4 +1,4 @@
-import { updateRate } from "../../lib/web3/rate";
+import { liquidateVault } from "../../lib/web3/liquidate";
 
 const ARBITRUM_GOERLI = "ARBITRUM_GOERLI";
 
@@ -8,10 +8,10 @@ export default async function handler(request, response) {
       response.status(401).end();
       return;
     }
-
     let network = ARBITRUM_GOERLI;
     if (request.query.network) network = request.query.network;
-    await updateRate(network);
+
+    await liquidateVault(network, request.query.id);
 
     response.status(200).json({ success: true });
   } catch (e) {
