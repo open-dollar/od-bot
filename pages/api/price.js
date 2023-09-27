@@ -1,4 +1,4 @@
-import { updateTokenPrice } from "../../lib/web3/token";
+import { updateTokenPrice } from "../../lib/web3/price";
 
 const ARBITRUM_GOERLI = "ARBITRUM_GOERLI";
 
