@@ -1,9 +1,9 @@
 import fetch from "node-fetch";
+import { setCorsHeaders } from "../../lib/cors";
 
 export default async function handler(request, response) {
+  setCorsHeaders(request, response);
   try {
-    // TODO: add domain origin check
-
     const result = await fetch(
       `https://public.chainalysis.com/api/v1/address/${request.query.address}`,
       {
