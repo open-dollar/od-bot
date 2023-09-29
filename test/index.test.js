@@ -30,8 +30,12 @@ const test = async () => {
     //   `http://localhost:3000/api/price?secret=${process.env.RATE_SECRET}&token=STN&price=100000000000000&execute=true`
     // );
 
+    // response = await fetch(
+    //   `http://localhost:3000/api/liquidate?secret=${process.env.RATE_SECRET}&id=1`
+    // );
+
     response = await fetch(
-      `http://localhost:3000/api/liquidate?secret=${process.env.RATE_SECRET}&id=1`
+      `http://localhost:3000/api/accounting?secret=${process.env.RATE_SECRET}&id=1`
     );
 
     console.log(response);
