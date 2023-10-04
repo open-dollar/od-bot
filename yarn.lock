@@ -4222,14 +4222,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opendollar/sdk@npm:^1.5.3-rc.1":
-  version: 1.5.3-rc.1
-  resolution: "@opendollar/sdk@npm:1.5.3-rc.1"
+"@opendollar/sdk@npm:^1.5.4-rc.1":
+  version: 1.5.4-rc.1
+  resolution: "@opendollar/sdk@npm:1.5.4-rc.1"
   dependencies:
     ethers: 5.4.7
   peerDependencies:
     utf-8-validate: ^5.0.2
-  checksum: 86f093ffec32376267ed6c0a1ec3bf10e8a720fdbdc4baf239272024357d740de190913cb8f7accac89705dd567ef6a6c78b73121fdb9c128056b797a817a78d
+  checksum: 9b397c9a8fd60aaedac0791a9b6334a19cd02c4286fc6fba2a9243f296fc19597a96df8cd86259622951711008c9b632dfce05db39fa6aea7d320bb1f53a3b00
   languageName: node
   linkType: hard
 
@@ -9184,7 +9184,7 @@ __metadata:
     "@ethersproject/contracts": ^5.7.0
     "@ethersproject/units": ^5.7.0
     "@nextui-org/react": ^2.1.7
-    "@opendollar/sdk": ^1.5.3-rc.1
+    "@opendollar/sdk": ^1.5.4-rc.1
     "@prisma/client": ^5.1.1
     "@types/node": ^20.4.10
     "@types/react": 18.2.20

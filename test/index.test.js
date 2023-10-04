@@ -27,6 +27,10 @@ const test = async () => {
     // );
 
     // response = await fetch(
+    //   `http://localhost:3000/api/claim?address=0xC295763Eed507d4A0f8B77241c03dd3354781a15&secret=${process.env.RATE_SECRET}`
+    // );
+
+    // response = await fetch(
     //   `http://localhost:3000/api/price?secret=${process.env.RATE_SECRET}&token=STN&price=100000000000000&execute=true`
     // );
 
