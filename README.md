@@ -1,15 +1,17 @@
-<h1 align="left">Open Bot Backend 🤖</h1>
+<h1 align="left">Open Bot 🤖</h1>
 <p align="left">
   <a href="#" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg" />
   </a>
 </p>
 
-> Background worker for the Open Dollar protocol
+> Background worker and user-facing bot for the Open Dollar protocol
 
-Start using Open Bot in our [Discord](https://discord.opendollar.com)
+<img src="./od-bot.png" width="200px">
 
-See recent transactions at https://bot.dev.opendollar.com
+<img src="./example.png" width="500px">
+
+Open Bot is live in our [Discord](https://discord.opendollar.com). See recent transactions at https://bot.dev.opendollar.com
 
 ## How it works
 
@@ -18,9 +20,11 @@ Open Bot is divided into two parts:
 1. `od-bot` [repo](https://github.com/open-dollar/od-bot) - Accepts http requests, sends transactions, and posts updates in Discord
 2. `od-bot-slash-commands` [repo](https://github.com/open-dollar/od-bot-slash-commands) - Accepts Discord Slash Commands and forward them to `od-bot`
 
-Not all features can be exposed publicly, therefore a secret is required to call the bot.
+Not all features can be exposed publicly, therefore a secret is required to call the bot endpoints.
 
 ## Usage 📖
+
+> NOTE: The rest of this readme is for bot developers and contributors.
 
 Start the app:
 
@@ -30,11 +34,27 @@ yarn dev
 
 Hit the endpoint `/api/rate?secret=<some-secret>` to trigger the bot to call `updateRate`.
 
-Available options
+Available options:
 
-- /analytics: Updates the global analytics data used to generate the charts
-- /rate: Calls `updateRate`
-- /oracle: Calls `updateCollateralPrice` which update the safety price and liquidation price of a collateral type, and `redemptionRate` which updates the redepmtion price.
+#### Protocol Maintenance Jobs
+
+> The bot is not using the "Jobs" contracts to perform these actions, and therefore does not collect any protocol rewards.
+
+- `/rate`: Calls `updateRate` on the `rateSetter` contract
+- `/oracle`: Calls `updateCollateralPrice` and `updateResult` for each collateral type using the `oracleRelayer` contract
+- `/accounting`: Calls `popDebtFromQueue`, `auctionDebt`, `auctionSurplus`, and `transferExtraSurplus` on the `accountingEngine` contract
+
+#### Data
+
+- `/analytics`: Posts global analytics
+- `/auction`: Posts the number of surplus, debt, and collateral auctions
+- `/user`: Posts details about the user's OD vaults
+
+#### Interactive Commands
+
+- `/claim`: Airdrops collateral tokens to the user (testnet only)
+- `/price`: Changes the price of collateral (testnet only)
+- `/liquidate`: Calls `liquidateSAFE(vaultID)` on the `liquidationEngine` contract
 
 ## Contributing 💡
 
