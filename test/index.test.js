@@ -31,7 +31,7 @@ const test = async () => {
     // );
 
     response = await fetch(
-      `http://localhost:3000/api/price?secret=${process.env.RATE_SECRET}&token=CBETH&price=100000000000000&execute=false`
+      `http://localhost:3000/api/price?secret=${process.env.RATE_SECRET}&token=MAGIC&price=100000000000000&execute=false`
     );
 
     // response = await fetch(
