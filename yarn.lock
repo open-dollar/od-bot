@@ -4254,7 +4254,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opendollar/abis@npm:^0.0.0-4206e930":
+"@opendollar/abis@npm:^0.0.0-ad5646d3":
   version: 0.0.0-f9f4cf29
   resolution: "@opendollar/abis@npm:0.0.0-f9f4cf29"
   dependencies:
@@ -4273,17 +4273,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opendollar/sdk@npm:^1.5.5-rc.2":
-  version: 1.5.5-rc.2
-  resolution: "@opendollar/sdk@npm:1.5.5-rc.2"
+"@opendollar/sdk@portal:/Users/dev/repos/opendollar/od-sdk::locator=od-bot%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@opendollar/sdk@portal:/Users/dev/repos/opendollar/od-sdk::locator=od-bot%40workspace%3A."
   dependencies:
-    "@opendollar/abis": ^0.0.0-4206e930
+    "@opendollar/abis": ^0.0.0-ad5646d3
     ethers: 5.4.7
   peerDependencies:
     utf-8-validate: ^5.0.2
-  checksum: dc8a074a18f1fa1dfcbf4529c4d78094dd0e8bfbc883037362463e1045fc3549470123c1cde27eaeb3877cce9d3f4d46b03e1cb5dc2e3b9e75a5c6b444d55651
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "@openzeppelin/contracts@npm:4.6.0":
   version: 4.6.0
@@ -9478,7 +9477,7 @@ __metadata:
     "@ethersproject/contracts": ^5.7.0
     "@ethersproject/units": ^5.7.0
     "@nextui-org/react": ^2.1.7
-    "@opendollar/sdk": ^1.5.5-rc.2
+    "@opendollar/sdk": ^1.5.6-rc.2
     "@prisma/client": ^5.1.1
     "@types/node": ^20.4.10
     "@types/react": 18.2.20
