@@ -17,5 +17,10 @@
       "path": "/api/auction?network=ARBITRUM_GOERLI&secret=openDollar",
       "schedule": "50 */1 * * *"
     }
-  ]
+  ],
+  "functions": {
+    "api/*.js": {
+      "maxDuration": 300
+    }
+  }
 }
