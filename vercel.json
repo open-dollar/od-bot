@@ -19,7 +19,7 @@
     }
   ],
   "functions": {
-    "api/*": {
+    "pages/api/*.js": {
       "maxDuration": 300
     }
   }
