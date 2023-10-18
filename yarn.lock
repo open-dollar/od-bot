@@ -4273,16 +4273,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opendollar/sdk@portal:/Users/dev/repos/opendollar/od-sdk::locator=od-bot%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@opendollar/sdk@portal:/Users/dev/repos/opendollar/od-sdk::locator=od-bot%40workspace%3A."
+"@opendollar/sdk@npm:^1.5.6-rc.1":
+  version: 1.5.6-rc.1
+  resolution: "@opendollar/sdk@npm:1.5.6-rc.1"
   dependencies:
     "@opendollar/abis": ^0.0.0-ad5646d3
     ethers: 5.4.7
   peerDependencies:
     utf-8-validate: ^5.0.2
+  checksum: 7191b3a6c0fda913661e0e412a27158e729feac93b2025a75ebccdd98eeb6cbd16898c41d65eceb9f59549887dd91a05f041ac2600881cf191b0891b1b2b89ff
   languageName: node
-  linkType: soft
+  linkType: hard
 
 "@openzeppelin/contracts@npm:4.6.0":
   version: 4.6.0
@@ -9477,7 +9478,7 @@ __metadata:
     "@ethersproject/contracts": ^5.7.0
     "@ethersproject/units": ^5.7.0
     "@nextui-org/react": ^2.1.7
-    "@opendollar/sdk": ^1.5.6-rc.2
+    "@opendollar/sdk": ^1.5.6-rc.1
     "@prisma/client": ^5.1.1
     "@types/node": ^20.4.10
     "@types/react": 18.2.20
