@@ -1,6 +1,6 @@
 import { updateOracles } from "../../lib/web3/oracle";
 
-const ARBITRUM_GOERLI = "ARBITRUM_GOERLI";
+const ARBITRUM_SEPOLIA = "ARBITRUM_SEPOLIA";
 
 export default async function handler(request, response) {
   try {
@@ -8,7 +8,7 @@ export default async function handler(request, response) {
       response.status(401).end();
       return;
     }
-    let network = ARBITRUM_GOERLI;
+    let network = ARBITRUM_SEPOLIA;
     if (request.query.network) network = request.query.network;
 
     await updateOracles(network);

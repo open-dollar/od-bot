@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "Network" ADD VALUE 'ARBITRUM_SEPOLIA';
