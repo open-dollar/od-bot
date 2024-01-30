@@ -1,11 +1,20 @@
-<h1 align="left">Open Bot 🤖</h1>
-<p align="left">
+<p align="center">
+<img width="60" height="60"  src="https://raw.githubusercontent.com/open-dollar/.github/main/od-logo.svg">
+</p>
+<h1 align="center">
+  OD Bot
+</h1>
+
+<p align="center">
   <a href="#" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg" />
   </a>
+  <a href="https://twitter.com/open_dollar" target="_blank">
+    <img alt="Twitter: open_dollar" src="https://img.shields.io/twitter/follow/open_dollar.svg?style=social" />
+  </a>
 </p>
 
-> Background worker and user-facing bot for the Open Dollar protocol
+Background worker and user-facing bot for the Open Dollar protocol
 
 <img src="./od-bot.png" width="200px">
 
