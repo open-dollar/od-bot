@@ -21,7 +21,7 @@
   "homepage": "https://github.com/UseKeyp/od-bots#readme",
   "dependencies": {
     "@apollo/client": "^3.8.1",
-    "@apollo/server": "^4.9.1",
+    "@apollo/server": "^4.9.3",
     "@as-integrations/next": "^2.0.2",
     "@ethersproject/contracts": "^5.7.0",
     "@ethersproject/units": "^5.7.0",
@@ -32,7 +32,7 @@
     "chart.js": "^4.3.3",
     "discord.js": "^14.12.1",
     "framer-motion": "^10.16.2",
-    "graphql": "^16.7.1",
+    "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",
     "next": "^13.5.1",
     "numeral": "^2.0.6",
