@@ -200,9 +200,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apollo/server@npm:^4.9.1":
-  version: 4.9.1
-  resolution: "@apollo/server@npm:4.9.1"
+"@apollo/server@npm:^4.9.3":
+  version: 4.10.0
+  resolution: "@apollo/server@npm:4.10.0"
   dependencies:
     "@apollo/cache-control-types": ^1.0.3
     "@apollo/server-gateway-interface": ^1.1.1
@@ -220,7 +220,6 @@ __metadata:
     "@types/express-serve-static-core": ^4.17.30
     "@types/node-fetch": ^2.6.1
     async-retry: ^1.2.1
-    body-parser: ^1.20.0
     cors: ^2.8.5
     express: ^4.17.1
     loglevel: ^1.6.8
@@ -232,7 +231,7 @@ __metadata:
     whatwg-mimetype: ^3.0.0
   peerDependencies:
     graphql: ^16.6.0
-  checksum: 78012f54e868376a6293ac99e7111f4ada10a73a6a87e83b2d5d3f4d1b8f05958d4ab0c08efdbd3f4c9eeec2c3bc35a9131b2d7975396ae268d37a257e5dfea1
+  checksum: e9462bb5713bab2b0a7e3b5f35de8e89718536282e8546a3e4f4a2f7e2d5ba1ac75425bb16d3dc6c81d808b388c67acb8e4836790c373c03666f5c299f606d4e
   languageName: node
   linkType: hard
 
@@ -2694,6 +2693,13 @@ __metadata:
     "@ethersproject/properties": ^5.7.0
     "@ethersproject/strings": ^5.7.0
   checksum: da4f3eca6d691ebf4f578e6b2ec3a76dedba791be558f6cf7e10cd0bfbaeab5a6753164201bb72ced745fb02b6ef7ef34edcb7e6065ce2b624c6556a461c3f70
+  languageName: node
+  linkType: hard
+
+"@fastify/busboy@npm:^2.0.0":
+  version: 2.1.0
+  resolution: "@fastify/busboy@npm:2.1.0"
+  checksum: 7bb641080aac7cf01d88749ad331af10ba9ec3713ec07cabbe833908c75df21bd56249bb6173bdec07f5a41896b21e3689316f86684c06635da45f91ff4565a2
   languageName: node
   linkType: hard
 
@@ -6377,26 +6383,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"body-parser@npm:^1.20.0":
-  version: 1.20.2
-  resolution: "body-parser@npm:1.20.2"
-  dependencies:
-    bytes: 3.1.2
-    content-type: ~1.0.5
-    debug: 2.6.9
-    depd: 2.0.0
-    destroy: 1.2.0
-    http-errors: 2.0.0
-    iconv-lite: 0.4.24
-    on-finished: 2.4.1
-    qs: 6.11.0
-    raw-body: 2.5.2
-    type-is: ~1.6.18
-    unpipe: 1.0.0
-  checksum: 06f1438fff388a2e2354c96aa3ea8147b79bfcb1262dfcc2aae68ec13723d01d5781680657b74e9f83c808266d5baf52804032fbde2b7382b89bd8cdb273ace9
-  languageName: node
-  linkType: hard
-
 "brace-expansion@npm:^1.1.7":
   version: 1.1.11
   resolution: "brace-expansion@npm:1.1.11"
@@ -6472,7 +6458,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"busboy@npm:1.6.0, busboy@npm:^1.6.0":
+"busboy@npm:1.6.0":
   version: 1.6.0
   resolution: "busboy@npm:1.6.0"
   dependencies:
@@ -6821,7 +6807,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"content-type@npm:~1.0.4, content-type@npm:~1.0.5":
+"content-type@npm:~1.0.4":
   version: 1.0.5
   resolution: "content-type@npm:1.0.5"
   checksum: b76ebed15c000aee4678c3707e0860cb6abd4e680a598c0a26e17f0bfae723ec9cc2802f0ff1bc6e4d80603719010431d2231018373d4dde10f9ccff9dadf5af
@@ -7874,10 +7860,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:^16.7.1":
-  version: 16.7.1
-  resolution: "graphql@npm:16.7.1"
-  checksum: 0b4e83382bf3cb9c82ddf61a51aab382c4de50c34025173285c580135fe8646aa281c264fcf0c2214ae92ea925742d86999fe5e2ad842b6f3b54a9ffb0b299d2
+"graphql@npm:^16.8.1":
+  version: 16.8.1
+  resolution: "graphql@npm:16.8.1"
+  checksum: 129c318156b466f440914de80dbf7bc67d17f776f2a088a40cb0da611d19a97c224b1c6d2b13cbcbc6e5776e45ed7468b8432f9c3536724e079b44f1a3d57a8a
   languageName: node
   linkType: hard
 
@@ -9529,7 +9515,7 @@ __metadata:
   resolution: "od-bot@workspace:."
   dependencies:
     "@apollo/client": ^3.8.1
-    "@apollo/server": ^4.9.1
+    "@apollo/server": ^4.9.3
     "@as-integrations/next": ^2.0.2
     "@babel/core": ^7.22.10
     "@babel/preset-env": ^7.22.10
@@ -9547,7 +9533,7 @@ __metadata:
     discord.js: ^14.12.1
     dotenv: ^16.3.1
     framer-motion: ^10.16.2
-    graphql: ^16.7.1
+    graphql: ^16.8.1
     graphql-tag: ^2.12.6
     jest: ^29.6.2
     next: ^13.5.1
@@ -9820,7 +9806,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.31":
+"postcss@npm:8.4.31, postcss@npm:^8.4.23":
   version: 8.4.31
   resolution: "postcss@npm:8.4.31"
   dependencies:
@@ -9828,17 +9814,6 @@ __metadata:
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
   checksum: 748b82e6e5fc34034dcf2ae88ea3d11fd09f69b6c50ecdd3b4a875cfc7cdca435c958b211e2cb52355422ab6fccb7d8f2f2923161d7a1b281029e4a913d59acf
-  languageName: node
-  linkType: hard
-
-"postcss@npm:^8.4.23":
-  version: 8.4.29
-  resolution: "postcss@npm:8.4.29"
-  dependencies:
-    nanoid: ^3.3.6
-    picocolors: ^1.0.0
-    source-map-js: ^1.0.2
-  checksum: b50b7ad4ac6c9ba029eda4381863570b7aed2672ffae2566ef109e556bae01823a51180409877ff2cce1fe186025751c7191c301eafc07b0d90c630ab5e0365c
   languageName: node
   linkType: hard
 
@@ -9953,18 +9928,6 @@ __metadata:
     iconv-lite: 0.4.24
     unpipe: 1.0.0
   checksum: 5dad5a3a64a023b894ad7ab4e5c7c1ce34d3497fc7138d02f8c88a3781e68d8a55aa7d4fd3a458616fa8647cc228be314a1c03fb430a07521de78b32c4dd09d2
-  languageName: node
-  linkType: hard
-
-"raw-body@npm:2.5.2":
-  version: 2.5.2
-  resolution: "raw-body@npm:2.5.2"
-  dependencies:
-    bytes: 3.1.2
-    http-errors: 2.0.0
-    iconv-lite: 0.4.24
-    unpipe: 1.0.0
-  checksum: b201c4b66049369a60e766318caff5cb3cc5a900efd89bdac431463822d976ad0670912c931fdbdcf5543207daf6f6833bca57aa116e1661d2ea91e12ca692c4
   languageName: node
   linkType: hard
 
@@ -11147,11 +11110,11 @@ __metadata:
   linkType: hard
 
 "undici@npm:^5.22.1":
-  version: 5.23.0
-  resolution: "undici@npm:5.23.0"
+  version: 5.28.2
+  resolution: "undici@npm:5.28.2"
   dependencies:
-    busboy: ^1.6.0
-  checksum: 43a6ecddb30733adc33bc7a922fa7609c3e75f6555beab05e26c50f4be20ed893d7e9ac4332b332320961252dbc89c865955a5b5dbc3bcd2197ca4f015e7ad97
+    "@fastify/busboy": ^2.0.0
+  checksum: 34385ad9b3ba85309972ee3c1b426dcd19b94a5a6aa9c54499b5f48436c0ecc13a9b1e756a7c6a953eaefa9f4263890625ece5f2719fd774b0852204f5e4d5f9
   languageName: node
   linkType: hard
 
