@@ -9,6 +9,9 @@
     "build": "next build && prisma generate",
     "start": "next start"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UseKeyp/od-bots.git"
