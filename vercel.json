@@ -2,20 +2,36 @@
   "buildCommand": "yarn prisma generate && yarn prisma migrate deploy && next build",
   "crons": [
     {
-      "path": "/api/rate?network=ARBITRUM_GOERLI&secret=openDollar",
+      "path": "/api/rate?network=ARBITRUM&channel=1217198425054122065",
       "schedule": "50 */1 * * *"
     },
     {
-      "path": "/api/analytics?network=ARBITRUM_GOERLI&secret=openDollar",
+      "path": "/api/analytics?network=ARBITRUM&channel=1217198425054122065",
       "schedule": "50 */1 * * *"
     },
     {
-      "path": "/api/oracle?network=ARBITRUM_GOERLI&secret=openDollar",
+      "path": "/api/auction?network=ARBITRUM&channel=1217198425054122065",
       "schedule": "50 */1 * * *"
     },
     {
-      "path": "/api/auction?network=ARBITRUM_GOERLI&secret=openDollar",
-      "schedule": "50 */1 * * *"
+      "path": "/api/oracle?network=ARBITRUM&channel=1217198425054122065",
+      "schedule": "51 */1 * * *"
+    },
+    {
+      "path": "/api/rate?network=ARBITRUM_SEPOLIA&channel=1154870152844820551",
+      "schedule": "40 */1 * * *"
+    },
+    {
+      "path": "/api/analytics?network=ARBITRUM_SEPOLIA&channel=1154870152844820551",
+      "schedule": "40 */1 * * *"
+    },
+    {
+      "path": "/api/auction?network=ARBITRUM_SEPOLIA&channel=1154870152844820551",
+      "schedule": "40 */1 * * *"
+    },
+    {
+      "path": "/api/oracle?network=ARBITRUM_SEPOLIA&channel=1154870152844820551",
+      "schedule": "41 */1 * * *"
     }
   ],
   "functions": {
