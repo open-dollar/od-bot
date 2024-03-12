@@ -15,7 +15,8 @@ export default async function handler(request, response) {
       network,
       request.query.token,
       request.query.price,
-      request.query.execute === "true" ? true : false
+      request.query.execute === "true" ? true : false,
+      request.query.channel
     );
 
     response.status(200).json({ success: true });

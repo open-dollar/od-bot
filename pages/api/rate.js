@@ -8,10 +8,9 @@ export default async function handler(request, response) {
       response.status(401).end();
       return;
     }
-
     let network = ARBITRUM_SEPOLIA;
     if (request.query.network) network = request.query.network;
-    await updateRate(network);
+    await updateRate(network, request.query.channel);
 
     response.status(200).json({ success: true });
   } catch (e) {
