@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": "18"
   },
   "repository": {
     "type": "git",
