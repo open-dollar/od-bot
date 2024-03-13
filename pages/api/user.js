@@ -7,9 +7,9 @@ export default async function handler(request, response) {
     let network = ARBITRUM_SEPOLIA;
     if (request.query.network) network = request.query.network;
 
-    await getUser(network, request.query.address, request.query.channel);
+    const data = await getUser(network, request.query.address, request.query.channel);
 
-    response.status(200).json({ success: true });
+    response.status(200).json(data);
   } catch (e) {
     console.log(e);
     return response.status(500).json({ success: false, error: e.message });
