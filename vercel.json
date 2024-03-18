@@ -2,36 +2,52 @@
   "buildCommand": "yarn prisma generate && yarn prisma migrate deploy && next build",
   "crons": [
     {
-      "path": "/api/rate?network=ARBITRUM&channel=1217198425054122065",
+      "path": "/api/oracle?network=ARBITRUM&channel=1217198425054122065",
       "schedule": "50 */1 * * *"
+    },
+    {
+      "path": "/api/rate?network=ARBITRUM&channel=1217198425054122065",
+      "schedule": "53 */1 * * *"
     },
     {
       "path": "/api/analytics?network=ARBITRUM&channel=1217198425054122065",
-      "schedule": "50 */1 * * *"
+      "schedule": "55 */1 * * *"
     },
     {
       "path": "/api/auction?network=ARBITRUM&channel=1217198425054122065",
-      "schedule": "50 */1 * * *"
-    },
-    {
-      "path": "/api/oracle?network=ARBITRUM&channel=1217198425054122065",
-      "schedule": "51 */1 * * *"
-    },
-    {
-      "path": "/api/rate?network=ARBITRUM_SEPOLIA&channel=1154870152844820551",
-      "schedule": "40 */1 * * *"
-    },
-    {
-      "path": "/api/analytics?network=ARBITRUM_SEPOLIA&channel=1154870152844820551",
-      "schedule": "40 */1 * * *"
-    },
-    {
-      "path": "/api/auction?network=ARBITRUM_SEPOLIA&channel=1154870152844820551",
-      "schedule": "40 */1 * * *"
+      "schedule": "55 */1 * * *"
     },
     {
       "path": "/api/oracle?network=ARBITRUM_SEPOLIA&channel=1154870152844820551",
-      "schedule": "41 */1 * * *"
+      "schedule": "40 */1 * * *"
+    },
+    {
+      "path": "/api/rate?network=ARBITRUM_SEPOLIA&channel=1154870152844820551",
+      "schedule": "43 */1 * * *"
+    },
+    {
+      "path": "/api/analytics?network=ARBITRUM_SEPOLIA&channel=1154870152844820551",
+      "schedule": "45 */1 * * *"
+    },
+    {
+      "path": "/api/auction?network=ARBITRUM_SEPOLIA&channel=1154870152844820551",
+      "schedule": "45 */1 * * *"
+    },
+    {
+      "path": "/api/oracle?network=OPTIMISM&channel=1217248902634409994",
+      "schedule": "30 */1 * * *"
+    },
+    {
+      "path": "/api/rate?network=OPTIMISM&channel=1217248902634409994",
+      "schedule": "33 */1 * * *"
+    },
+    {
+      "path": "/api/analytics?network=OPTIMISM&channel=1217248902634409994",
+      "schedule": "35 */1 * * *"
+    },
+    {
+      "path": "/api/auction?network=OPTIMISM&channel=1217248902634409994",
+      "schedule": "35 */1 * * *"
     }
   ],
   "functions": {
