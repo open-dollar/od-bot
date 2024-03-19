@@ -17,14 +17,14 @@ export function getExplorerBaseUrlFromName(name) {
       return `https://optimistic.etherscan.io/`;
     case "OPTIMISM_GOERLI":
       return `https://goerli-optimism.etherscan.io/`;
-    case "ARBITRUM_GOERLI":
-      return `https://goerli.arbiscan.io/`;
+    case "ARBITRUM_SEPOLIA":
+      return `https://sepolia.arbiscan.io/`;
   }
 }
 
 const GET_TXS = gql`
-  query {
-    recentTransactions {
+  query GetRecentTransactions($network: String) {
+    recentTransactions(network: $network) {
       createdAt
       updatedAt
       network
@@ -36,15 +36,22 @@ const GET_TXS = gql`
   }
 `;
 
-const Transactions = () => {
-  const { loading, error, data } = useQuery(GET_TXS);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+const Transactions = ({ network }) => {
+  const { loading, error, data } = useQuery(GET_TXS, {
+    variables: { network },
+    skip: !network,
+  });
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return <p>Error : {error.message}</p>;
+  }
 
   if (data) {
     const transformedData = data.recentTransactions.map((tx) => [
       tx.method,
-      <a
+      <a key={tx.hash}
         className="underline font-blue "
         href={`${getExplorerBaseUrlFromName(tx.network)}tx/${tx.hash}`}
       >

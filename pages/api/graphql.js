@@ -6,7 +6,7 @@ import prisma from "../../lib/prisma";
 const typeDefs = gql`
   type Query {
     globalStats: [globalStats!]!
-    recentTransactions: [tx!]!
+    recentTransactions(network: String): [tx!]!
   }
 
   type tx {
@@ -46,17 +46,23 @@ const resolvers = {
     globalStats: () => {
       return prisma.globalStats.findMany();
     },
-    recentTransactions: () => {
+    recentTransactions: (_, args) => {
+      const whereClause = {
+        hash: {
+          not: null,
+        },
+      };
+
+      if (args.network) {
+        whereClause.network = args.network;
+      }
+
       return prisma.tx.findMany({
         take: 20,
         orderBy: {
           createdAt: "desc",
         },
-        where: {
-          hash: {
-            not: null,
-          },
-        },
+        where: whereClause,
       });
     },
   },
