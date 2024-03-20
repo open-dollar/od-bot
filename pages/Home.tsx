@@ -2,11 +2,37 @@ import Head from "next/head";
 
 import Charts from "../components/Charts";
 import Transactions from "../components/Transactions";
-import Panel from "../components/Panel";
-import { Divider, Button, Spacer } from "@nextui-org/react";
+import {
+    Divider,
+    Button,
+    Spacer,
+    Dropdown,
+    DropdownTrigger,
+    DropdownMenu,
+    DropdownItem
+} from "@nextui-org/react";
+import { useState } from "react";
 
 export default function Home() {
-  return (
+    const [selectedNetwork, setSelectedNetwork] = useState('ARBITRUM_SEPOLIA');
+
+    interface NetworkItem {
+        key: string;
+        label: string;
+    }
+
+    const networkItems: NetworkItem[] = [
+        { key: "ARBITRUM", label: "Arbitrum" },
+        { key: "OPTIMISM", label: "Optimism" },
+        { key: "ARBITRUM_SEPOLIA", label: "Arbitrum Sepolia" },
+    ];
+
+    const getSelectedNetworkLabel = () => {
+        const selectedItem = networkItems.find(item => item.key === selectedNetwork);
+        return selectedItem ? selectedItem.label : "Select Network";
+    };
+
+    return (
     <div className="items-center space-x-4 text-small">
       <Head>
         <title>🦗 Rate Update</title>
@@ -14,18 +40,24 @@ export default function Home() {
       </Head>
       <Spacer y={4} />
       <h1 className="">Open Dollar Bot</h1>
-      <Spacer y={4} />
-      <Divider className="my-4" />
-      <p>
-        Trigger the bot:
-        <br />
-        <code>{`/api/rate?key=<some-secret>`}</code>
-        <br />
-        <code>{`/api/oracle?key=<some-secret>`}</code>
-        <br />
-        <code>{`/api/analytics?key=<some-secret>`}</code>
-        <br />
-      </p>
+        <Spacer y={2} />
+        <Dropdown>
+            <DropdownTrigger>
+                <Button>{getSelectedNetworkLabel()}</Button>
+            </DropdownTrigger>
+            <DropdownMenu
+                aria-label="Network Selection"
+                disallowEmptySelection
+                selectionMode="single"
+                selectedKeys={[selectedNetwork]}
+                onAction={(key: any) => setSelectedNetwork(key)}
+            >
+                {networkItems.map((item: NetworkItem) => (
+                    <DropdownItem key={item.key}>{item.label}</DropdownItem>
+                ))}
+            </DropdownMenu>
+        </Dropdown>
+        <Spacer y={4} />
       <Divider className="my-4" />
       <div className="">
         <a href="https://docs.opendollar.com" className="">
@@ -35,7 +67,7 @@ export default function Home() {
         </a>
       </div>
       <Divider className=" my-4" />
-      <Transactions />
+      <Transactions network={selectedNetwork} />
       <Divider className=" my-4" />
 
       {/* <div className="flex mt-20">
@@ -50,7 +82,7 @@ export default function Home() {
         </div>
       </div> */}
 
-      <Charts />
+      <Charts network={selectedNetwork} />
       <Divider className="my-4" />
       <Divider className="my-4" />
 
