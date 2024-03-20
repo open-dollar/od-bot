@@ -5,7 +5,7 @@ import prisma from "../../lib/prisma";
 
 const typeDefs = gql`
   type Query {
-    globalStats: [globalStats!]!
+    globalStats(network: String): [globalStats!]!
     recentTransactions(network: String): [tx!]!
   }
 
@@ -43,8 +43,16 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    globalStats: () => {
-      return prisma.globalStats.findMany();
+    globalStats: (_, args) => {
+      const whereClause = {};
+
+      if (args.network) {
+        whereClause.network = args.network;
+      }
+
+      return prisma.globalStats.findMany({
+        where: whereClause,
+      });
     },
     recentTransactions: (_, args) => {
       const whereClause = {

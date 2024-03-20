@@ -14,7 +14,7 @@ import {
 import { useState } from "react";
 
 export default function Home() {
-    const [selectedNetwork, setSelectedNetwork] = useState('');
+    const [selectedNetwork, setSelectedNetwork] = useState('ARBITRUM_SEPOLIA');
 
     interface NetworkItem {
         key: string;
@@ -27,6 +27,11 @@ export default function Home() {
         { key: "ARBITRUM_SEPOLIA", label: "Arbitrum Sepolia" },
     ];
 
+    const getSelectedNetworkLabel = () => {
+        const selectedItem = networkItems.find(item => item.key === selectedNetwork);
+        return selectedItem ? selectedItem.label : "Select Network";
+    };
+
     return (
     <div className="items-center space-x-4 text-small">
       <Head>
@@ -38,16 +43,18 @@ export default function Home() {
         <Spacer y={2} />
         <Dropdown>
             <DropdownTrigger>
-                <Button>Select Network</Button>
+                <Button>{getSelectedNetworkLabel()}</Button>
             </DropdownTrigger>
             <DropdownMenu
                 aria-label="Network Selection"
-                items={networkItems}
+                disallowEmptySelection
+                selectionMode="single"
+                selectedKeys={[selectedNetwork]}
                 onAction={(key: any) => setSelectedNetwork(key)}
             >
-                {(item: NetworkItem) => (
+                {networkItems.map((item: NetworkItem) => (
                     <DropdownItem key={item.key}>{item.label}</DropdownItem>
-                )}
+                ))}
             </DropdownMenu>
         </Dropdown>
         <Spacer y={4} />
@@ -75,7 +82,7 @@ export default function Home() {
         </div>
       </div> */}
 
-      <Charts />
+      <Charts network={selectedNetwork} />
       <Divider className="my-4" />
       <Divider className="my-4" />
 

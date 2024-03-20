@@ -73,10 +73,10 @@ const Transactions = ({ network }) => {
             <TableColumn>DATE</TableColumn>
           </TableHeader>
           <TableBody>
-            {transformedData.map((tx, index) => (
-              <TableRow key={index}>
-                {tx.map((item) => (
-                  <TableCell key={index}>{item}</TableCell>
+            {transformedData.map((tx, rowIndex) => (
+              <TableRow key={rowIndex}>
+                {tx.map((item, cellIndex) => (
+                    <TableCell key={`row-${rowIndex}-cell-${cellIndex}`}>{item}</TableCell>
                 ))}
               </TableRow>
             ))}

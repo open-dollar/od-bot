@@ -1,10 +1,11 @@
 import { useQuery, gql } from "@apollo/client";
 import { Line } from "react-chartjs-2";
+// This linter marks this import as unused but it is needed
 import Chart from "chart.js/auto";
 
 const GET_STATS = gql`
-  query {
-    globalStats {
+  query GetGlobalStats($network: String) {
+    globalStats(network: $network) {
       createdAt
       updatedAt
       network
@@ -68,10 +69,14 @@ const getChartData = (data, labelName, key) => {
   };
 };
 
-const Charts = () => {
-  const { loading, error, data } = useQuery(GET_STATS);
+const Charts = ({ network }) => {
+  const { loading, error, data } = useQuery(GET_STATS, {
+    variables: { network },
+    skip: !network,
+  });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
+  if (!data?.globalStats) return <p>No data</p>;
 
   const erc20SupplyData = getChartData(
     data.globalStats,
