@@ -6,7 +6,7 @@ import {
   TableColumn,
   TableBody,
   TableRow,
-  TableCell,
+  TableCell, Spacer,
 } from "@nextui-org/react";
 
 export function getExplorerBaseUrlFromName(name) {
@@ -49,7 +49,11 @@ const Transactions = ({ network }) => {
   }
 
   if (data) {
-    const transformedData = data.recentTransactions.map((tx) => [
+    let transformedData;
+
+    const isMobile = window.innerWidth < 768;
+
+    transformedData = data.recentTransactions.map((tx) => [
       tx.method,
       <a key={tx.hash}
         className="underline font-blue "
@@ -61,10 +65,17 @@ const Transactions = ({ network }) => {
       tx.textTitle,
       new Date(Number(tx.createdAt)).toLocaleString(),
     ]);
+
+    // Show only 5 recent transactions on mobile
+    if (isMobile) {
+      transformedData = transformedData.slice(0, 5);
+    }
+
     return (
       <>
-        <h1>Recent Transactions</h1>
-        <Table aria-label="Example static collection table">
+        <h1 className="text-[#475662] text-lg">Recent Transactions</h1>
+        <Spacer y={4} />
+        <Table className="max-w-7xl" aria-label="Example static collection table">
           <TableHeader>
             <TableColumn>METHOD</TableColumn>
             <TableColumn>RECEIPT</TableColumn>

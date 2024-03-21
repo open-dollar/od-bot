@@ -13,7 +13,7 @@ const App = () => {
     <ApolloProvider client={client}>
       <Suspense fallback={null}>
         <NextUIProvider>
-          <main className="dark text-foreground bg-background">
+          <main className="bg-[#f2f8fd] text-foreground w-full">
             <Home />
           </main>
         </NextUIProvider>
