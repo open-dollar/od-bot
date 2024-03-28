@@ -1,10 +1,12 @@
 import { useQuery, gql } from "@apollo/client";
 import { Line } from "react-chartjs-2";
+// This linter marks this import as unused but it is needed
 import Chart from "chart.js/auto";
+import {Spacer} from "@nextui-org/react";
 
 const GET_STATS = gql`
-  query {
-    globalStats {
+  query GetGlobalStats($network: String) {
+    globalStats(network: $network) {
       createdAt
       updatedAt
       network
@@ -34,11 +36,30 @@ const getLabels = (data) => {
   return data?.map((stats) => {
     const date = new Date(Number(stats.blockTimestamp) * 1000);
 
-    return `${date.getFullYear()}/${
+    return `${
       date.getMonth() + 1
     }/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
   });
 };
+
+const options = {
+    scales: {
+        x: {
+            ticks: {
+                font: {
+                    size: 14,
+                },
+            },
+        },
+        y: {
+            ticks: {
+                font: {
+                    size: 14,
+                },
+            },
+        },
+    },
+}
 
 const getValues = (data, key) => {
   if (!Array.isArray(data)) {
@@ -60,7 +81,7 @@ const getChartData = (data, labelName, key) => {
       {
         label: labelName,
         data: values,
-        backgroundColor: "rgba(75,192,192,1)",
+        backgroundColor: "#1a74ec",
         borderColor: "black",
         borderWidth: 2,
       },
@@ -68,21 +89,34 @@ const getChartData = (data, labelName, key) => {
   };
 };
 
-const Charts = () => {
-  const { loading, error, data } = useQuery(GET_STATS);
+const Charts = ({ network }) => {
+  const { loading, error, data } = useQuery(GET_STATS, {
+    variables: { network },
+    skip: !network,
+  });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
+  if (!data?.globalStats) return <p>No data</p>;
 
   const erc20SupplyData = getChartData(
     data.globalStats,
     "ERC20 Supply",
     "erc20Supply"
   );
+
+    erc20SupplyData.datasets.forEach(dataset => {
+        dataset.pointRadius = 5;
+    });
+
   const marketPriceData = getChartData(
     data.globalStats,
     "Market Price ($)",
     "marketPrice"
   );
+
+    marketPriceData.datasets.forEach(dataset => {
+        dataset.pointRadius = 5;
+    });
 
   const globalDebtData = getChartData(
     data.globalStats,
@@ -90,17 +124,29 @@ const Charts = () => {
     "globalDebt"
   );
 
+    globalDebtData.datasets.forEach(dataset => {
+        dataset.pointRadius = 5;
+    });
+
   const globalDebtUtilizationData = getChartData(
     data.globalStats,
     "Global Debt Utilization (%)",
     "globalDebtUtilization"
   );
 
+    globalDebtUtilizationData.datasets.forEach(dataset => {
+        dataset.pointRadius = 5;
+    });
+
   const surplusInTreasuryData = getChartData(
     data.globalStats,
     "Surplus In Treasury ($)",
     "surplusInTreasury"
   );
+
+    surplusInTreasuryData.datasets.forEach(dataset => {
+        dataset.pointRadius = 5;
+    });
 
   const redemptionRateAndPriceData = {
     labels: getLabels(data.globalStats),
@@ -109,11 +155,7 @@ const Charts = () => {
         label: "Redemption Rate",
         data: getValues(data.globalStats, "redemptionRate"),
         backgroundColor: [
-          "rgba(75,192,192,1)",
-          // "#ecf0f1",
-          // "#f0331a",
-          // "#f3ba2f",
-          // "#2a71d0",
+          "#1a74ec",
         ],
         borderColor: "black",
         borderWidth: 2,
@@ -124,11 +166,7 @@ const Charts = () => {
           (item) => item
         ),
         backgroundColor: [
-          // "rgba(75,192,192,1)",
-          // "#ecf0f1",
-          // "#f0331a",
-          // "#f3ba2f",
-          "#2a71d0",
+          "#f2f8fd",
         ],
         borderColor: "black",
         borderWidth: 2,
@@ -136,32 +174,47 @@ const Charts = () => {
     ],
   };
 
+    redemptionRateAndPriceData.datasets.forEach(dataset => {
+        dataset.pointRadius = 5;
+    });
+
   if (data) {
     return (
-      <div className="w-full space-x-4 p-10">
-        <h2>OD Total Supply</h2>
-        <div className="bg-slate-200">
-          <Line data={erc20SupplyData} label="ERC20 Supply" />
+      <div className="flex flex-col max-w-7xl text-start">
+        <h2 className="text-[#475662] text-lg">OD Total Supply</h2>
+        <Spacer y={4} />
+        <div className="bg-[#f2f8fd]">
+          <Line data={erc20SupplyData} options={options} label="ERC20 Supply" />
         </div>
-        <h2>OD Market Price</h2>
-        <div className="bg-slate-200">
-          <Line data={marketPriceData} />
+        <Spacer y={4} />
+        <h2 className="text-[#475662] text-lg">OD Market Price</h2>
+        <Spacer y={4} />
+        <div className="bg-[#f2f8fd]">
+          <Line data={marketPriceData} options={options}  />
         </div>
-        <h2>OD Redemption Rate</h2>
-        <div className="bg-slate-200">
-          <Line data={redemptionRateAndPriceData} />
+        <Spacer y={4} />
+        <h2 className="text-[#475662] text-lg">OD Redemption Rate</h2>
+        <Spacer y={4} />
+        <div className="bg-[#f2f8fd]">
+          <Line data={redemptionRateAndPriceData} options={options}  />
         </div>
-        <h2>Global Debt</h2>
-        <div className="bg-slate-200">
-          <Line data={globalDebtData} />
+        <Spacer y={4} />
+        <h2 className="text-[#475662] text-lg">Global Debt</h2>
+        <Spacer y={4} />
+        <div className="bg-[#f2f8fd]">
+          <Line data={globalDebtData} options={options}  />
         </div>
-        <h2>Global Debt Utilization</h2>
-        <div className="bg-slate-200">
-          <Line data={globalDebtUtilizationData} />
+        <Spacer y={4} />
+        <h2 className="text-[#475662] text-lg">Global Debt Utilization</h2>
+        <Spacer y={4} />
+        <div className="bg-[#f2f8fd]">
+          <Line data={globalDebtUtilizationData} options={options}  />
         </div>
-        <h2>Surplus In Treasury</h2>
-        <div className="bg-slate-200">
-          <Line data={surplusInTreasuryData} />
+        <Spacer y={4} />
+        <h2 className="text-[#475662] text-lg">Surplus In Treasury</h2>
+        <Spacer y={4} />
+        <div className="bg-[#f2f8fd]">
+          <Line data={surplusInTreasuryData} options={options} />
         </div>
       </div>
     );
