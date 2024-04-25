@@ -2,6 +2,10 @@
   "buildCommand": "yarn prisma generate && yarn prisma migrate deploy && next build",
   "crons": [
     {
+      "path": "/api/oracle?network=ARBITRUM&channel=1232919348079890493",
+      "schedule": "50 */1 * * *"
+    },
+    {
       "path": "/api/rate?network=ARBITRUM&channel=1232919348079890493",
       "schedule": "53 */1 * * *"
     },
