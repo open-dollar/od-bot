@@ -34,14 +34,6 @@
       "schedule": "45 */1 * * *"
     },
     {
-      "path": "/api/oracle?network=OPTIMISM&channel=1217248902634409994",
-      "schedule": "30 */1 * * *"
-    },
-    {
-      "path": "/api/rate?network=OPTIMISM&channel=1217248902634409994",
-      "schedule": "33 */1 * * *"
-    },
-    {
       "path": "/api/analytics?network=OPTIMISM&channel=1217248902634409994",
       "schedule": "35 */1 * * *"
     },
