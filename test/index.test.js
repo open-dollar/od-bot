@@ -46,6 +46,10 @@ const test = async () => {
       `http://localhost:3000/api/galxe`
     );
 
+    // response = await fetch(
+    //   `http://localhost:3000/api/zealy`
+    // );
+
     console.log(response);
   } catch (err) {
     error = err;
