@@ -3,13 +3,7 @@ import { updateZealyPointsForAllUsers } from "../../lib/zealy";
 
 export default async function handler(request, response) {
     try {
-        // TODO: Multiple campaigns not available. Points will need to be isolated by campaignId in the db
-        const campaignIds = ["GCHpqttjuU"]
-
-        let galxeData = {}
-        for (const campaignId of campaignIds) {
-            galxeData[campaignId] = await updateGalxePointsForAllUsers(campaignId)
-        }
+        const galxeData = await updateGalxePointsForAllUsers()
 
         const zealyData = await updateZealyPointsForAllUsers()
 
