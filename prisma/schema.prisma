@@ -66,11 +66,12 @@ model tx {
   hash            String?
 }
 
-model galxeUser {
+model User {
   id String @id // address
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  points Int @default(0)
+  galxePoints Int @default(0)
+  zealyPoints Int @default(0)
 }
 
 enum Network {

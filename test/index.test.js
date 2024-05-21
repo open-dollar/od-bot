@@ -43,14 +43,11 @@ const test = async () => {
     // );
 
     response = await fetch(
-      `http://localhost:3000/api/galxe`
+      `http://localhost:3000/api/points`
     );
 
-    // response = await fetch(
-    //   `http://localhost:3000/api/zealy`
-    // );
-
     console.log(response);
+    console.log(await response.json());
   } catch (err) {
     error = err;
   }
