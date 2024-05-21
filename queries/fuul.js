@@ -11,6 +11,8 @@ const getQuery = (url, body, headers) => {
         })
 }
 
+// https://docs.fuul.xyz/technical-guide-for-projects/sending-trigger-events-through-the-fuul-api
+
 const headers = {
     'Authorization': `Bearer ${process.env.FUUL_API_KEY}`,
     "content-type": "application/json",
