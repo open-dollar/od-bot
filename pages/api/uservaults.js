@@ -1,10 +1,10 @@
 import { postQuery } from "../../lib/apollo-client";
 
-const ARBITRUM_SEPOLIA = "ARBITRUM_SEPOLIA";
+const ARBITRUM = "ARBITRUM";
 
 export default async function handler(request, response) {
     try {
-        let network = ARBITRUM_SEPOLIA;
+        let network = ARBITRUM;
         if (request.query.network) network = request.query.network;
 
         const { address } = request.query;
