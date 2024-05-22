@@ -58,6 +58,8 @@ Available options:
 - `/analytics`: Posts global analytics
 - `/auction`: Posts the number of surplus, debt, and collateral auctions
 - `/user`: Posts details about the user's OD vaults
+- `/vaults`: Posts details about OD vaults for all users
+- `/uservaults`: Posts specific details about the user's vaults (id, collateralType, collateral, debt, genesis)
 
 #### Interactive Commands
 
