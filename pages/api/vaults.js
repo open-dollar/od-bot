@@ -1,4 +1,4 @@
-import { postQuery } from "../../lib/apollo-client";
+// import { postQuery } from "../../lib/apollo-client";
 
 const ARBITRUM = "ARBITRUM";
 
@@ -7,21 +7,22 @@ export default async function handler(request, response) {
         let network = ARBITRUM;
         if (request.query.network) network = request.query.network;
 
-        const data = await postQuery(`
-            query AllUsers {
-                vaults(first:1000) {
-                id
-                owner
-                collateral
-                debt
-                collateralType
-                }
-            }`,
-            {}, network);
+        const data = { data: { vaults: [] } };
+        // const data = await postQuery(`
+        //     query AllUsers {
+        //         vaults(first:1000) {
+        //         id
+        //         owner
+        //         collateral
+        //         debt
+        //         collateralType
+        //         }
+        //     }`,
+        //     {}, network);
 
-        if (data.errors) {
-            throw new Error(data.errors.map(error => error.message).join(", "));
-        }
+        // if (data.errors) {
+        //     throw new Error(data.errors.map(error => error.message).join(", "));
+        // }
 
         let owners = [];
         let vaultsByOwner = {};

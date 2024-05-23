@@ -33,7 +33,7 @@
     "@prisma/client": "^5.1.1",
     "alchemy-sdk": "^2.9.2",
     "chart.js": "^4.3.3",
-    "discord.js": "^14.12.1",
+    "discord.js": "^14.15.2",
     "framer-motion": "^10.16.2",
     "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",

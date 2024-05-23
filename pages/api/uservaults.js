@@ -1,4 +1,4 @@
-import { postQuery } from "../../lib/apollo-client";
+// import { postQuery } from "../../lib/apollo-client";
 
 const ARBITRUM = "ARBITRUM";
 
@@ -12,19 +12,20 @@ export default async function handler(request, response) {
             return response.status(400).json({ success: false, error: "Address parameter is required" });
         }
 
-        const data = await postQuery(`
-            query MyQuery($address: String!) {
-                vaults(where: {owner: $address}) {
-                    id
-                    collateralType
-                    collateral
-                    debt
-                    genesis
-                }
-            }`,
-            { address },
-            network
-        );
+        const data = { data: { vaults: [] } };
+        // const data = await postQuery(`
+        //     query MyQuery($address: String!) {
+        //         vaults(where: {owner: $address}) {
+        //             id
+        //             collateralType
+        //             collateral
+        //             debt
+        //             genesis
+        //         }
+        //     }`,
+        //     { address },
+        //     network
+        // );
 
         if (data.errors) {
             throw new Error(data.errors.map(error => error.message).join(", "));
