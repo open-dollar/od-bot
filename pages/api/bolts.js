@@ -8,7 +8,6 @@ export default async function handler(request, response) {
             return response.status(400).json({ success: false, error: "Address parameter is required" });
 
         const data = await getUserBolts(address);
-
         response.status(200).json({ success: true, data });
     } catch (e) {
         console.error(e);
