@@ -58,7 +58,6 @@ const test = async () => {
       `http://localhost:3000/api/bolts?address=0x052d62a6479E3C027AFFf55385F2ba53ffe8ba58`
     );
 
-
     console.log(response);
     console.log(await response.json());
   } catch (err) {
