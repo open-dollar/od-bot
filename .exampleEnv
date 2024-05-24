@@ -3,6 +3,7 @@ RPC_OPTIMISM_GOERLI=
 RPC_OPTIMISM=
 RPC_ARBITRUM_GOERLI=https://arbitrum-goerli.publicnode.com
 RPC_ARBITRUM=
+RPC_POLYGON=
 # Value for /api/rate?secret=
 RATE_SECRET=
 BOT_WALLET_ADDRESS=

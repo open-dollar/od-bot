@@ -10,10 +10,10 @@ export default async function handler(request, response) {
 
         let geb;
         try {
-         geb = initGeb(network);
-         if (!geb) {
-             throw new Error('Failed to initialize GEB');
-         }
+            geb = initGeb(network);
+            if (!geb) {
+                throw new Error('Failed to initialize GEB');
+            }
         } catch (e) {
             response.status(500).json({ success: false, error: 'Failed to initialize GEB' });
         }
@@ -38,9 +38,9 @@ export default async function handler(request, response) {
 
         const data = await postQuery(geb.subgraph, query, variables, headers);
 
-        if (data.errors) {
-            throw new Error(data.errors.map(error => error.message).join(", "));
-        }
+        // if (data.errors) {
+        //     throw new Error(data.errors.map(error => error.message).join(", "));
+        // }
 
         let owners = [];
         let vaultsByOwner = {};

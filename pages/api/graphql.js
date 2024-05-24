@@ -42,6 +42,7 @@ const typeDefs = gql`
 `;
 
 const resolvers = {
+  // NOTE: Do not add users to the resolvers
   Query: {
     globalStats: (_, args) => {
       const whereClause = {};
