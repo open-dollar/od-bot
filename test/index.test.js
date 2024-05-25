@@ -59,13 +59,13 @@ const test = async () => {
     //   `http://localhost:3000/api/bolts`
     // );
 
-    response = await fetch(
-      `http://localhost:3000/api/points`
-    );
-
     // response = await fetch(
-    //   `http://localhost:3000/api/camelot`
+    //   `http://localhost:3000/api/points`
     // );
+
+    response = await fetch(
+      `http://localhost:3000/api/camelot`
+    );
 
     console.log(response);
     console.log(await response.json());
