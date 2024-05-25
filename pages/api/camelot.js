@@ -1,16 +1,10 @@
-import { valueInCamelot } from "../../lib/web3/camelot";
+import { updateCamelotPointsForAllUsers } from "../../lib/camelot";
 
 export default async function handler(request, response) {
     try {
-        const userAddress = request.query.userAddress;
-        const camelotPoolAddress = request.query.camelotPoolAddress;
-        const nitroPoolAddress = request.query.nitroPoolAddress;
-        if (!userAddress || !camelotPoolAddress || !nitroPoolAddress) {
-            return response.status(400).json({ error: "Missing required parameters" });
-        }
-        const value = await valueInCamelot(userAddress, camelotPoolAddress, nitroPoolAddress)
+        const data = await updateCamelotPointsForAllUsers()
 
-        response.status(200).json(value);
+        response.status(200).json({ success: true, data });
     } catch (e) {
         console.log(e);
         return response.status(500).json({ error: e.message });
