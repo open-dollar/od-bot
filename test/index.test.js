@@ -42,9 +42,6 @@ const test = async () => {
     //   `http://localhost:3000/api/accounting?secret=${process.env.RATE_SECRET}&id=1`
     // );
 
-    // response = await fetch(
-    //   `http://localhost:3000/api/points`
-    // );
 
     // response = await fetch(
     //   `http://localhost:3000/api/uservaults?address=0x1df428833f2c9fb1ef098754e5d710432450d706`
@@ -58,8 +55,16 @@ const test = async () => {
     //   `http://localhost:3000/api/bolts?address=0x052d62a6479E3C027AFFf55385F2ba53ffe8ba58`
     // );
 
+    // response = await fetch(
+    //   `http://localhost:3000/api/bolts`
+    // );
+
+    // response = await fetch(
+    //   `http://localhost:3000/api/points`
+    // );
+
     response = await fetch(
-      `http://localhost:3000/api/bolts`
+      `http://localhost:3000/api/camelot`
     );
 
     console.log(response);

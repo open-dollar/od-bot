@@ -2,8 +2,8 @@
   "buildCommand": "yarn prisma generate && yarn prisma migrate deploy && next build",
   "crons": [
     {
-      "path": "/api/points",
-      "schedule": "0 */1 * * *"
+      "path": "/api/camelot",
+      "schedule": "0 18 * * *"
     },
     {
       "path": "/api/oracle?network=ARBITRUM&channel=1232919348079890493",
