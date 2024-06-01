@@ -39,7 +39,7 @@ export default async function handler(request, response) {
 
         const formattedSupply = formatUnits(totalSupply.toString(), 18);
 
-        response.status(200).json({ success: true, totalSupply: formattedSupply });
+        response.status(200).json(formattedSupply);
     } catch (e) {
         console.error(e);
         return response.status(500).json({ success: false, error: e.message });

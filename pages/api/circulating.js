@@ -56,7 +56,7 @@ export default async function handler(request, response) {
 
         const formattedCirculatingSupply = formatUnits(circulatingSupply.toString(), 18);
 
-        response.status(200).json({ success: true, circulating: formattedCirculatingSupply });
+        response.status(200).json(formattedCirculatingSupply);
     } catch (e) {
         console.error(e);
         return response.status(500).json({ success: false, error: e.message });
