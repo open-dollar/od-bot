@@ -1,4 +1,4 @@
-require('dotenv').config()
+const dotenv = require('dotenv').config()
 
 const FUUL_API_KEY = process.env.FUUL_API_KEY
 
@@ -29,7 +29,8 @@ const getUserBolts = async (address) => {
     }
 };
 
-getUserBolts('USER_ADDRESS_HERE')
+const USER_ADDRESS = "0x052d62a6479E3C027AFFf55385F2ba53ffe8ba58"
+getUserBolts(USER_ADDRESS)
     .then(bolts => {
         console.log(`${bolts}`);
     })
