@@ -2,12 +2,14 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model globalStats {
@@ -67,11 +69,11 @@ model tx {
 }
 
 model User {
-  id String @id // address
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  galxePoints Int @default(0)
-  zealyPoints Int @default(0)
+  id          String   @id // address
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  galxePoints Int      @default(0)
+  zealyPoints Int      @default(0)
 }
 
 enum Network {
