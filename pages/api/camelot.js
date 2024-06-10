@@ -1,5 +1,7 @@
 import { updateCamelotPointsForAllUsers } from "../../lib/camelot";
 
+export const dynamic = 'force-dynamic'
+
 export default async function handler(request, response) {
     try {
         const data = await updateCamelotPointsForAllUsers()
