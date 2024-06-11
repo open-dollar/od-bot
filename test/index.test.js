@@ -51,17 +51,17 @@ const test = async () => {
     //   `http://localhost:3000/api/vaults`
     // );
 
-    response = await fetch(
-      `http://localhost:3000/api/bolts?address=0x052d62a6479E3C027AFFf55385F2ba53ffe8ba58`
-    );
+    // response = await fetch(
+    //   `http://localhost:3000/api/bolts?address=0x052d62a6479E3C027AFFf55385F2ba53ffe8ba58`
+    // );
 
     // response = await fetch(
     //   `http://localhost:3000/api/bolts`
     // );
 
-    // response = await fetch(
-    //   `http://localhost:3000/api/points`
-    // );
+    response = await fetch(
+      `http://localhost:3000/api/points`
+    );
 
     // response = await fetch(
     //   `http://localhost:3000/api/camelot`
