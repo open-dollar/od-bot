@@ -26,7 +26,7 @@ const socialPointsPerUser = async (address) => {
 
     const pointDelta = socialPointsEarned - Number(socialConversion.total_amount)
     console.log(`Points owed: `, pointDelta)
-    console.log("\n\n")
+    console.log("\n")
 }
 
 const exampleUsers = []
