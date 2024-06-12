@@ -1,13 +1,10 @@
-import { updateGalxePointsForAllUsers } from "../../lib/galxe";
-import { updateZealyPointsForAllUsers } from "../../lib/zealy";
+import { giveBoltsForGaxleZealy } from "../../lib/bolts"
 
 export default async function handler(request, response) {
     try {
-        const galxeData = await updateGalxePointsForAllUsers()
+        const data = await giveBoltsForGaxleZealy()
 
-        const zealyData = await updateZealyPointsForAllUsers()
-
-        response.status(200).json({ success: true, zealyData, galxeData });
+        response.status(200).json({ success: true, data });
     } catch (e) {
         console.log(e);
         return response.status(500).json({ error: e.message });
