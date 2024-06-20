@@ -1,6 +1,9 @@
 import { getUserBolts } from "../../lib/bolts";
+import { setCorsHeaders } from "../../lib/cors";
 
 export default async function handler(request, response) {
+    setCorsHeaders(request, response);
+
     try {
         const { address } = request.query;
 
