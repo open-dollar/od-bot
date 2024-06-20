@@ -52,7 +52,7 @@ const test = async () => {
     // );
 
     // response = await fetch(
-    //   `http://localhost:3000/api/bolts?address=0x052d62a6479E3C027AFFf55385F2ba53ffe8ba58`
+    //   `http://localhost:3000/api/bolts?address=0xcf017f65819ce8aa3f980d5a55a913238aab725f`
     // );
 
     // response = await fetch(
