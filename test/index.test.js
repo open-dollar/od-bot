@@ -52,16 +52,16 @@ const test = async () => {
     // );
 
     // response = await fetch(
-    //   `http://localhost:3000/api/bolts?address=0xcf017f65819ce8aa3f980d5a55a913238aab725f`
+    //   `http://localhost:3000/api/bolts?address=0xaEAf20615536F34d95f64FC0fAF71E91Fd8812C6`
     // );
 
     // response = await fetch(
     //   `http://localhost:3000/api/bolts`
     // );
 
-    // response = await fetch(
-    //   `http://localhost:3000/api/points`
-    // );
+    response = await fetch(
+      `http://localhost:3000/api/points?type=PROTOCOL`
+    );
 
     // response = await fetch(
     //   `http://localhost:3000/api/camelot`
