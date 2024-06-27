@@ -95,7 +95,7 @@ model UserCampaign {
   user         User         @relation(fields: [userId], references: [id])
   userId       String
   amount       Int
-  campaignType BoltCampaign
+  type BoltCampaign
 }
 
 model UserMultiplier {
