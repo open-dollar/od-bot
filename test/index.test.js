@@ -60,7 +60,7 @@ const test = async () => {
     // );
 
     response = await fetch(
-      `http://localhost:3000/api/points?type=SOCIAL`
+      `http://localhost:3000/api/points?type=CAMELOT`
     );
 
     // response = await fetch(
