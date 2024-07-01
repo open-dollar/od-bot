@@ -1,4 +1,4 @@
-import { getUserBolts } from "../../lib/bolts";
+import { getUserBolts } from "../../lib/bolts/bolts";
 import { setCorsHeaders } from "../../lib/cors";
 
 export default async function handler(request, response) {

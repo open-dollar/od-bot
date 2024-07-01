@@ -80,7 +80,7 @@ model User {
   id               String            @id // address
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
-  multiplier       Int               @default(1)
+  multiplier       Int               @default(100)
   bolts            Int               @default(0)
   campaigns        UserCampaign[]
   campaignEvents   CampaignEvent[]
@@ -89,22 +89,23 @@ model User {
 }
 
 model UserCampaign {
-  id           Int          @id @default(autoincrement())
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  user         User         @relation(fields: [userId], references: [id])
-  userId       String
-  amount       Int
-  type BoltCampaign
+  id        Int          @id @default(autoincrement())
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  user      User         @relation(fields: [userId], references: [id])
+  userId    String
+  amount    Int
+  type      BoltCampaign
 }
 
 model UserMultiplier {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  user       User     @relation(fields: [userId], references: [id])
-  userId     String
-  multiplier Int
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  type       Multiplier
+  amount    Int
 }
 
 model CampaignEvent {
@@ -127,13 +128,13 @@ model MultiplierEvent {
   userId     String
   multiplier Int
   type       Multiplier
-  extraData  String?
+  activity   MultiplierEventActivity
 }
 
 // Add new campaigns to this list
 enum BoltCampaign {
   COLLATERAL_DEPOSIT
-  DEBT_BORRROW
+  DEBT_BORROW
   GALXE
   ZEALY
   ODG_ETH_LP
@@ -146,4 +147,10 @@ enum Multiplier {
   GENESIS_NFV
   OG_NFT
   CUSTOM
+  ETH_TVL_20K
+}
+
+enum MultiplierEventActivity {
+  REMOVED
+  ADDED
 }
