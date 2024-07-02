@@ -1,4 +1,4 @@
-import { getUserVaults } from "../../lib/userVaults";
+import { getUserVaults } from "../../lib/vaults";
 
 const ARBITRUM = "ARBITRUM";
 
