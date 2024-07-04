@@ -2,12 +2,20 @@
   "buildCommand": "yarn prisma generate && yarn prisma migrate deploy && next build",
   "crons": [
     {
-      "path": "/api/camelot",
+      "path": "/api/points?type=MULTIPLIER",
       "schedule": "0 18 * * *"
     },
     {
-      "path": "/api/points",
-      "schedule": "1 18 * * *"
+      "path": "/api/points?type=PROTOCOL",
+      "schedule": "3 18 * * *"
+    },
+    {
+      "path": "/api/points?type=CAMELOT",
+      "schedule": "5 18 * * *"
+    },
+    {
+      "path": "/api/points?type=SOCIAL",
+      "schedule": "7 18 * * *"
     },
     {
       "path": "/api/oracle?network=ARBITRUM&channel=1232919348079890493",

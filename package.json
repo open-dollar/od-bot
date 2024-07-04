@@ -7,7 +7,8 @@
     "test": "npx nodemon -w lib/ --exec node test/index.test.js",
     "dev": "next dev",
     "build": "next build && prisma generate",
-    "start": "next start"
+    "start": "next start",
+    "snapshot": "node queries/snapshot.js"
   },
   "engines": {
     "node": "18"
