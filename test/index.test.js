@@ -35,7 +35,7 @@ const test = async () => {
   // execute(`http://localhost:3000/api/camelot`); // No longer used. Fetches the users USD tvl in camelot pools
 
   // Update bolts for users 
-  execute(`http://localhost:3000/api/points?type=MULTIPLIER`)
+  // execute(`http://localhost:3000/api/points?type=MULTIPLIER`)
   // execute(`http://localhost:3000/api/points?type=PROTOCOL`);
   // execute(`http://localhost:3000/api/points?type=CAMELOT`);
   // execute(`http://localhost:3000/api/points?type=SOCIAL`);

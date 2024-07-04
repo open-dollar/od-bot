@@ -7,7 +7,7 @@ export default async function handler(request, response) {
     try {
         const { address } = request.query;
 
-        const data = await getUserBolts(address);
+        const data = await getUserBolts(address?.toLowerCase());
         response.status(200).json({ success: true, data });
     } catch (e) {
         console.error(e);
