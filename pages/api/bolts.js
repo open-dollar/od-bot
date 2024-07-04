@@ -1,4 +1,4 @@
-import { getUserBolts } from "../../lib/bolts";
+import { getUserBolts } from "../../lib/bolts/bolts";
 import { setCorsHeaders } from "../../lib/cors";
 
 export default async function handler(request, response) {
@@ -7,7 +7,7 @@ export default async function handler(request, response) {
     try {
         const { address } = request.query;
 
-        const data = await getUserBolts(address);
+        const data = await getUserBolts(address?.toLowerCase());
         response.status(200).json({ success: true, data });
     } catch (e) {
         console.error(e);

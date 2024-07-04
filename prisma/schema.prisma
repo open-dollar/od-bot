@@ -68,18 +68,89 @@ model tx {
   hash            String?
 }
 
-model User {
-  id          String   @id // address
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  galxePoints Int      @default(0)
-  zealyPoints Int      @default(0)
-}
-
 enum Network {
   OPTIMISM
   OPTIMISM_GOERLI
   ARBITRUM
   ARBITRUM_GOERLI
   ARBITRUM_SEPOLIA
+}
+
+model User {
+  id               String            @id // address
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  multiplier       Int               @default(100)
+  bolts            Int               @default(0)
+  campaigns        UserCampaign[]
+  campaignEvents   CampaignEvent[]
+  multipliers      UserMultiplier[]
+  multiplierEvents MultiplierEvent[]
+}
+
+model UserCampaign {
+  id        Int          @id @default(autoincrement())
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  user      User         @relation(fields: [userId], references: [id])
+  userId    String
+  amount    Int
+  type      BoltCampaign
+}
+
+model UserMultiplier {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  type       Multiplier
+  amount    Int
+}
+
+model CampaignEvent {
+  id          Int          @id @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  user        User         @relation(fields: [userId], references: [id])
+  userId      String
+  baseAmount  Int
+  multiplier  Int
+  totalAmount Int
+  type        BoltCampaign
+}
+
+model MultiplierEvent {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  user       User       @relation(fields: [userId], references: [id])
+  userId     String
+  multiplier Int
+  type       Multiplier
+  activity   MultiplierEventActivity
+}
+
+// Add new campaigns to this list
+enum BoltCampaign {
+  COLLATERAL_DEPOSIT
+  DEBT_BORROW
+  GALXE
+  ZEALY
+  ODG_ETH_LP
+  OD_ETH_LP
+}
+
+enum Multiplier {
+  TURTLE_CLUB
+  GENESIS_NFT
+  GENESIS_NFV
+  OG_NFT
+  CUSTOM
+  ETH_TVL_20K
+}
+
+enum MultiplierEventActivity {
+  REMOVED
+  ADDED
 }
