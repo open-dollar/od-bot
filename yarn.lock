@@ -4393,15 +4393,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opendollar/sdk@npm:^1.7.3":
-  version: 1.7.3
-  resolution: "@opendollar/sdk@npm:1.7.3"
+"@opendollar/sdk@npm:^1.7.4-rc.1":
+  version: 1.7.4-rc.1
+  resolution: "@opendollar/sdk@npm:1.7.4-rc.1"
   dependencies:
     "@opendollar/abis": 0.0.0-605371bd
     ethers: 5.4.7
   peerDependencies:
     utf-8-validate: ^5.0.2
-  checksum: eb116ebb4492ac221bf3ff31fc7d088d703368f264eb4023f166c22d2890a3d90710b6c2bb825a70bd6cf7d8a0359c692b65405150dfd89a5d14458965f148a7
+  checksum: 74974d2ca6af9030f04bb3bfeb692cd2028d83cc1fa606708069fba03bf0f3fdb9a4368dfbfb9f4403f3c4df04ac6bd7ad7d1e48d7a9852afb865dcb10fa2aed
   languageName: node
   linkType: hard
 
@@ -9675,7 +9675,7 @@ __metadata:
     "@fuul/sdk": ^4.7.1
     "@neondatabase/serverless": ^0.9.3
     "@nextui-org/react": ^2.1.7
-    "@opendollar/sdk": ^1.7.3
+    "@opendollar/sdk": ^1.7.4-rc.1
     "@prisma/adapter-neon": ^5.15.0
     "@prisma/client": ^5.9.0
     "@types/node": ^20.4.10
