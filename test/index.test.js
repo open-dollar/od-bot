@@ -17,7 +17,7 @@ const test = async () => {
   // Discord bot commands
   // execute(`http://localhost:3000/api/rate?secret=${process.env.RATE_SECRET}`);
   // execute(`http://localhost:3000/api/analytics?secret=${process.env.RATE_SECRET}`);
-  // execute(`http://localhost:3000/api/oracle?secret=${process.env.RATE_SECRET}`);
+  execute(`http://localhost:3000/api/oracle?network=ARBITRUM`);
   // execute(`http://localhost:3000/api/auction?secret=${process.env.RATE_SECRET}`);
   // execute(`http://localhost:3000/api/user?address=0xC295763Eed507d4A0f8B77241c03dd3354781a15&secret=${process.env.RATE_SECRET}`);
   // execute(`http://localhost:3000/api/claim?address=0xC295763Eed507d4A0f8B77241c03dd3354781a15&secret=${process.env.RATE_SECRET}`);

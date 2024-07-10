@@ -85,4 +85,43 @@ const uploadSnapshot = async () => {
     await giveBolts(odgEthLpUsers, ODG_ETH_LP)
 }
 
-uploadSnapshot();
+
+// uploadSnapshot();
+
+const removeNonTurtlClubMembers = async () => {
+    const prismaUsers = await prisma.user.findMany({
+        select: {
+            id: true,
+            bolts: true
+        },
+        where: {
+            bolts: {
+                gt: 0
+            }
+        }
+    })
+
+    console.log("Users with bolts: ", prismaUsers.length)
+
+    const prismaTransactions = prismaUsers.reduce((acc, user) => {
+        console.log("User: ", user.id)
+        return [...acc,
+        prisma.userCampaign.deleteMany({
+            where: { userId: user.id },
+        }),
+        prisma.userMultiplier.deleteMany({
+            where: { userId: user.id },
+        }),
+        prisma.campaignEvent.deleteMany({
+            where: { userId: user.id },
+        }),
+        prisma.user.delete({
+            where: { id: user.id },
+        }),
+        ];
+    }, [])
+    console.log("prismaTransactions: ", prismaTransactions.length)
+    await prisma.$transaction(prismaTransactions)
+}
+
+removeNonTurtlClubMembers()
