@@ -53,5 +53,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: "/(/api/(?!graphql|screen|bolts).*)",
+  matcher: "/(/api/(?!graphql|screen|bolts|vaults).*)",
 };
