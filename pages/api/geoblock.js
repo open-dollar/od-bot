@@ -14,7 +14,7 @@ export default async function handler(request, response) {
         const geoData = await geoResponse.json();
 
         if (geoData && geoData.country) {
-            const bannedCountryCodes = ['US', 'IR', 'KP', 'CO'];
+            const bannedCountryCodes = ['US', 'IR', 'KP'];
             const userCountryCode = geoData.country;
 
             if (bannedCountryCodes.includes(userCountryCode)) {
