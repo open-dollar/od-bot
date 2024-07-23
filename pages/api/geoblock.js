@@ -18,7 +18,7 @@ export default async function handler(request, response) {
             const userCountryCode = geoData.country;
 
             if (bannedCountryCodes.includes(userCountryCode)) {
-                return response.status(403).json({ success: false, message: 'Access blocked due to geolocation' });
+                return response.status(200).json({ success: false, message: 'Access blocked due to geolocation' });
             }
         }
 
