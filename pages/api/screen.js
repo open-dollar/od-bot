@@ -7,7 +7,8 @@ export default async function handler(request, response) {
 
   try {
     // const { country } = geolocation(request);
-    console.error(request.get('X-Vercel-IP-Country'), 'X-Vercel-IP-Country')
+    console.error(request.headers.get('X-Vercel-IP-Country'), 'X-Vercel-IP-Country')
+    const country = request.headers.get('X-Vercel-IP-Country');
     const bannedCountryCodes = ['US', 'IR', 'KP', 'CO'];
 
     if (country && bannedCountryCodes.includes(country)) {
