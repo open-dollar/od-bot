@@ -5989,18 +5989,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/functions@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "@vercel/functions@npm:1.4.0"
-  peerDependencies:
-    "@aws-sdk/credential-provider-web-identity": "*"
-  peerDependenciesMeta:
-    "@aws-sdk/credential-provider-web-identity":
-      optional: true
-  checksum: 460d1de05db097b7a612416268fe20369e52096bdc256ebaedf4cc8c9893bcb5679d2c1ed9cda89c4fcfd63275213fd232761a9c1e1d1724b7c8251bf0ca75b6
-  languageName: node
-  linkType: hard
-
 "@vladfrangu/async_event_emitter@npm:^2.2.4":
   version: 2.2.4
   resolution: "@vladfrangu/async_event_emitter@npm:2.2.4"
@@ -9693,7 +9681,6 @@ __metadata:
     "@types/node": ^20.4.10
     "@types/react": 18.2.20
     "@types/ws": ^8.5.10
-    "@vercel/functions": ^1.4.0
     alchemy-sdk: ^2.9.2
     autoprefixer: ^10.4.15
     chart.js: ^4.3.3

@@ -34,7 +34,6 @@
     "@opendollar/sdk": "^1.7.3",
     "@prisma/adapter-neon": "^5.15.0",
     "@prisma/client": "^5.9.0",
-    "@vercel/functions": "^1.4.0",
     "alchemy-sdk": "^2.9.2",
     "chart.js": "^4.3.3",
     "discord.js": "^14.15.2",
