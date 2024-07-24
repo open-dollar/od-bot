@@ -1,15 +1,12 @@
 import fetch from "node-fetch";
 import { setCorsHeaders } from "../../lib/cors";
 
-export const revalidate = 0;
-
 export default async function handler(request, response) {
   setCorsHeaders(request, response);
 
   try {
     const country = request.headers['x-vercel-ip-country'];
-    console.error(country, 'country')
-    const bannedCountryCodes = ['US', 'IR', 'KP', 'CO'];
+    const bannedCountryCodes = ['US', 'IR', 'KP'];
 
     if (country && bannedCountryCodes.includes(country)) {
       return response.status(200).json({ success: false, message: 'geoblocked' });
