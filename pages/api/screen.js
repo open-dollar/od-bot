@@ -6,8 +6,7 @@ export default async function handler(request, response) {
   setCorsHeaders(request, response);
 
   try {
-    const { country } = geolocation(request);
-    console.error(country, 'country')
+    // const { country } = geolocation(request);
     console.error(request.get('X-Vercel-IP-Country'), 'X-Vercel-IP-Country')
     const bannedCountryCodes = ['US', 'IR', 'KP', 'CO'];
 
