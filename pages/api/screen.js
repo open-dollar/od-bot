@@ -1,6 +1,5 @@
 import fetch from "node-fetch";
 import { setCorsHeaders } from "../../lib/cors";
-import {headers} from "next/headers";
 
 export const revalidate = 0;
 
@@ -8,12 +7,8 @@ export default async function handler(request, response) {
   setCorsHeaders(request, response);
 
   try {
-    // const { country } = geolocation(request);
-    const headerList = headers();
-    console.error(headerList, 'headerList');
-    console.error(headerList.get('X-Vercel-IP-Country'), 'headerList.get(\'X-Vercel-IP-Country\')');
-
-    const country = headerList.get('X-Vercel-IP-Country');
+    const country = request.headers['x-vercel-ip-country'];
+    console.error(country, 'country')
     const bannedCountryCodes = ['US', 'IR', 'KP', 'CO'];
 
     if (country && bannedCountryCodes.includes(country)) {
