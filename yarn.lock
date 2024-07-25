@@ -4393,16 +4393,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opendollar/sdk@portal:/Users/dev/repos/opendollar/od-sdk::locator=od-bot%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@opendollar/sdk@portal:/Users/dev/repos/opendollar/od-sdk::locator=od-bot%40workspace%3A."
+"@opendollar/sdk@npm:^1.7.5":
+  version: 1.7.5
+  resolution: "@opendollar/sdk@npm:1.7.5"
   dependencies:
     "@opendollar/abis": 0.0.0-605371bd
     ethers: 5.4.7
   peerDependencies:
     utf-8-validate: ^5.0.2
+  checksum: a43b6e7d6bb02822685522f7171dcf12bbf99b2bfa0e4274f00f6736dd730061950a6f1370e722ddf289953002c5ebdb6e8f129ed979ef9f4a89e6096d4fa455
   languageName: node
-  linkType: soft
+  linkType: hard
 
 "@openzeppelin/contracts-upgradeable@npm:4.9.6":
   version: 4.9.6
