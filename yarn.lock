@@ -4393,17 +4393,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opendollar/sdk@npm:^1.7.4-rc.3":
-  version: 1.7.4-rc.3
-  resolution: "@opendollar/sdk@npm:1.7.4-rc.3"
+"@opendollar/sdk@portal:/Users/dev/repos/opendollar/od-sdk::locator=od-bot%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@opendollar/sdk@portal:/Users/dev/repos/opendollar/od-sdk::locator=od-bot%40workspace%3A."
   dependencies:
     "@opendollar/abis": 0.0.0-605371bd
     ethers: 5.4.7
   peerDependencies:
     utf-8-validate: ^5.0.2
-  checksum: 8ed9174b048af9d688f1160ecc470c929da2874f0f4f6624f703cafde7b298914996afa0e0fb10f4dcbe0f9d2dd507db441278a7fa24c190c336cdc92c763bf8
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "@openzeppelin/contracts-upgradeable@npm:4.9.6":
   version: 4.9.6
@@ -9675,7 +9674,7 @@ __metadata:
     "@fuul/sdk": ^4.7.1
     "@neondatabase/serverless": ^0.9.3
     "@nextui-org/react": ^2.1.7
-    "@opendollar/sdk": ^1.7.4-rc.3
+    "@opendollar/sdk": ^1.7.5
     "@prisma/adapter-neon": ^5.15.0
     "@prisma/client": ^5.9.0
     "@types/node": ^20.4.10
