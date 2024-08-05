@@ -1,8 +1,11 @@
 import { getVaults } from "../../lib/vaults"
+import { setCorsHeaders } from "../../lib/cors";
 
 const ARBITRUM = "ARBITRUM";
 
 export default async function handler(request, response) {
+    setCorsHeaders(request, response);
+
     try {
         let network = ARBITRUM;
         if (request.query.network) network = request.query.network;
