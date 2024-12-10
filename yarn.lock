@@ -7011,6 +7011,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"csv-parser@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "csv-parser@npm:3.0.0"
+  dependencies:
+    minimist: ^1.2.0
+  bin:
+    csv-parser: bin/csv-parser
+  checksum: 206aef102c10d532a31c7d85e6b1b0e53c7cb8346037eb9f23e0bd7369788960d8f2431639ea9f62e34ddf54d0182dfb345691c11c666802324f25c51dba79bc
+  languageName: node
+  linkType: hard
+
 "d@npm:1, d@npm:^1.0.1":
   version: 1.0.1
   resolution: "d@npm:1.0.1"
@@ -9259,6 +9270,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimist@npm:^1.2.0":
+  version: 1.2.8
+  resolution: "minimist@npm:1.2.8"
+  checksum: 19d3fcdca050087b84c2029841a093691a91259a47def2f18222f41e7645a0b7c44ef4b40e88a1e58a40c84d2ef0ee6047c55594d298146d0eb3f6b737c20ce6
+  languageName: node
+  linkType: hard
+
 "minipass-collect@npm:^1.0.2":
   version: 1.0.2
   resolution: "minipass-collect@npm:1.0.2"
@@ -9685,6 +9703,7 @@ __metadata:
     autoprefixer: ^10.4.15
     chart.js: ^4.3.3
     cross-fetch: ^4.0.0
+    csv-parser: ^3.0.0
     discord.js: ^14.15.2
     dotenv: ^16.3.1
     framer-motion: ^10.16.2
