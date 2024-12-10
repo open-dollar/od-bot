@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const csvParser = require("csv-parser");
+const { parseEther } = require("@ethersproject/units")
 
 const inputCsvPath = path.join(__dirname, "export_2024-12-01 - FInal ODG Allocations.csv");
 const outputJsonPath = path.join(__dirname, "merkl-airdrop-dec-2024.json");
@@ -18,11 +19,11 @@ const convertCsvToAirdropJSON = () => {
             const amount = row["Total ODG"];
             const bolts = row["bolts"]
 
-            // Add the recipient and their rewards
+            // Add the recipient and their rewards in wei
             if (!airdropData.rewards[recipient]) {
                 airdropData.rewards[recipient] = {};
             }
-            airdropData.rewards[recipient][`Bolts earned: ${Number(bolts).toLocaleString()}`] = amount;
+            airdropData.rewards[recipient][`Bolts earned: ${Number(bolts).toLocaleString()}`] = parseEther(amount).toString();
         })
         .on("end", () => {
             fs.writeFileSync(outputJsonPath, JSON.stringify(airdropData, null, 2));
