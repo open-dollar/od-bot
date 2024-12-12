@@ -1,66 +1,9 @@
 {
   "buildCommand": "yarn prisma generate && yarn prisma migrate deploy && next build",
-  "crons": [
-    {
-      "path": "/api/points?type=MULTIPLIER",
-      "schedule": "0 18 * * *"
-    },
-    {
-      "path": "/api/points?type=PROTOCOL",
-      "schedule": "3 18 * * *"
-    },
-    {
-      "path": "/api/points?type=CAMELOT",
-      "schedule": "5 18 * * *"
-    },
-    {
-      "path": "/api/points?type=SOCIAL",
-      "schedule": "7 18 * * *"
-    },
-    {
-      "path": "/api/oracle?network=ARBITRUM&channel=1232919348079890493",
-      "schedule": "50 */1 * * *"
-    },
-    {
-      "path": "/api/rate?network=ARBITRUM&channel=1232919348079890493",
-      "schedule": "53 */1 * * *"
-    },
-    {
-      "path": "/api/analytics?network=ARBITRUM&channel=1232919348079890493",
-      "schedule": "55 */1 * * *"
-    },
-    {
-      "path": "/api/auction?network=ARBITRUM&channel=1232919348079890493",
-      "schedule": "55 */1 * * *"
-    },
-    {
-      "path": "/api/oracle?network=ARBITRUM_SEPOLIA&channel=1232919065169891398",
-      "schedule": "40 */1 * * *"
-    },
-    {
-      "path": "/api/rate?network=ARBITRUM_SEPOLIA&channel=1232919065169891398",
-      "schedule": "43 */1 * * *"
-    },
-    {
-      "path": "/api/analytics?network=ARBITRUM_SEPOLIA&channel=1232919065169891398",
-      "schedule": "45 */1 * * *"
-    },
-    {
-      "path": "/api/auction?network=ARBITRUM_SEPOLIA&channel=1232919065169891398",
-      "schedule": "45 */1 * * *"
-    },
-    {
-      "path": "/api/analytics?network=OPTIMISM&channel=1217248902634409994",
-      "schedule": "35 */1 * * *"
-    },
-    {
-      "path": "/api/auction?network=OPTIMISM&channel=1217248902634409994",
-      "schedule": "35 */1 * * *"
-    }
-  ],
+
   "functions": {
     "pages/api/*.js": {
-      "maxDuration": 300
+      "maxDuration": 60
     }
   }
 }
